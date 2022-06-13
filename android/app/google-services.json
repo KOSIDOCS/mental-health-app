@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "816353500473",
+    "project_id": "mental-heath-care",
+    "storage_bucket": "mental-heath-care.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816353500473:android:c846baf205c69f66dddce8",
+        "android_client_info": {
+          "package_name": "com.example.mental_health_care_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816353500473-m0boqulk03polu2bv5ldracd9h989nj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG7aWnHnm3X5yHKNFUP1fN3_G3nCKYndw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816353500473-m0boqulk03polu2bv5ldracd9h989nj4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "816353500473-c1p9ejkp60hqvb08r315d9oi1hb6f562.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kosidev.mentalHealthCareApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816353500473:android:94c58c0808b9b953dddce8",
+        "android_client_info": {
+          "package_name": "com.kosidev.mentalHealthCareApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816353500473-m0boqulk03polu2bv5ldracd9h989nj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG7aWnHnm3X5yHKNFUP1fN3_G3nCKYndw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816353500473-m0boqulk03polu2bv5ldracd9h989nj4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "816353500473-c1p9ejkp60hqvb08r315d9oi1hb6f562.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kosidev.mentalHealthCareApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
