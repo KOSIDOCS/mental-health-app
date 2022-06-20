@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mental_health_care_app/auth/application/auth_controller.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/uis/custom_buttons.dart';
@@ -7,6 +8,7 @@ import 'package:mental_health_care_app/uis/custom_input_fields.dart';
 import 'package:mental_health_care_app/uis/custom_modals.dart';
 import 'package:mental_health_care_app/uis/custom_text.dart';
 import 'package:mental_health_care_app/uis/spacing.dart';
+import 'package:mental_health_care_app/utils/extentions_utils.dart';
 import 'package:mental_health_care_app/utils/focus_helper.dart';
 
 class AuthPasswordRecoveryScreen extends StatefulWidget {
@@ -19,6 +21,24 @@ class AuthPasswordRecoveryScreen extends StatefulWidget {
 
 class _AuthPasswordRecoveryScreenState
     extends State<AuthPasswordRecoveryScreen> {
+  late TextEditingController emailController;
+
+  final AuthController authController = Get.put(AuthController());
+
+  final forgotFormKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -43,6 +63,11 @@ class _AuthPasswordRecoveryScreenState
                     ),
                   ),
                   customSizedBox(context: context, size: 0.1),
+                  Obx(
+                    () => authController.disableResetPassword.value
+                        ? showSpinner()
+                        : Container(),
+                  ),
                   mainHeading(
                     text: CustomText.mentalPasswordResetText,
                     context: context,
@@ -54,26 +79,37 @@ class _AuthPasswordRecoveryScreenState
                   ),
                   customSizedBox(context: context, size: 0.04),
                   Form(
-                    // key: GlobalKey(),
+                    key: forgotFormKey,
                     child: Column(
                       children: [
                         CustomInputTextField(
-                          // controller: emailController,
+                          controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           obscureText: false,
                           validator: (String? value) {
-                            if (value!.isEmpty) {
+                            if (value!.isValidEmail == false) {
                               return CustomErrorText.invalidEmail;
                             }
                             return null;
                           },
                         ),
                         customSizedBox(context: context, size: 0.12),
-                        CustomBtn(
-                          onPressed: () => {
-                            customBottomSheet(content: Text('Here is modal'), context: context, title: '', onPressed: () {  },),
-                          },
-                          buttonText: CustomText.mentalPasswordResetBtnText,
+                        Obx(
+                          () => AbsorbPointer(
+                            absorbing:
+                                authController.disableResetPassword.value,
+                            child: CustomBtn(
+                              onPressed: () {
+                                if (forgotFormKey.currentState!.validate()) {
+                                  authController.userForgotPassword(
+                                      email: emailController.text,
+                                      context: context);
+                                  emailController.clear();
+                                }
+                              },
+                              buttonText: CustomText.mentalPasswordResetBtnText,
+                            ),
+                          ),
                         ),
                         customSizedBox(context: context, size: 0.33),
                         Row(

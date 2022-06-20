@@ -1,9 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kosidev.mentalHealthCareApp">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
    <application
         android:label="mental_health_care_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>    
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,5 +41,20 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+            <!-- Set up the Sign in with Apple activity, such that it's callable from the browser-redirect -->
+<activity
+    android:name="com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback"
+    android:exported="true"
+>
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="signinwithapple" />
+        <data android:path="callback" />
+    </intent-filter>
+</activity>
     </application>
 </manifest>

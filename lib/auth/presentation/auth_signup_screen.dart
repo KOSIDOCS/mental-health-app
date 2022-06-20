@@ -133,13 +133,17 @@ class _AuthSignUpScreenState extends State<AuthSignUpScreen> {
                                   bagroundRadius: 20.0,
                                 ),
                                 CustomCirclerBtn(
-                                  onPressed: () => {},
+                                  onPressed: () => {
+                                    authController.facebookSignIn(),
+                                  },
                                   imgName: BrandImages.kFacebookIconName,
                                   redus: 18.0,
                                   bagroundRadius: 20.0,
                                 ),
                                 CustomCirclerBtn(
-                                  onPressed: () => {},
+                                  onPressed: () => {
+                                    authController.signInWithApple(),
+                                  },
                                   imgName: BrandImages.kAppleIconName,
                                   redus: 18.0,
                                   bagroundRadius: 20.0,

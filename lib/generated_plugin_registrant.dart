@@ -13,8 +13,11 @@ import 'package:firebase_database_web/firebase_database_web.dart';
 import 'package:firebase_messaging_web/firebase_messaging_web.dart';
 import 'package:firebase_remote_config_web/firebase_remote_config_web.dart';
 import 'package:firebase_storage_web/firebase_storage_web.dart';
+import 'package:flutter_facebook_auth_web/flutter_facebook_auth_web.dart';
 import 'package:flutter_native_splash/flutter_native_splash_web.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart';
+import 'package:sign_in_with_apple_web/sign_in_with_apple_web.dart';
+import 'package:url_launcher_web/url_launcher_web.dart';
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -27,7 +30,10 @@ void registerPlugins(Registrar registrar) {
   FirebaseMessagingWeb.registerWith(registrar);
   FirebaseRemoteConfigWeb.registerWith(registrar);
   FirebaseStorageWeb.registerWith(registrar);
+  FlutterFacebookAuthPlugin.registerWith(registrar);
   FlutterNativeSplashWeb.registerWith(registrar);
   GoogleSignInPlugin.registerWith(registrar);
+  SignInWithApplePlugin.registerWith(registrar);
+  UrlLauncherPlugin.registerWith(registrar);
   registrar.registerMessageHandler();
 }

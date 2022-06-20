@@ -14,6 +14,26 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FBAEMKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKCoreKit_Basics.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Firebase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -159,6 +179,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>flutter_facebook_auth.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>flutter_native_splash.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -194,7 +219,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>open_mail_app.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>path_provider_ios.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>sign_in_with_apple.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>url_launcher_ios.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

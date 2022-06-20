@@ -28,6 +28,7 @@ class CustomText {
   static const String mentalModalCheckEmailSubText = 'An email with password recovery instructions has been sent to the specified email';
   static const String mentalModalCheckEmailBtnText = 'Go to mail';
   static const String mentalModalCheckEmailCloseBtnText = 'Close';
+  static const String mentalHomeTitle = 'Psychologists';
 }
 
 class CustomErrorText {

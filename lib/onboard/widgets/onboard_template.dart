@@ -92,7 +92,8 @@ class OnboardTemplate extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 60.0),
+          // SizedBox(height: 60.0),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           GestureDetector(
             onTap: onPressed,
             child: Container(
