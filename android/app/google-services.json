@@ -50,6 +50,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "816353500473-e7nj8reu1q8ofe0hko9490dqn3i4vlht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kosidev.mentalHealthCareApp",
+            "certificate_hash": "a00a8b47bd418c62cd6b6c8e3ae3ff5f076aed4f"
+          }
+        },
+        {
           "client_id": "816353500473-m0boqulk03polu2bv5ldracd9h989nj4.apps.googleusercontent.com",
           "client_type": 3
         }

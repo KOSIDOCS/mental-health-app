@@ -34,8 +34,32 @@
                 <!-- TODO Replace this value: -->
                 <!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
                 <string>com.googleusercontent.apps.816353500473-c1p9ejkp60hqvb08r315d9oi1hb6f562</string>
+                <string>fb5106825032705763</string>
             </array>
         </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>5106825032705763</string>
+    <key>FacebookClientToken</key>
+    <string>23a12c527a5dad8ffc54744ee8d2ffd5</string>
+    <key>FacebookDisplayName</key>
+    <string>Mental heath care</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+      <string>fbauth2</string>
+      <string>fbauth</string>
+      <string>fbshareextension</string>
+      <string>googlegmail</string>
+      <string>x-dispatch</string>
+      <string>readdle-spark</string>
+      <string>airmail</string>
+      <string>ms-outlook</string>
+      <string>ymail</string>
+      <string>fastmail</string>
+      <string>superhuman</string>
+      <string>protonmail</string>
     </array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

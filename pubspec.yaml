@@ -50,6 +50,11 @@ dependencies:
   firebase_remote_config: ^2.0.8
   flutter_spinkit: ^5.1.0
   google_sign_in: ^5.3.3
+  open_mail_app: ^0.4.5
+  flutter_facebook_auth: ^4.3.4+2
+  sign_in_with_apple: ^4.0.0
+  flutter_dotenv: ^5.0.2
+  crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +85,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
