@@ -8,4 +8,11 @@ class BrandImages {
   static const String kFacebookIconName = 'icons8-facebook-f-150';
   static const String kAppleIconName = 'icons8-apple-logo-150';
   static const String kSearchIcon = 'iconSearch.png';
+  static const String kIconUnion = 'IconUnion.png';
+}
+
+class ImagesPlaceHolders {
+  ImagesPlaceHolders._();
+
+  static const String kPsyPlaceholder1 = 'Placeholder1.png';
 }

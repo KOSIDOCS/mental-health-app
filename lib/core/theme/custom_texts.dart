@@ -29,6 +29,12 @@ class CustomText {
   static const String mentalModalCheckEmailBtnText = 'Go to mail';
   static const String mentalModalCheckEmailCloseBtnText = 'Close';
   static const String mentalHomeTitle = 'Psychologists';
+  static const String mentalHomeTab1Text = 'Gestalt';
+  static const String mentalHomeTab2Text = 'Art therapy';
+  static const String mentalHomeTab3Text = 'Coaching';
+  static const String mentalHomeTab4Text = 'Family';
+  static const String mentalHomeTab5Text = 'Career';
+  static const String mentalHomeTab6Text = 'Relationship';
 }
 
 class CustomErrorText {
