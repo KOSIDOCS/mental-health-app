@@ -36,8 +36,8 @@ ThemeData buildDarkTheme() {
     scaffoldBackgroundColor: AppColors.mentalDarkThemeColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.mentalDarkThemeColor,
-      selectedItemColor: AppColors.mentalBrandColor,
-      unselectedItemColor: AppColors.mentalOnboardTextColor,
+      selectedItemColor: AppColors.mentalPureWhite,
+      unselectedItemColor: AppColors.mentalBarUnselectedDark,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.mentalDarkThemeColor,
@@ -111,8 +111,8 @@ ThemeData buildLightTheme() {
     scaffoldBackgroundColor: AppColors.mentalBrandLightColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.mentalBrandLightColor,
-      selectedItemColor: AppColors.mentalBrandColor,
-      unselectedItemColor: AppColors.mentalOnboardTextColor,
+      selectedItemColor: AppColors.mentalDarkColor,
+      unselectedItemColor: AppColors.mentalBarUnselected,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.mentalBrandLightColor,

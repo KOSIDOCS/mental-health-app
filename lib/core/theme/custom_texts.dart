@@ -49,3 +49,13 @@ class CustomErrorText {
   static const String invalidGender = 'Invalid';
   
 }
+
+class BottomBarIconTitles {
+  BottomBarIconTitles._();
+
+  static const String  kBottomText1 = 'Specialists';
+  static const String  kBottomText2 = 'Chats';
+  static const String  kBottomText3 = 'Consultations';
+  static const String  kBottomText4 = 'Articles';
+  static const String  kBottomText5 = 'Profile';   
+}

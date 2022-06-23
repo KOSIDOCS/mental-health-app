@@ -6,7 +6,13 @@ class CustomBtn extends StatelessWidget {
   final String buttonText;
   final Color? btnColor;
   final Color? textColor;
-  const CustomBtn({Key? key, required this.onPressed, required this.buttonText, this.btnColor, this.textColor}) : super(key: key);
+  const CustomBtn(
+      {Key? key,
+      required this.onPressed,
+      required this.buttonText,
+      this.btnColor,
+      this.textColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,13 @@ class CustomCirclerBtn extends StatelessWidget {
   final VoidCallback onPressed;
   final double redus;
   final double bagroundRadius;
-  const CustomCirclerBtn({Key? key, required this.imgName, required this.onPressed, required this.redus, required this.bagroundRadius}) : super(key: key);
+  const CustomCirclerBtn(
+      {Key? key,
+      required this.imgName,
+      required this.onPressed,
+      required this.redus,
+      required this.bagroundRadius})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,4 +79,64 @@ class CustomCirclerBtn extends StatelessWidget {
       ),
     );
   }
+}
+
+class CustomBottomBars extends StatelessWidget {
+  final String iconImage;
+  final String title;
+  final int id;
+  final VoidCallback onPressed;
+  final int currentTab;
+  const CustomBottomBars(
+      {Key? key,
+      required this.iconImage,
+      required this.title,
+      required this.id,
+      required this.onPressed,
+      required this.currentTab})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: EdgeInsets.only(
+            right: id == 5 ? 0.0 : MediaQuery.of(context).size.width * 0.06),
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/images/$iconImage',
+              width: 28.0,
+              height: 28.0,
+              color: id == currentTab
+                  ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                  : Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .unselectedItemColor,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                  color: id == currentTab
+                      ? Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor
+                      : Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .unselectedItemColor),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BarIcon {
+  String icon;
+  String titel;
+  int id;
+
+  BarIcon(this.icon, this.titel, this.id);
 }

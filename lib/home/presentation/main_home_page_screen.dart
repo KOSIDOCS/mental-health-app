@@ -5,6 +5,9 @@ import 'package:mental_health_care_app/auth/application/auth_controller.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/brand_images.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
+import 'package:mental_health_care_app/home/application/home_controller.dart';
+import 'package:mental_health_care_app/home/widget/custom_user_card.dart';
+import 'package:mental_health_care_app/uis/custom_buttons.dart';
 import 'package:mental_health_care_app/uis/custom_text.dart';
 import 'package:mental_health_care_app/uis/spacing.dart';
 
@@ -20,7 +23,19 @@ class _MainHomePageScreenState extends State<MainHomePageScreen>
   AuthController _authController = Get.put(AuthController());
   late TabController _tabController;
 
+  HomeController homeController = Get.put(HomeController());
+
   bool changeImageColor = true;
+
+  final List<BarIcon> _iconsList = [
+    BarIcon(BottomBarImages.kBottomIcon1, BottomBarIconTitles.kBottomText1, 1),
+    BarIcon(BottomBarImages.kBottomIcon2, BottomBarIconTitles.kBottomText2, 2),
+    BarIcon(BottomBarImages.kBottomIcon3, BottomBarIconTitles.kBottomText3, 3),
+    BarIcon(BottomBarImages.kBottomIcon4, BottomBarIconTitles.kBottomText4, 4),
+    BarIcon(BottomBarImages.kBottomIcon5, BottomBarIconTitles.kBottomText5, 5),
+  ];
+
+  int currentTab = 1;
 
   @override
   void initState() {
@@ -63,6 +78,7 @@ class _MainHomePageScreenState extends State<MainHomePageScreen>
                     ),
                   ],
                 ),
+                customSizedBox(context: context, size: 0.03),
                 ButtonsTabBar(
                   controller: _tabController,
                   radius: 30.0,
@@ -118,42 +134,32 @@ class _MainHomePageScreenState extends State<MainHomePageScreen>
                     print(currentTab);
                   },
                 ),
+                customSizedBox(context: context, size: 0.03),
                 Expanded(
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                     // ListView.builder(itemBuilder: itemBuilder),
-                      // Container(
-                      //   color: Colors.transparent,
-                      //   width: MediaQuery.of(context).size.width,
-                      //   child: Row(
-                      //     children: [
-                      //       Image.asset(
-                      //         'assets/images/${ImagesPlaceHolders.kPsyPlaceholder1}',
-                      //         width: 96.0,
-                      //         height: 96.0,
-                      //       ),
-                      //       Column(
-                      //         children: [
-                      //           Text(
-                      //             'Psychedelic',
-                      //             style: TextStyle(
-                      //               fontSize: 24.0,
-                      //               fontWeight: FontWeight.bold,
-                      //             ),
-                      //           ),
-                      //            Text(
-                      //             'Psychedelic',
-                      //             style: TextStyle(
-                      //               fontSize: 24.0,
-                      //               fontWeight: FontWeight.bold,
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ), //  replace with Image from network
-                      //     ],
-                      //   ),
-                      // ),
+                      ListView.builder(
+                        itemCount: homeController.psychologists.length,
+                        itemBuilder: (context, index) {
+                          return homeController.psychologists.isEmpty
+                              ? Center(child: CircularProgressIndicator())
+                              : CustomUserCard(
+                                  experience: homeController
+                                      .psychologists[index]['experience'],
+                                  userImg: homeController.psychologists[index]
+                                      ['user_image'],
+                                  name: homeController.psychologists[index]
+                                      ['name'],
+                                  specialization: homeController
+                                      .psychologists[index]['specialization'],
+                                  minAmount: homeController.psychologists[index]
+                                      ['min_amount'],
+                                  star: homeController.psychologists[index]
+                                      ['star'],
+                                );
+                        },
+                      ),
                       Center(
                         child: Text('Tab 2'),
                       ),
@@ -187,6 +193,27 @@ class _MainHomePageScreenState extends State<MainHomePageScreen>
               color: Theme.of(context).dividerColor,
               width: 1.0,
             ),
+          ),
+        ),
+        child: Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.03,
+              top: 10.0,
+              right: MediaQuery.of(context).size.width * 0.03),
+          child: Row(
+            children: _iconsList
+                .map((icon) => CustomBottomBars(
+                    iconImage: icon.icon,
+                    title: icon.titel,
+                    id: icon.id,
+                    onPressed: () {
+                      setState(() {
+                        currentTab = icon.id;
+                      });
+                      Get.toNamed('/chats');
+                    },
+                    currentTab: currentTab))
+                .toList(),
           ),
         ),
       ),

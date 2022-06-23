@@ -16,3 +16,13 @@ class ImagesPlaceHolders {
 
   static const String kPsyPlaceholder1 = 'Placeholder1.png';
 }
+
+class BottomBarImages {
+  BottomBarImages._();
+
+  static const String kBottomIcon1 = 'bottomIcon1.png';
+  static const String kBottomIcon2 = 'bottomIcon2.png';
+  static const String kBottomIcon3 = 'bottomIcon3.png';
+  static const String kBottomIcon4 = 'bottomIcon4.png';
+  static const String kBottomIcon5 = 'bottomIcon5.png';
+}

@@ -1,0 +1,208 @@
+{
+    "items": [
+        {
+            "name": "Drozdov Pavel",
+            "user_image": "Placeholder1.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "kkpokkpoop",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "jjoioejiojiojeio"
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ]
+        },
+        {
+            "name": "Kucher Daria",
+            "user_image": "Placeholder2.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "kkpokkpoop",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "jjoioejiojiojeio"
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ]
+        },
+        {
+            "name": "Ivanova Maria",
+            "user_image": "Placeholder3.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "kkpokkpoop",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "jjoioejiojiojeio"
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ]
+        },
+        {
+            "name": "Verenko Anna",
+            "user_image": "Placeholder4.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "kkpokkpoop",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "jjoioejiojiojeio"
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ]
+        },
+        {
+            "name": "Ivchenko Margo",
+            "user_image": "Placeholder.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "kkpokkpoop",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "jjoioejiojiojeio"
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ]
+        },
+        {
+            "name": "Ivchenko Margo",
+            "user_image": "Placeholder.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "kkpokkpoop",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "jjoioejiojiojeio"
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ]
+        }
+    ]
+}

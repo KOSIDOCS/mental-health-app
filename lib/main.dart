@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       initialBinding: MainBinding(),
       title: 'Flutter Demo',
       theme: mentalHealthThemeLight,
+      // theme: mentalHealthThemeDark,
       darkTheme: mentalHealthThemeDark,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
