@@ -6,7 +6,7 @@ import 'package:mental_health_care_app/uis/custom_buttons.dart';
 class CustomBottomNavigation extends StatelessWidget {
   CustomBottomNavigation({Key? key}) : super(key: key);
 
-  CustomNavigationController customNavigationController =
+  final CustomNavigationController customNavigationController =
       Get.put(CustomNavigationController());
 
   @override
