@@ -137,6 +137,7 @@ class BarIcon {
   String icon;
   String titel;
   int id;
+  String pageName;
 
-  BarIcon(this.icon, this.titel, this.id);
+  BarIcon(this.icon, this.titel, this.id, this.pageName);
 }

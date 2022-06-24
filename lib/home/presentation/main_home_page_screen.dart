@@ -2,12 +2,12 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mental_health_care_app/auth/application/auth_controller.dart';
+import 'package:mental_health_care_app/core/presentation/custom_bottom_navigation.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/brand_images.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/home/application/home_controller.dart';
 import 'package:mental_health_care_app/home/widget/custom_user_card.dart';
-import 'package:mental_health_care_app/uis/custom_buttons.dart';
 import 'package:mental_health_care_app/uis/custom_text.dart';
 import 'package:mental_health_care_app/uis/spacing.dart';
 
@@ -26,16 +26,6 @@ class _MainHomePageScreenState extends State<MainHomePageScreen>
   HomeController homeController = Get.put(HomeController());
 
   bool changeImageColor = true;
-
-  final List<BarIcon> _iconsList = [
-    BarIcon(BottomBarImages.kBottomIcon1, BottomBarIconTitles.kBottomText1, 1),
-    BarIcon(BottomBarImages.kBottomIcon2, BottomBarIconTitles.kBottomText2, 2),
-    BarIcon(BottomBarImages.kBottomIcon3, BottomBarIconTitles.kBottomText3, 3),
-    BarIcon(BottomBarImages.kBottomIcon4, BottomBarIconTitles.kBottomText4, 4),
-    BarIcon(BottomBarImages.kBottomIcon5, BottomBarIconTitles.kBottomText5, 5),
-  ];
-
-  int currentTab = 1;
 
   @override
   void initState() {
@@ -183,40 +173,7 @@ class _MainHomePageScreenState extends State<MainHomePageScreen>
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height * 0.1,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(context).dividerColor,
-              width: 1.0,
-            ),
-          ),
-        ),
-        child: Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.03,
-              top: 10.0,
-              right: MediaQuery.of(context).size.width * 0.03),
-          child: Row(
-            children: _iconsList
-                .map((icon) => CustomBottomBars(
-                    iconImage: icon.icon,
-                    title: icon.titel,
-                    id: icon.id,
-                    onPressed: () {
-                      setState(() {
-                        currentTab = icon.id;
-                      });
-                      Get.toNamed('/chats');
-                    },
-                    currentTab: currentTab))
-                .toList(),
-          ),
-        ),
-      ),
+      bottomNavigationBar: CustomBottomNavigation(),
     );
   }
 }
