@@ -9,11 +9,11 @@
             "currency": "USD",
             "star": 4.8,
             "country": "USA",
-            "about": "kkpokkpoop",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
             "education": {
                 "year_start": 1990,
                 "year_end": 1994,
-                "details": "jjoioejiojiojeio"
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
             },
             "place_of_work": "Self-employed",
             "reviews": [
@@ -43,11 +43,11 @@
             "currency": "USD",
             "star": 4.8,
             "country": "USA",
-            "about": "kkpokkpoop",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
             "education": {
                 "year_start": 1990,
                 "year_end": 1994,
-                "details": "jjoioejiojiojeio"
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
             },
             "place_of_work": "Self-employed",
             "reviews": [
@@ -77,11 +77,11 @@
             "currency": "USD",
             "star": 4.8,
             "country": "USA",
-            "about": "kkpokkpoop",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
             "education": {
                 "year_start": 1990,
                 "year_end": 1994,
-                "details": "jjoioejiojiojeio"
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
             },
             "place_of_work": "Self-employed",
             "reviews": [
@@ -100,7 +100,8 @@
                     "body": "jndjni",
                     "picture": "image_url" 
                 }
-            ]
+            ],
+            "diplomas_cert": []
         },
         {
             "name": "Verenko Anna",
@@ -111,11 +112,11 @@
             "currency": "USD",
             "star": 4.8,
             "country": "USA",
-            "about": "kkpokkpoop",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
             "education": {
                 "year_start": 1990,
                 "year_end": 1994,
-                "details": "jjoioejiojiojeio"
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
             },
             "place_of_work": "Self-employed",
             "reviews": [
@@ -134,7 +135,8 @@
                     "body": "jndjni",
                     "picture": "image_url" 
                 }
-            ]
+            ],
+            "diplomas_cert": []
         },
         {
             "name": "Ivchenko Margo",
@@ -145,11 +147,11 @@
             "currency": "USD",
             "star": 4.8,
             "country": "USA",
-            "about": "kkpokkpoop",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
             "education": {
                 "year_start": 1990,
                 "year_end": 1994,
-                "details": "jjoioejiojiojeio"
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
             },
             "place_of_work": "Self-employed",
             "reviews": [
@@ -168,7 +170,8 @@
                     "body": "jndjni",
                     "picture": "image_url" 
                 }
-            ]
+            ],
+            "diplomas_cert": []
         },
         {
             "name": "Ivchenko Margo",
@@ -179,11 +182,11 @@
             "currency": "USD",
             "star": 4.8,
             "country": "USA",
-            "about": "kkpokkpoop",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
             "education": {
                 "year_start": 1990,
                 "year_end": 1994,
-                "details": "jjoioejiojiojeio"
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
             },
             "place_of_work": "Self-employed",
             "reviews": [
@@ -202,7 +205,8 @@
                     "body": "jndjni",
                     "picture": "image_url" 
                 }
-            ]
+            ],
+            "diplomas_cert": []
         }
     ]
 }

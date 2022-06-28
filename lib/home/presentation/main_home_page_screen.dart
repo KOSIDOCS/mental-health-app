@@ -96,6 +96,7 @@ class _MainHomePageScreenState
                               ),
                               child: GestureDetector(
                                 onTap: () {
+                                  // homeController.uploadDummy();
                                   homeController.openAndCloseSearch();
                                 },
                                 child: ImageIcon(
@@ -181,6 +182,10 @@ class _MainHomePageScreenState
                               controller: homeController.searchController,
                               keyboardType: TextInputType.text,
                               placeholder: 'Search',
+                              onChanged: (String? value) {
+                                print(value);
+                                homeController.searchPsychologists();
+                              },
                             )
                           : Container();
                     },
@@ -194,32 +199,38 @@ class _MainHomePageScreenState
                           child: TabBarView(
                             controller: _tabController,
                             children: [
-                              ListView.builder(
-                                itemCount: homeController.psychologists.length,
-                                itemBuilder: (context, index) {
-                                  return homeController.psychologists.isEmpty
-                                      ? Center(
-                                          child: CircularProgressIndicator())
-                                      : CustomUserCard(
-                                          experience: homeController
-                                                  .psychologists[index]
-                                              ['experience'],
-                                          userImg: homeController
-                                                  .psychologists[index]
-                                              ['user_image'],
-                                          name: homeController
-                                              .psychologists[index]['name'],
-                                          specialization: homeController
-                                                  .psychologists[index]
-                                              ['specialization'],
-                                          minAmount: homeController
-                                                  .psychologists[index]
-                                              ['min_amount'],
-                                          star: homeController
-                                              .psychologists[index]['star'],
-                                        );
-                                },
-                              ),
+                              Obx(() {
+                                return ListView.builder(
+                                  itemCount:
+                                      homeController.psychologistsList.length,
+                                  itemBuilder: (context, index) {
+                                    return homeController
+                                            .psychologistsList.isEmpty
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : CustomUserCard(
+                                            experience: homeController
+                                                    .psychologistsList[index]
+                                                ['experience'],
+                                            userImg: homeController
+                                                    .psychologistsList[index]
+                                                ['user_image'],
+                                            name: homeController
+                                                    .psychologistsList[index]
+                                                ['name'],
+                                            specialization: homeController
+                                                    .psychologistsList[index]
+                                                ['specialization'],
+                                            minAmount: homeController
+                                                    .psychologistsList[index]
+                                                ['min_amount'],
+                                            star: homeController
+                                                    .psychologistsList[index]
+                                                ['star'],
+                                          );
+                                  },
+                                );
+                              }),
                               Center(
                                 child: Text('Tab 2'),
                               ),

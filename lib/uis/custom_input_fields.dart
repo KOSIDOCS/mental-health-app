@@ -41,7 +41,13 @@ class CustomInputPassword extends StatefulWidget {
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
   final String obscuringCharacter;
-  const CustomInputPassword({Key? key, this.controller, required this.keyboardType, this.validator, required this.obscuringCharacter}) : super(key: key);
+  const CustomInputPassword(
+      {Key? key,
+      this.controller,
+      required this.keyboardType,
+      this.validator,
+      required this.obscuringCharacter})
+      : super(key: key);
 
   @override
   State<CustomInputPassword> createState() => _CustomInputPasswordState();
@@ -72,34 +78,34 @@ class _CustomInputPasswordState extends State<CustomInputPassword> {
             obscuringCharacter: widget.obscuringCharacter,
           ),
         ),
-         Positioned(
-            top: 3.0,
-            left: 315.0,
-            child: SizedBox(
-              child: AnimateIcons(
-                startIcon: Icons.visibility_off,
-                endIcon: Icons.visibility,
-                size: 28.0,
-                controller: animateCon,
-                onStartIconPress: () {
-                  setState(() {
-                    obscureText = false;
-                  });
-                  return true;
-                },
-                onEndIconPress: () {
-                  setState(() {
-                    obscureText = true;
-                  });
-                  return true;
-                },
-                duration: const Duration(milliseconds: 500),
-                startIconColor: AppColors.mentalOnboardTextColor,
-                endIconColor: AppColors.mentalOnboardTextColor,
-                clockwise: false,
-              ),
+        Positioned(
+          top: 3.0,
+          left: 315.0,
+          child: SizedBox(
+            child: AnimateIcons(
+              startIcon: Icons.visibility_off,
+              endIcon: Icons.visibility,
+              size: 28.0,
+              controller: animateCon,
+              onStartIconPress: () {
+                setState(() {
+                  obscureText = false;
+                });
+                return true;
+              },
+              onEndIconPress: () {
+                setState(() {
+                  obscureText = true;
+                });
+                return true;
+              },
+              duration: const Duration(milliseconds: 500),
+              startIconColor: AppColors.mentalOnboardTextColor,
+              endIconColor: AppColors.mentalOnboardTextColor,
+              clockwise: false,
             ),
-          )
+          ),
+        )
       ],
     );
   }
@@ -109,12 +115,14 @@ class CustomSearchBar extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String? placeholder;
-  const CustomSearchBar(
-      {Key? key,
-      required this.controller,
-      required this.keyboardType,
-      this.placeholder})
-      : super(key: key);
+  final void Function(String?)? onChanged;
+  const CustomSearchBar({
+    Key? key,
+    required this.controller,
+    required this.keyboardType,
+    this.placeholder,
+    this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +137,8 @@ class CustomSearchBar extends StatelessWidget {
         border: Border.all(color: AppColors.mentalSearchBar),
       ),
       child: Transform.translate(
-        offset: Offset(MediaQuery.of(context).size.width * 0.32, MediaQuery.of(context).size.height * 0.01),
+        offset: Offset(MediaQuery.of(context).size.width * 0.32,
+            MediaQuery.of(context).size.height * 0.01),
         child: TextFormField(
           controller: controller,
           keyboardType: keyboardType,
@@ -137,46 +146,42 @@ class CustomSearchBar extends StatelessWidget {
           enableSuggestions: true,
           autocorrect: true,
           decoration: InputDecoration(
-            prefixIcon: Transform.translate(
-              offset: const Offset(-120.0, -8.0),
-              child: Container(
-                padding: const EdgeInsets.only(right: 5.0),
-                child: Image.asset(
-                  'assets/images/${BrandImages.kSearchIcon}',
-                  width: 21.43,
-                  height: 21.43,
+              prefixIcon: Transform.translate(
+                offset: const Offset(-120.0, -8.0),
+                child: Container(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: Image.asset(
+                    'assets/images/${BrandImages.kSearchIcon}',
+                    width: 21.43,
+                    height: 21.43,
+                  ),
                 ),
               ),
-            ),
-            prefixIconConstraints: const BoxConstraints(
-              maxHeight: 31.43,
-              maxWidth: 31.43,
-            ),
-            contentPadding: const EdgeInsets.only(
-              left: 20.0,
-              right: 20.0,
-              top: 25.0,
-              bottom: 25.0,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(28.5),
-              borderSide: BorderSide.none
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(28.5),
-              borderSide: BorderSide.none
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(28.5),
-              borderSide: BorderSide.none
-            ),
-            hintText: placeholder,
-            hintStyle: Theme.of(context).textTheme.headline3!.copyWith(
-              color: AppColors.mentalBarUnselected,
-              fontWeight: FontWeight.w400
-            )
-          ),
+              prefixIconConstraints: const BoxConstraints(
+                maxHeight: 31.43,
+                maxWidth: 31.43,
+              ),
+              contentPadding: const EdgeInsets.only(
+                left: 20.0,
+                right: 20.0,
+                top: 25.0,
+                bottom: 25.0,
+              ),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(28.5),
+                  borderSide: BorderSide.none),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(28.5),
+                  borderSide: BorderSide.none),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(28.5),
+                  borderSide: BorderSide.none),
+              hintText: placeholder,
+              hintStyle: Theme.of(context).textTheme.headline3!.copyWith(
+                  color: AppColors.mentalBarUnselected,
+                  fontWeight: FontWeight.w400)),
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          onChanged: onChanged,
         ),
       ),
     );

@@ -393,7 +393,7 @@
     },
     {
       "name": "path_provider",
-      "rootUri": "file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.10",
+      "rootUri": "file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.11",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -632,7 +632,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-06-21T23:18:43.435428Z",
+  "generated": "2022-06-27T21:23:34.890080Z",
   "generator": "pub",
   "generatorVersion": "2.17.3"
 }
