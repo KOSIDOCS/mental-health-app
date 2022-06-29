@@ -35,6 +35,11 @@ class CustomText {
   static const String mentalHomeTab4Text = 'Family';
   static const String mentalHomeTab5Text = 'Career';
   static const String mentalHomeTab6Text = 'Relationship';
+  static const String mentalBottomSearchText1 = 'Highly rated';
+  static const String mentalBottomSearchText2 = 'Earliest admission dates';
+  static const String mentalBottomSearchText3 = 'Low price';
+  static const String mentalBottomSearchText4 = 'High price';
+  static const String mentalBottomSearchText5 = 'With great experience';
 }
 
 class CustomErrorText {

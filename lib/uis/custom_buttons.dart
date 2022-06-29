@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
+import 'package:mental_health_care_app/uis/spacing.dart';
 
 class CustomBtn extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
   final Color? btnColor;
   final Color? textColor;
+  final double? width;
+  final double? fontSize;
+  final bool? isBorder;
+  final EdgeInsets? padding;
   const CustomBtn(
       {Key? key,
       required this.onPressed,
       required this.buttonText,
       this.btnColor,
-      this.textColor})
+      this.textColor, this.width, this.fontSize, this.isBorder, this.padding})
       : super(key: key);
 
   @override
@@ -19,12 +24,15 @@ class CustomBtn extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding:
-            EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0, bottom: 18.0),
+        width: width ?? MediaQuery.of(context).size.width,
+        padding: padding ?? EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0, bottom: 18.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
           color: btnColor ?? AppColors.mentalBrandColor,
+          border: Border.all(
+            color: isBorder != null ? AppColors.mentalBrandColor : Colors.transparent,
+            width: isBorder != null ? 1.0 : 0.0,
+          ),
         ),
         child: Center(
           child: Text(
@@ -32,7 +40,7 @@ class CustomBtn extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.normal,
-              fontSize: 20.0,
+              fontSize: fontSize ?? 20.0,
               color: textColor ?? AppColors.mentalBrandLightColor,
             ),
           ),
@@ -140,4 +148,32 @@ class BarIcon {
   String pageName;
 
   BarIcon(this.icon, this.titel, this.id, this.pageName);
+}
+
+class CustomTextBtn extends StatelessWidget {
+  final String text;
+  final bool isBorder;
+  const CustomTextBtn({Key? key, required this.text, required this.isBorder}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 8.0, left: CustomSpacing.kHorizontalPad, right: CustomSpacing.kHorizontalPad),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text(text),
+              const Spacer(),
+              Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0),
+            ],
+          ),
+          isBorder ? Divider(
+            thickness: 1,
+            color: AppColors.mentalSearchBar,
+          ) : Container(),
+        ],
+      ),
+    );
+  }
 }

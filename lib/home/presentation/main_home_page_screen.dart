@@ -10,6 +10,7 @@ import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/home/application/home_controller.dart';
 import 'package:mental_health_care_app/home/widget/custom_user_card.dart';
 import 'package:mental_health_care_app/uis/custom_input_fields.dart';
+import 'package:mental_health_care_app/uis/custom_modals.dart';
 import 'package:mental_health_care_app/uis/custom_text.dart';
 import 'package:mental_health_care_app/uis/spacing.dart';
 
@@ -27,26 +28,20 @@ class _MainHomePageScreenState
       : super(animationDuration);
 
   AuthController _authController = Get.put(AuthController());
-  late TabController _tabController;
 
   HomeController homeController = Get.put(HomeController());
 
   bool changeImageColor = true;
 
-  // remove if not good
-  late OverlayEntry _overlayEntry;
-
   @override
   void initState() {
     super.initState();
     animationController.forward();
-    _tabController = TabController(length: 6, vsync: this);
   }
 
   @override
   void dispose() {
     animationController.dispose();
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -117,7 +112,7 @@ class _MainHomePageScreenState
                         return Transform.translate(
                           offset: Offset(buttontabsAnimation.value * 6, 0.0),
                           child: ButtonsTabBar(
-                            controller: _tabController,
+                            controller: homeController.tabController,
                             radius: 30.0,
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 12),
@@ -134,13 +129,18 @@ class _MainHomePageScreenState
                             tabs: [
                               Tab(
                                 // icon: Icon(Icons.graphic_eq_rounded),
-                                icon: Image.asset(
-                                  'assets/images/${BrandImages.kIconUnion}',
-                                  color: changeImageColor
-                                      ? AppColors.mentalBrandLightColor
-                                      : AppColors.mentalBrandColor,
-                                  width: 25.0,
-                                  height: 25.0,
+                                icon: GestureDetector(
+                                  onDoubleTap: () {
+                                    showSearchBottomSheet(context: context, onPressed: () {  });
+                                  },
+                                  child: Image.asset(
+                                    'assets/images/${BrandImages.kIconUnion}',
+                                    color: changeImageColor
+                                        ? AppColors.mentalBrandLightColor
+                                        : AppColors.mentalBrandColor,
+                                    width: 25.0,
+                                    height: 25.0,
+                                  ),
                                 ),
                               ),
                               Tab(
@@ -197,54 +197,25 @@ class _MainHomePageScreenState
                         return Opacity(
                           opacity: bodyAnimation.value,
                           child: TabBarView(
-                            controller: _tabController,
+                            controller: homeController.tabController,
                             children: [
-                              Obx(() {
-                                return ListView.builder(
-                                  itemCount:
-                                      homeController.psychologistsList.length,
-                                  itemBuilder: (context, index) {
-                                    return homeController
-                                            .psychologistsList.isEmpty
-                                        ? Center(
-                                            child: CircularProgressIndicator())
-                                        : CustomUserCard(
-                                            experience: homeController
-                                                    .psychologistsList[index]
-                                                ['experience'],
-                                            userImg: homeController
-                                                    .psychologistsList[index]
-                                                ['user_image'],
-                                            name: homeController
-                                                    .psychologistsList[index]
-                                                ['name'],
-                                            specialization: homeController
-                                                    .psychologistsList[index]
-                                                ['specialization'],
-                                            minAmount: homeController
-                                                    .psychologistsList[index]
-                                                ['min_amount'],
-                                            star: homeController
-                                                    .psychologistsList[index]
-                                                ['star'],
-                                          );
-                                  },
-                                );
-                              }),
-                              Center(
-                                child: Text('Tab 2'),
+                              ShowFilterList(
+                                list: homeController.psychologistsList,
                               ),
-                              Center(
-                                child: Text('Tab 3'),
+                              ShowFilterList(
+                                list: homeController.gestaltList,
                               ),
-                              Center(
-                                child: Text('Tab 4'),
+                              ShowFilterList(
+                                list: homeController.artTherapyList,
                               ),
-                              Center(
-                                child: Text('Tab 5'),
+                              ShowFilterList(
+                                list: homeController.coachingList,
                               ),
-                              Center(
-                                child: Text('Tab 6'),
+                              ShowFilterList(
+                                list: homeController.familyList,
+                              ),
+                              ShowFilterList(
+                                list: homeController.careerList,
                               ),
                             ],
                           ),
@@ -259,6 +230,34 @@ class _MainHomePageScreenState
         ),
         bottomNavigationBar: CustomBottomNavigation(),
       ),
+    );
+  }
+}
+
+class ShowFilterList extends StatelessWidget {
+  final List list;
+  const ShowFilterList({Key? key, required this.list}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () {
+        return ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return list.isEmpty
+                ? Center(child: CircularProgressIndicator())
+                : CustomUserCard(
+                    experience: list[index]['experience'],
+                    userImg: list[index]['user_image'],
+                    name: list[index]['name'],
+                    specialization: list[index]['specialization'],
+                    minAmount: list[index]['min_amount'],
+                    star: list[index]['star'],
+                  );
+          },
+        );
+      },
     );
   }
 }
