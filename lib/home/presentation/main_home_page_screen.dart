@@ -131,7 +131,11 @@ class _MainHomePageScreenState
                                 // icon: Icon(Icons.graphic_eq_rounded),
                                 icon: GestureDetector(
                                   onDoubleTap: () {
-                                    showSearchBottomSheet(context: context, onPressed: () {  });
+                                    showSearchBottomSheet(
+                                        context: context,
+                                        list: homeController.bottomSearch,
+                                        controller: homeController,
+                                        onPressed: () {});
                                   },
                                   child: Image.asset(
                                     'assets/images/${BrandImages.kIconUnion}',

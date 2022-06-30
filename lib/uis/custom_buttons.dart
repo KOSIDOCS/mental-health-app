@@ -153,26 +153,31 @@ class BarIcon {
 class CustomTextBtn extends StatelessWidget {
   final String text;
   final bool isBorder;
-  const CustomTextBtn({Key? key, required this.text, required this.isBorder}) : super(key: key);
+  final bool isSelected;
+  final VoidCallback onPressed;
+  const CustomTextBtn({Key? key, required this.text, required this.isBorder, required this.onPressed, required this.isSelected}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 8.0, left: CustomSpacing.kHorizontalPad, right: CustomSpacing.kHorizontalPad),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(text),
-              const Spacer(),
-              Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0),
-            ],
-          ),
-          isBorder ? Divider(
-            thickness: 1,
-            color: AppColors.mentalSearchBar,
-          ) : Container(),
-        ],
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: EdgeInsets.only(top: 8.0, left: CustomSpacing.kHorizontalPad, right: CustomSpacing.kHorizontalPad),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(text),
+                const Spacer(),
+                isSelected ? Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0) : Container(),
+              ],
+            ),
+            isBorder ? Divider(
+              thickness: 1,
+              color: AppColors.mentalSearchBar,
+            ) : Container(),
+          ],
+        ),
       ),
     );
   }

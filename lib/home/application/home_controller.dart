@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mental_health_care_app/auth/application/auth_controller.dart';
+import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -18,6 +19,7 @@ class HomeController extends GetxController
   final RxList<dynamic> coachingList = <dynamic>[].obs;
   final RxList<dynamic> familyList = <dynamic>[].obs;
   final RxList<dynamic> careerList = <dynamic>[].obs;
+  final RxList<String> bottomSearch = <String>[].obs;
   TextEditingController searchController = TextEditingController();
   final RxBool _isSearchOpen = false.obs;
   get searchIsOpen => _isSearchOpen.value;
@@ -58,22 +60,7 @@ class HomeController extends GetxController
 
     if (allPsychologists.isNotEmpty) {
       psychologists.value = allPsychologists;
-      psychologistsList.value = psychologists;
-      gestaltList.value = psychologists
-          .where((element) => element["specialization"] == 'Gestalt')
-          .toList();
-      artTherapyList.value = psychologists
-          .where((element) => element["specialization"] == 'Art therapy')
-          .toList();
-      coachingList.value = psychologists
-          .where((element) => element["specialization"] == 'Coaching')
-          .toList();
-      familyList.value = psychologists
-          .where((element) => element["specialization"] == 'Family')
-          .toList();
-      careerList.value = psychologists
-          .where((element) => element["specialization"] == 'Career')
-          .toList();
+      resetFilterList();
     }
   }
 
@@ -84,11 +71,30 @@ class HomeController extends GetxController
   void searchPsychologists() {
     print('current tab: ${tabController.index}');
     if (searchController.text.isEmpty) {
-      psychologistsList.value = psychologists;
+      resetFilterList();
     } else {
       searchTabs(tabController.index);
       // psychologistsList.value = psychologists.where((item) => item['name'].toString().toLowerCase().contains(searchController.text.toLowerCase())).toList();
     }
+  }
+
+  void resetFilterList() {
+    psychologistsList.value = psychologists;
+    gestaltList.value = psychologists
+        .where((element) => element["specialization"] == 'Gestalt')
+        .toList();
+    artTherapyList.value = psychologists
+        .where((element) => element["specialization"] == 'Art therapy')
+        .toList();
+    coachingList.value = psychologists
+        .where((element) => element["specialization"] == 'Coaching')
+        .toList();
+    familyList.value = psychologists
+        .where((element) => element["specialization"] == 'Family')
+        .toList();
+    careerList.value = psychologists
+        .where((element) => element["specialization"] == 'Career')
+        .toList();
   }
 
   void searchTabs(int currentTab) {
@@ -103,73 +109,143 @@ class HomeController extends GetxController
         break;
       case 1:
         gestaltList.value = gestaltList
-            .where((element) => element['name'].toString().toLowerCase().contains(searchController.text.toLowerCase()))
+            .where((element) => element['name']
+                .toString()
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase()))
             .toList();
         break;
       case 2:
         artTherapyList.value = artTherapyList
-            .where((element) => element['name'].toString().toLowerCase().contains(searchController.text.toLowerCase()))
+            .where((element) => element['name']
+                .toString()
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase()))
             .toList();
         break;
       case 3:
         coachingList.value = coachingList
-            .where((element) => element['name'].toString().toLowerCase().contains(searchController.text.toLowerCase()))
+            .where((element) => element['name']
+                .toString()
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase()))
             .toList();
         break;
       case 4:
         familyList.value = familyList
-            .where((element) => element['name'].toString().toLowerCase().contains(searchController.text.toLowerCase()))
+            .where((element) => element['name']
+                .toString()
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase()))
             .toList();
         break;
       case 5:
         careerList.value = careerList
-            .where((element) => element['name'].toString().toLowerCase().contains(searchController.text.toLowerCase()))
+            .where((element) => element['name']
+                .toString()
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase()))
             .toList();
         break;
       default:
     }
-
-    // void uploadDummy() {
-    //   psychologists.forEach((element) async {
-    //     getImageFileFromAssets('images/' + element['user_image'], element['user_image'].split('.').first).then((file) async {
-    //       var url = await uploadUserImages(image: file, imageName: element['user_image']);
-    //       print("this is url $url");
-    //       element['user_image'] = url;
-    //       await _db.collection('psychologists').add(element).then((value) =>
-    //         print("this is value ${value.id}")
-    //       );
-    //       if (kDebugMode) {
-    //         print("file is ${file.path}");
-    //       }
-    //     });
-    //   });
-    // }
-
-    // Future<File> getImageFileFromAssets(String path, String pathName) async {
-    //   final byteData = await rootBundle.load('assets/$path');
-    //   final buffer = byteData.buffer;
-    //   Directory tempDir = await getTemporaryDirectory();
-    //   String tempPath = tempDir.path;
-    //   var filePath =
-    //       '$tempPath/$pathName.tmp'; // file_01.tmp is dump file, can be anything
-    //   return File(filePath).writeAsBytes(
-    //       buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    // }
-
-    // Future<String> uploadUserImages({required File image, required String imageName}) async {
-    //   final imgToUpload = File(image.path);
-    //   Reference imgRef;
-    //   String imgUrl = '';
-    //   imgRef = authController.storage.ref().child('PsychologistsImages/$imageName');
-    //   await imgRef.putFile(imgToUpload).whenComplete(() async {
-    //     await imgRef.getDownloadURL().then((url) {
-    //       imgUrl = url;
-    //       if (kDebugMode) {
-    //         print('Image uploaded to firebase storage: $url');
-    //       }
-    //     });
-    //   });
-    //   return imgUrl;
-    // }
   }
+
+  void bottomSearchFilter() {
+    if(bottomSearch.isNotEmpty) {
+      filterCriteria(bottomSearch.length);
+    }
+  }
+
+  void filterCriteria(int criterial) {
+    switch (criterial) {
+      case 1:
+        psychologistsList.value = psychologistsList
+            .where((item) => item['star'] >= 4.8)
+            .toList();
+        break;
+      case 2:
+         psychologistsList.value = psychologistsList
+              .where((item) => item['star'] >= 4.0)
+              .toList();
+          break;
+      case 3:
+        psychologistsList.value = psychologistsList
+            .where((item) => item['min_amount'] <= 100.0)
+            .toList();
+        break;
+      case 4: 
+        psychologistsList.value = psychologistsList
+            .where((item) => item['min_amount'] >= 500.0)
+            .toList();
+        break;
+      case 5:
+        psychologistsList.value = psychologistsList
+            .where((item) => item['experience'] >= 4)
+            .toList();
+        break;          
+      default:
+    }
+  }
+
+  dynamic getFilterDefault(String filter) {
+    if(filter == CustomText.mentalBottomSearchText1) {
+      return 4.0;
+    } else if(filter == CustomText.mentalBottomSearchText2) {
+      return 4.8;
+    } else if(filter == CustomText.mentalBottomSearchText3) {
+      return 100.0;
+    } else if(filter == CustomText.mentalBottomSearchText4){
+      return 500.0;
+    }else {
+      return 4;
+    }
+  }
+
+  // void updateBottomSearchList(String value) {
+  //   bottomSearch.value = bottomSearch.add(value);
+  // }
+
+  // void uploadDummy() {
+  //   psychologists.forEach((element) async {
+  //     getImageFileFromAssets('images/' + element['user_image'], element['user_image'].split('.').first).then((file) async {
+  //       var url = await uploadUserImages(image: file, imageName: element['user_image']);
+  //       print("this is url $url");
+  //       element['user_image'] = url;
+  //       await _db.collection('psychologists').add(element).then((value) =>
+  //         print("this is value ${value.id}")
+  //       );
+  //       if (kDebugMode) {
+  //         print("file is ${file.path}");
+  //       }
+  //     });
+  //   });
+  // }
+
+  // Future<File> getImageFileFromAssets(String path, String pathName) async {
+  //   final byteData = await rootBundle.load('assets/$path');
+  //   final buffer = byteData.buffer;
+  //   Directory tempDir = await getTemporaryDirectory();
+  //   String tempPath = tempDir.path;
+  //   var filePath =
+  //       '$tempPath/$pathName.tmp'; // file_01.tmp is dump file, can be anything
+  //   return File(filePath).writeAsBytes(
+  //       buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+  // }
+
+  // Future<String> uploadUserImages({required File image, required String imageName}) async {
+  //   final imgToUpload = File(image.path);
+  //   Reference imgRef;
+  //   String imgUrl = '';
+  //   imgRef = authController.storage.ref().child('PsychologistsImages/$imageName');
+  //   await imgRef.putFile(imgToUpload).whenComplete(() async {
+  //     await imgRef.getDownloadURL().then((url) {
+  //       imgUrl = url;
+  //       if (kDebugMode) {
+  //         print('Image uploaded to firebase storage: $url');
+  //       }
+  //     });
+  //   });
+  //   return imgUrl;
+  // }
 }

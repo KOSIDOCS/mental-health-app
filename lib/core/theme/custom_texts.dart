@@ -40,6 +40,8 @@ class CustomText {
   static const String mentalBottomSearchText3 = 'Low price';
   static const String mentalBottomSearchText4 = 'High price';
   static const String mentalBottomSearchText5 = 'With great experience';
+  static const String mentalBottomSearchButton1 = 'Clear';
+  static const String mentalBottomSearchButton2 = 'Apply';
 }
 
 class CustomErrorText {

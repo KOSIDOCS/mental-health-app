@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/uis/custom_buttons.dart';
@@ -75,7 +76,9 @@ Widget showSpinner() {
 }
 
 void showSearchBottomSheet(
-    {required BuildContext context, required VoidCallback onPressed}) {
+    {required BuildContext context,
+    required VoidCallback onPressed,
+    required List list, required dynamic controller }) {
   showModalBottomSheet(
     context: context,
     constraints: BoxConstraints(
@@ -100,26 +103,76 @@ void showSearchBottomSheet(
               ),
             ),
             const SizedBox(height: 46),
-            CustomTextBtn(
-              text: CustomText.mentalBottomSearchText1,
-              isBorder: true,
-            ),
-            CustomTextBtn(
-              text: CustomText.mentalBottomSearchText2,
-              isBorder: true,
-            ),
-            CustomTextBtn(
-              text: CustomText.mentalBottomSearchText3,
-              isBorder: true,
-            ),
-            CustomTextBtn(
-              text: CustomText.mentalBottomSearchText4,
-              isBorder: true,
-            ),
-            CustomTextBtn(
-              text: CustomText.mentalBottomSearchText5,
-              isBorder: false,
-            ),
+            Obx(() {
+              return CustomTextBtn(
+                text: CustomText.mentalBottomSearchText1,
+                isBorder: true,
+                onPressed: () {
+                  if (list.contains(CustomText.mentalBottomSearchText1)) {
+                    list.remove(CustomText.mentalBottomSearchText1);
+                  } else {
+                    list.add(CustomText.mentalBottomSearchText1);
+                  }
+                },
+                isSelected: list.contains(CustomText.mentalBottomSearchText1),
+              );
+            }),
+            Obx(() {
+              return CustomTextBtn(
+                text: CustomText.mentalBottomSearchText2,
+                isBorder: true,
+                onPressed: () {
+                  if (list.contains(CustomText.mentalBottomSearchText2)) {
+                    list.remove(CustomText.mentalBottomSearchText2);
+                  } else {
+                    list.add(CustomText.mentalBottomSearchText2);
+                  }
+                },
+                isSelected: list.contains(CustomText.mentalBottomSearchText2),
+              );
+            }),
+            Obx(() {
+              return CustomTextBtn(
+                text: CustomText.mentalBottomSearchText3,
+                isBorder: true,
+                onPressed: () {
+                  if (list.contains(CustomText.mentalBottomSearchText3)) {
+                    list.remove(CustomText.mentalBottomSearchText3);
+                  } else {
+                    list.add(CustomText.mentalBottomSearchText3);
+                  }
+                },
+                isSelected: list.contains(CustomText.mentalBottomSearchText3),
+              );
+            }),
+            Obx(() {
+              return CustomTextBtn(
+                text: CustomText.mentalBottomSearchText4,
+                isBorder: true,
+                onPressed: () {
+                  if (list.contains(CustomText.mentalBottomSearchText4)) {
+                    list.remove(CustomText.mentalBottomSearchText4);
+                  } else {
+                    list.add(CustomText.mentalBottomSearchText4);
+                  }
+                },
+                isSelected: list.contains(CustomText.mentalBottomSearchText4),
+              );
+            }),
+            Obx(() {
+              return CustomTextBtn(
+                text: CustomText.mentalBottomSearchText5,
+                isBorder: true,
+                onPressed: () {
+                  if (list.contains(CustomText.mentalBottomSearchText5)) {
+                    list.remove(CustomText.mentalBottomSearchText5);
+                  } else {
+                    list.add(CustomText.mentalBottomSearchText5);
+                  }
+                },
+                isSelected: list.contains(CustomText.mentalBottomSearchText5),
+              );
+            }),
             SizedBox(height: 15.0),
             Divider(
               thickness: 1,
@@ -127,12 +180,14 @@ void showSearchBottomSheet(
             ),
             SizedBox(height: 15.0),
             Container(
-              margin: EdgeInsets.only(left: CustomSpacing.kHorizontalPad, right: CustomSpacing.kHorizontalPad),
+              margin: EdgeInsets.only(
+                  left: CustomSpacing.kHorizontalPad,
+                  right: CustomSpacing.kHorizontalPad),
               child: Row(
                 children: [
                   CustomBtn(
-                    onPressed: () => Navigator.pop(contextModal),
-                    buttonText: CustomText.mentalModalCheckEmailCloseBtnText,
+                    onPressed: () => list.clear(),
+                    buttonText: CustomText.mentalBottomSearchButton1,
                     btnColor: AppColors.mentalBrandLightColor,
                     textColor: AppColors.mentalBrandColor,
                     width: 163.0,
@@ -141,8 +196,8 @@ void showSearchBottomSheet(
                   ),
                   Spacer(),
                   CustomBtn(
-                    onPressed: () => Navigator.pop(contextModal),
-                    buttonText: CustomText.mentalModalCheckEmailCloseBtnText,
+                    onPressed: () => controller.bottomSearchFilter(),
+                    buttonText: CustomText.mentalBottomSearchButton2,
                     btnColor: AppColors.mentalBrandColor,
                     textColor: AppColors.mentalBrandLightColor,
                     width: 163.0,
