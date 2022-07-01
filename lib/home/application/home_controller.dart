@@ -152,59 +152,80 @@ class HomeController extends GetxController
   }
 
   void bottomSearchFilter() {
-    if(bottomSearch.isNotEmpty) {
-      filterCriteria(bottomSearch.length);
+    if (bottomSearch.isNotEmpty) {
+      filterCriteria(bottomSearch[0]);
     }
   }
 
-  void filterCriteria(int criterial) {
-    switch (criterial) {
-      case 1:
+  void filterCriteria(String criterial) {
+    Map<String, dynamic> filterDefault = getFilterDefault(criterial);
+    switch (filterDefault['type']) {
+      case 'high_rate':
         psychologistsList.value = psychologistsList
-            .where((item) => item['star'] >= 4.8)
+            .where((item) => item['star'] >= filterDefault['value'])
+            .toList()
+          ..sort((a, b) => b['star'].compareTo(a['star']));
+        break;
+      case 'early_admit':
+        psychologistsList.value = psychologistsList
+            .where((item) =>
+                DateTime.parse(item['early_admit'])
+                    .difference(DateTime.now())
+                    .inDays <=
+                filterDefault['value'])
             .toList();
         break;
-      case 2:
-         psychologistsList.value = psychologistsList
-              .where((item) => item['star'] >= 4.0)
-              .toList();
-          break;
-      case 3:
+      case 'min_amount':
         psychologistsList.value = psychologistsList
-            .where((item) => item['min_amount'] <= 100.0)
-            .toList();
+            .where((item) => item['min_amount'] < filterDefault['value'])
+            .toList()..sort((a, b) => a['min_amount'].compareTo(b['min_amount']));
         break;
-      case 4: 
+      case 'high_amount':
         psychologistsList.value = psychologistsList
-            .where((item) => item['min_amount'] >= 500.0)
-            .toList();
+            .where((item) => item['min_amount'] >= filterDefault['value'])
+            .toList()..sort((a, b) => b['min_amount'].compareTo(a['min_amount']));
         break;
-      case 5:
+      case 'experience':
         psychologistsList.value = psychologistsList
-            .where((item) => item['experience'] >= 4)
-            .toList();
-        break;          
+            .where((item) => item['experience'] >= filterDefault['value'])
+            .toList()..sort((a, b) => b['experience'].compareTo(a['experience']));
+        break;
       default:
     }
   }
 
-  dynamic getFilterDefault(String filter) {
-    if(filter == CustomText.mentalBottomSearchText1) {
-      return 4.0;
-    } else if(filter == CustomText.mentalBottomSearchText2) {
-      return 4.8;
-    } else if(filter == CustomText.mentalBottomSearchText3) {
-      return 100.0;
-    } else if(filter == CustomText.mentalBottomSearchText4){
-      return 500.0;
-    }else {
-      return 4;
+  Map<String, dynamic> getFilterDefault(String filter) {
+    if (filter == CustomText.mentalBottomSearchText1) {
+      return {'type': 'high_rate', 'value': 4.8};
+    } else if (filter == CustomText.mentalBottomSearchText2) {
+      return {'type': 'early_admit', 'value': 10};
+    } else if (filter == CustomText.mentalBottomSearchText3) {
+      return {'type': 'min_amount', 'value': 500.0};
+    } else if (filter == CustomText.mentalBottomSearchText4) {
+      return {'type': 'high_amount', 'value': 500.0};
+    } else {
+      return {'type': 'experience', 'value': 4};
     }
   }
 
-  // void updateBottomSearchList(String value) {
-  //   bottomSearch.value = bottomSearch.add(value);
-  // }
+  void addBottomSearchParam(String value) {
+    if (bottomSearch.length < 1 || bottomSearch[0] == value) {
+      if (bottomSearch.contains(value)) {
+        bottomSearch.remove(value);
+      } else {
+        bottomSearch.add(value);
+      }
+    }
+  }
+
+  bool checkFilterExists(String value) {
+    return bottomSearch.contains(value);
+  }
+
+  void clearBottomSearch() {
+    bottomSearch.clear();
+    resetFilterList();
+  }
 
   // void uploadDummy() {
   //   psychologists.forEach((element) async {

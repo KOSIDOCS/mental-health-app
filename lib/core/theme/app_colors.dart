@@ -11,4 +11,5 @@ class AppColors {
   static const Color mentalBarUnselected = Color(0x993C3C43);
   static const Color mentalBarUnselectedDark = Color(0x99EBEBF5);
   static const Color mentalSearchBar = Color(0x26767680);
+  static const Color mentalStarColor = Color(0xFFFFC805);
 }

@@ -258,6 +258,9 @@ class ShowFilterList extends StatelessWidget {
                     specialization: list[index]['specialization'],
                     minAmount: list[index]['min_amount'],
                     star: list[index]['star'],
+                    onPressed: () {
+                      Get.toNamed('/home/detailspage');
+                    },
                   );
           },
         );

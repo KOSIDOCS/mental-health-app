@@ -108,13 +108,9 @@ void showSearchBottomSheet(
                 text: CustomText.mentalBottomSearchText1,
                 isBorder: true,
                 onPressed: () {
-                  if (list.contains(CustomText.mentalBottomSearchText1)) {
-                    list.remove(CustomText.mentalBottomSearchText1);
-                  } else {
-                    list.add(CustomText.mentalBottomSearchText1);
-                  }
+                 controller.addBottomSearchParam(CustomText.mentalBottomSearchText1);
                 },
-                isSelected: list.contains(CustomText.mentalBottomSearchText1),
+                isSelected: controller.checkFilterExists(CustomText.mentalBottomSearchText1),
               );
             }),
             Obx(() {
@@ -122,13 +118,9 @@ void showSearchBottomSheet(
                 text: CustomText.mentalBottomSearchText2,
                 isBorder: true,
                 onPressed: () {
-                  if (list.contains(CustomText.mentalBottomSearchText2)) {
-                    list.remove(CustomText.mentalBottomSearchText2);
-                  } else {
-                    list.add(CustomText.mentalBottomSearchText2);
-                  }
+                 controller.addBottomSearchParam(CustomText.mentalBottomSearchText2);
                 },
-                isSelected: list.contains(CustomText.mentalBottomSearchText2),
+                isSelected: controller.checkFilterExists(CustomText.mentalBottomSearchText2),
               );
             }),
             Obx(() {
@@ -136,13 +128,9 @@ void showSearchBottomSheet(
                 text: CustomText.mentalBottomSearchText3,
                 isBorder: true,
                 onPressed: () {
-                  if (list.contains(CustomText.mentalBottomSearchText3)) {
-                    list.remove(CustomText.mentalBottomSearchText3);
-                  } else {
-                    list.add(CustomText.mentalBottomSearchText3);
-                  }
+                controller.addBottomSearchParam(CustomText.mentalBottomSearchText3);
                 },
-                isSelected: list.contains(CustomText.mentalBottomSearchText3),
+                isSelected: controller.checkFilterExists(CustomText.mentalBottomSearchText3),
               );
             }),
             Obx(() {
@@ -150,13 +138,9 @@ void showSearchBottomSheet(
                 text: CustomText.mentalBottomSearchText4,
                 isBorder: true,
                 onPressed: () {
-                  if (list.contains(CustomText.mentalBottomSearchText4)) {
-                    list.remove(CustomText.mentalBottomSearchText4);
-                  } else {
-                    list.add(CustomText.mentalBottomSearchText4);
-                  }
+                  controller.addBottomSearchParam(CustomText.mentalBottomSearchText4);
                 },
-                isSelected: list.contains(CustomText.mentalBottomSearchText4),
+                isSelected: controller.checkFilterExists(CustomText.mentalBottomSearchText4),
               );
             }),
             Obx(() {
@@ -164,13 +148,9 @@ void showSearchBottomSheet(
                 text: CustomText.mentalBottomSearchText5,
                 isBorder: true,
                 onPressed: () {
-                  if (list.contains(CustomText.mentalBottomSearchText5)) {
-                    list.remove(CustomText.mentalBottomSearchText5);
-                  } else {
-                    list.add(CustomText.mentalBottomSearchText5);
-                  }
+                 controller.addBottomSearchParam(CustomText.mentalBottomSearchText5);
                 },
-                isSelected: list.contains(CustomText.mentalBottomSearchText5),
+                isSelected: controller.checkFilterExists(CustomText.mentalBottomSearchText5),
               );
             }),
             SizedBox(height: 15.0),
@@ -186,7 +166,7 @@ void showSearchBottomSheet(
               child: Row(
                 children: [
                   CustomBtn(
-                    onPressed: () => list.clear(),
+                    onPressed: () => controller.clearBottomSearch(),
                     buttonText: CustomText.mentalBottomSearchButton1,
                     btnColor: AppColors.mentalBrandLightColor,
                     textColor: AppColors.mentalBrandColor,
