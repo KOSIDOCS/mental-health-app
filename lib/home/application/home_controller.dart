@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mental_health_care_app/auth/application/auth_controller.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
+import 'package:mental_health_care_app/home/model/psychologist_model.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -20,6 +21,7 @@ class HomeController extends GetxController
   final RxList<dynamic> familyList = <dynamic>[].obs;
   final RxList<dynamic> careerList = <dynamic>[].obs;
   final RxList<String> bottomSearch = <String>[].obs;
+  final Rxn<PsychologistModel> selectedPsychologist = Rxn<PsychologistModel>();
   TextEditingController searchController = TextEditingController();
   final RxBool _isSearchOpen = false.obs;
   get searchIsOpen => _isSearchOpen.value;
@@ -225,6 +227,15 @@ class HomeController extends GetxController
   void clearBottomSearch() {
     bottomSearch.clear();
     resetFilterList();
+  }
+
+  void setSelectedPsychologist(int index) {
+    print('selected psychologist: ${psychologistsList[index]}');
+    selectedPsychologist.value = PsychologistModel.fromMap(psychologistsList[index], uid: 'hhji');
+    
+    if (selectedPsychologist.value != null) {
+      Get.toNamed('/home/detailspage');
+    }
   }
 
   // void uploadDummy() {

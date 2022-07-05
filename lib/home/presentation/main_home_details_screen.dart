@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mental_health_care_app/core/presentation/custom_bottom_navigation.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
+import 'package:mental_health_care_app/core/theme/brand_images.dart';
+import 'package:mental_health_care_app/core/theme/custom_texts.dart';
+import 'package:mental_health_care_app/home/application/home_controller.dart';
+import 'package:mental_health_care_app/home/widget/custom_expand_items.dart';
 import 'package:mental_health_care_app/home/widget/custom_star.dart';
+import 'package:mental_health_care_app/uis/custom_buttons.dart';
 import 'package:mental_health_care_app/uis/custom_dividers.dart';
 
 class MainHomeDetailsScreen extends StatefulWidget {
@@ -11,6 +18,8 @@ class MainHomeDetailsScreen extends StatefulWidget {
 }
 
 class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
+  final HomeController homeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +35,15 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
-                          child: Icon(
-                            Icons.chevron_left,
-                            color: Theme.of(context).iconTheme.color,
-                            size: 32.0,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Icon(
+                              Icons.chevron_left,
+                              color: Theme.of(context).iconTheme.color,
+                              size: 32.0,
+                            ),
                           ),
                         ),
                         const Spacer(),
@@ -49,7 +63,8 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 22.0),
                           child: Image.network(
-                            'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
+                            homeController
+                                .selectedPsychologist.value!.userImage,
                             height: 110.0,
                             width: 110.0,
                             fit: BoxFit.cover,
@@ -58,7 +73,7 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 15.0),
                           child: Text(
-                            'Drozdov Pavel',
+                            homeController.selectedPsychologist.value!.name,
                             style:
                                 Theme.of(context).textTheme.headline3!.copyWith(
                                       fontWeight: FontWeight.w400,
@@ -71,7 +86,8 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
                             offset: Offset(2, -9),
                             child: RichText(
                               text: TextSpan(
-                                  text: 'Gestalt',
+                                  text: homeController.selectedPsychologist
+                                      .value!.specialization,
                                   style: Theme.of(context).textTheme.caption,
                                   children: [
                                     WidgetSpan(
@@ -93,7 +109,8 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: '4 years experience',
+                                      text:
+                                          '${homeController.selectedPsychologist.value!.experience} years experience',
                                       style:
                                           Theme.of(context).textTheme.caption,
                                     )
@@ -106,19 +123,22 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
                           children: [
                             CustomStarsRating(
                               totalStars: 5,
-                              rating: 4.0,
+                              rating: homeController
+                                  .selectedPsychologist.value!.star,
                             ), // star rating widget
                             SizedBox(
                               width: 5.0,
                             ),
                             Text(
-                              '4.8',
+                              homeController.selectedPsychologist.value!.star
+                                  .toString(),
                             ),
                             SizedBox(
                               width: 5.0,
                             ),
                             Text(
-                              '(10)',
+                              '( ' + homeController.selectedPsychologist.value!.reviews.length
+                                  .toString() + ' )',
                               style: Theme.of(context)
                                   .textTheme
                                   .caption!
@@ -133,164 +153,200 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
                     aboutSection(
                       title: 'About the specialist',
                       description:
-                          'I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!',
+                          homeController.selectedPsychologist.value!.about,
                     ),
                     CustomShortDividers(),
                     educationSection(
                       title: 'Education',
-                      startYear: 1990,
-                      endYear: 1994,
-                      description:
-                          'Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher.',
+                      startYear: homeController
+                          .selectedPsychologist.value!.education['year_start'],
+                      endYear: homeController
+                          .selectedPsychologist.value!.education['year_end'],
+                      description: homeController
+                          .selectedPsychologist.value!.education['details'],
                     ),
                     CustomShortDividers(),
                     placeOfWork(
                       title: 'Place of work',
-                      workType: 'Self-employed',
+                      workType: homeController
+                          .selectedPsychologist.value!.placeOfWork,
                     ),
                     CustomShortDividers(),
-                    diplomarAndCertSection(
+                    CustomExpandItems(
                       title: 'Diplomas and certificates',
-                      total: 11,
+                      total: homeController.selectedPsychologist.value!
+                          .diplomarAndCertificate.length,
+                      child: Container(),
                     ),
                     CustomShortDividers(),
-                    reviewSection(
+                    CustomExpandItems(
                       title: 'Reviews',
-                      total: 15,
+                      total: homeController
+                          .selectedPsychologist.value!.reviews.length,
+                      child: reviewSection(),
                     ),
-                    articlesSection(
+                    CustomShortDividers(),
+                    CustomExpandItems(
                       title: 'Articles',
-                      total: 4,
+                      total: homeController
+                          .selectedPsychologist.value!.articles.length,
+                      child: articlesSection(),
                     ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                   ],
                 ),
               ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.8,
-              child: Container(
-                height: 90.0,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.red,
-                child: Text('Heelo'),
+              top: MediaQuery.of(context).size.height * 0.76,
+              left: MediaQuery.of(context).size.width * 0.03,
+              child: CustomBtn(
+                onPressed: () {
+                  Get.toNamed('/admissionpage');
+                },
+                buttonText: CustomText.mentalAdmissionBtn,
+                padding: EdgeInsets.only(
+                    left: 5.0, right: 5.0, top: 20.0, bottom: 20.0),
+                width: MediaQuery.of(context).size.width * 0.7,
+              ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.743,
+              left: MediaQuery.of(context).size.width * 0.75,
+              child: CustomCirclerBtn(
+                bagroundRadius: 35.0,
+                imgName: BrandImages.kIconChat,
+                onPressed: () => {},
+                redus: 33.9,
+                imgHeight: 35.0,
+                imgWidth: 35.0,
               ),
             )
           ],
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigation(),
     );
   }
 
-  Widget reviewSection({required String title, required int total}) {
+  Widget reviewSection() {
+    return Column(
+      children: [
+        SizedBox(height: 8.0),
+        ...homeController.selectedPsychologist.value!.reviews.map((review) {
+          return reviewsText(review: review);
+        }).toList(),
+      ],
+    );
+  }
+
+  Widget articlesSection() {
     return Container(
+      height: 240.0,
+      margin: EdgeInsets.only(top: 15.0),
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(
-        left: 17.0,
-        right: 17.0,
-      ),
-      margin: EdgeInsets.only(top: 26.0, bottom: 24.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 17.0,
+      child: ListView.builder(
+        itemCount: homeController.selectedPsychologist.value!.articles.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Container(
+            width: 285.0,
+            margin: EdgeInsets.only(right: 30.0),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColors.mentalBarUnselected,
+                width: 0.3,
+              ),
+            ),
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Positioned(
+                      child: Container(
+                        height: 155.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(homeController
+                                .selectedPsychologist
+                                .value!
+                                .articles[index]['picture']),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     ),
-              ),
-              SizedBox(width: 8.0),
-              Text(
-                '$total',
-                style: Theme.of(context).textTheme.caption!.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 17.0,
-                      color: AppColors.mentalBarUnselected,
+                    Positioned(
+                      right: 16.0,
+                      top: 14.0,
+                      child: Icon(
+                        Icons.bookmark_outline_rounded,
+                        color: AppColors.mentalPureWhite,
+                        size: 32.0,
+                      ),
                     ),
-              ),
-              const Spacer(),
-              Text(
-                'Show all',
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13.0,
-                      color: AppColors.mentalBrandColor,
-                    ),
-              ),
-              Icon(
-                Icons.chevron_right,
-                color: AppColors.mentalBrandColor,
-                size: 32.0,
-              ),
-            ],
-          ),
-          SizedBox(height: 8.0),
-          reviewsText(),
-          reviewsText(),
-          CustomShortDividers(),
-        ],
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 17.0, vertical: 8.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.watch_later_outlined,
+                        color: AppColors.mentalBarUnselected,
+                        size: 23.0,
+                      ),
+                      Text(
+                        '${int.parse(homeController.selectedPsychologist.value!.articles[index]['min_read'])} min',
+                        style: Theme.of(context).textTheme.caption!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 10.0,
+                              color: AppColors.mentalBarUnselected,
+                            ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        homeController.selectedPsychologist.value!
+                            .articles[index]['date'],
+                        style: Theme.of(context).textTheme.caption!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 10.0,
+                              color: AppColors.mentalBarUnselected,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 17.0, right: 17.0, bottom: 8.0),
+                  child: Text(
+                    homeController.selectedPsychologist.value!.articles[index]
+                        ['name'],
+                    style: Theme.of(context).textTheme.headline3!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13.0,
+                          fontStyle: FontStyle.normal,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget articlesSection({required String title, required int total}) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(
-        left: 17.0,
-        right: 17.0,
-      ),
-      margin: EdgeInsets.only(top: 26.0, bottom: 24.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 17.0,
-                    ),
-              ),
-              SizedBox(width: 8.0),
-              Text(
-                '$total',
-                style: Theme.of(context).textTheme.caption!.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 17.0,
-                      color: AppColors.mentalBarUnselected,
-                    ),
-              ),
-              const Spacer(),
-              Text(
-                'Show all',
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13.0,
-                      color: AppColors.mentalBrandColor,
-                    ),
-              ),
-              Icon(
-                Icons.chevron_right,
-                color: AppColors.mentalBrandColor,
-                size: 32.0,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget reviewsText() {
+  Widget reviewsText({required dynamic review}) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Anna',
+            review['name'],
             style: Theme.of(context).textTheme.headline5!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 17.0,
@@ -302,11 +358,11 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
               children: [
                 CustomStarsRating(
                   totalStars: 5,
-                  rating: 4.0,
+                  rating: double.parse(review['star']),
                 ),
                 SizedBox(width: 15.0),
                 Text(
-                  'February 3, 2022',
+                  review['date'],
                   style: Theme.of(context).textTheme.caption!.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 13.0,
@@ -318,58 +374,13 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
           ),
           const SizedBox(height: 7.0),
           Text(
-            'Thank you! You created a trusting atmosphere that allowed you to open up and live your feelings next to you.',
+            review['said'],
             style: Theme.of(context).textTheme.headline5!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 13.0,
                 ),
           ),
           const SizedBox(height: 14.0),
-        ],
-      ),
-    );
-  }
-
-  Widget diplomarAndCertSection({required String title, required int total}) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(
-        left: 17.0,
-        right: 17.0,
-      ),
-      margin: EdgeInsets.only(top: 26.0, bottom: 24.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 17.0,
-                    ),
-              ),
-              SizedBox(width: 8.0),
-              CircleAvatar(
-                radius: 12.0,
-                backgroundColor: AppColors.mentalRoundedIconColor,
-                child: Text(
-                  '$total',
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 11.0,
-                        color: AppColors.mentalBrandColor,
-                      ),
-                ),
-              ),
-              const Spacer(),
-              Icon(
-                Icons.chevron_right,
-                color: AppColors.mentalBrandColor,
-                size: 32.0,
-              ),
-            ],
-          ),
         ],
       ),
     );

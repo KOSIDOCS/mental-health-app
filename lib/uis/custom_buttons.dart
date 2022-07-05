@@ -55,12 +55,14 @@ class CustomCirclerBtn extends StatelessWidget {
   final VoidCallback onPressed;
   final double redus;
   final double bagroundRadius;
+  final double? imgHeight;
+  final double? imgWidth;
   const CustomCirclerBtn(
       {Key? key,
       required this.imgName,
       required this.onPressed,
       required this.redus,
-      required this.bagroundRadius})
+      required this.bagroundRadius, this.imgHeight, this.imgWidth})
       : super(key: key);
 
   @override
@@ -78,8 +80,8 @@ class CustomCirclerBtn extends StatelessWidget {
             child: Image.asset(
               'assets/images/$imgName.png',
               fit: BoxFit.contain,
-              height: 19.0,
-              width: 19.0,
+              height: imgHeight ?? 19.0,
+              width: imgWidth ?? 19.0,
               color: AppColors.mentalBrandColor,
             ),
           ),

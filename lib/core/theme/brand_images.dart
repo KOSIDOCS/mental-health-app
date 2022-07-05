@@ -9,6 +9,7 @@ class BrandImages {
   static const String kAppleIconName = 'icons8-apple-logo-150';
   static const String kSearchIcon = 'iconSearch.png';
   static const String kIconUnion = 'IconUnion.png';
+  static const String kIconChat = 'IconChat';
 }
 
 class ImagesPlaceHolders {

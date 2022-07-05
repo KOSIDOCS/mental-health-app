@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mental_health_care_app/admission/presentation/admission_screen.dart';
 import 'package:mental_health_care_app/articles/presentation/articles_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_login_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_password_recovery_screen.dart';
@@ -39,31 +40,31 @@ class AppPages {
       transition: Transition.native,
       popGesture: true,
     ),
-    GetPage(
-      name: Routes.HOME,
-      page: () => MainHomePageScreen(),
-      children: [
-        GetPage(
-          name: Routes.DETAILSPAGE,
-          page: () => MainHomeDetailsScreen(),
-        ),
-      ]
-    ),
+    GetPage(name: Routes.HOME, page: () => MainHomePageScreen(), children: [
+      GetPage(
+        name: Routes.DETAILSPAGE,
+        page: () => MainHomeDetailsScreen(),
+      ),
+    ]),
     GetPage(
       name: Routes.CHATS,
       page: () => ChatsScreen(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.CONSULTATIONS,
       page: () => ConsultationScreen(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.ARTICLES,
       page: () => ArticlesScreen(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.PROFILE,
       page: () => ProfileScreen(),
-    )
+    ),
+    GetPage(
+      name: Routes.ADMISSIONPAGE,
+      page: () => AdmissionScreen(),
+    ),
   ];
 }

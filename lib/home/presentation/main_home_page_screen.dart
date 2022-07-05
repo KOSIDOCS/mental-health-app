@@ -240,7 +240,9 @@ class _MainHomePageScreenState
 
 class ShowFilterList extends StatelessWidget {
   final List list;
-  const ShowFilterList({Key? key, required this.list}) : super(key: key);
+  ShowFilterList({Key? key, required this.list}) : super(key: key);
+
+  final HomeController homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +261,7 @@ class ShowFilterList extends StatelessWidget {
                     minAmount: list[index]['min_amount'],
                     star: list[index]['star'],
                     onPressed: () {
-                      Get.toNamed('/home/detailspage');
+                      homeController.setSelectedPsychologist(index);
                     },
                   );
           },

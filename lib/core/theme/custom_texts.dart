@@ -42,6 +42,8 @@ class CustomText {
   static const String mentalBottomSearchText5 = 'With great experience';
   static const String mentalBottomSearchButton1 = 'Clear';
   static const String mentalBottomSearchButton2 = 'Apply';
+  static const String mentalAdmissionBtn = 'Admission Schedule';
+  static const String mentalAdmissionPageTitle = 'Admission Schedule';
 }
 
 class CustomErrorText {

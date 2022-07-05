@@ -482,6 +482,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/kosisochukwu/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -514,6 +520,12 @@
     {
       "name": "string_scanner",
       "rootUri": "file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "table_calendar",
+      "rootUri": "file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-3.0.6",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -632,7 +644,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-06-27T21:23:34.890080Z",
+  "generated": "2022-07-04T22:12:41.165928Z",
   "generator": "pub",
   "generatorVersion": "2.17.3"
 }

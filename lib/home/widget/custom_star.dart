@@ -11,7 +11,7 @@ class CustomStarsRating extends StatelessWidget {
     List<Widget> stars = [];
     for (int i = 0; i < totalStars; i++) {
       stars.add(Icon(
-        i < rating ? Icons.star : Icons.star_border,
+        i < rating.floor() ? Icons.star : Icons.star_border,
         size: 20.0,
         color: AppColors.mentalStarColor,
       ));
