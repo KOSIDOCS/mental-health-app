@@ -5,10 +5,12 @@ import 'package:mental_health_care_app/auth/presentation/auth_login_screen.dart'
 import 'package:mental_health_care_app/auth/presentation/auth_password_recovery_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_signup_screen.dart';
 import 'package:mental_health_care_app/chats/presentation/chats_screen.dart';
+import 'package:mental_health_care_app/consultations/presentation/consultation_details_screen.dart';
 import 'package:mental_health_care_app/consultations/presentation/consultations_screen.dart';
 import 'package:mental_health_care_app/home/presentation/main_home_details_screen.dart';
 import 'package:mental_health_care_app/home/presentation/main_home_page_screen.dart';
 import 'package:mental_health_care_app/launchscreen/presentation/welcome_screen.dart';
+import 'package:mental_health_care_app/makeappointment/presentation/make_appointment_screen.dart';
 import 'package:mental_health_care_app/onboard/presentation/onboarding_screen.dart';
 import 'package:mental_health_care_app/profile/presentation/profile_screen.dart';
 import 'package:mental_health_care_app/routes/app_routes.dart';
@@ -53,6 +55,12 @@ class AppPages {
     GetPage(
       name: Routes.CONSULTATIONS,
       page: () => ConsultationScreen(),
+      children: [
+        GetPage(
+          name: Routes.CONSULTATION_DETAILS,
+          page: () => ConsultationDetailsScreen(),
+        ),
+      ]
     ),
     GetPage(
       name: Routes.ARTICLES,
@@ -65,6 +73,10 @@ class AppPages {
     GetPage(
       name: Routes.ADMISSIONPAGE,
       page: () => AdmissionScreen(),
+    ),
+    GetPage(
+      name: Routes.MAKEAPPOINTMENT,
+      page: () => MakeAppointmentScreen(),
     ),
   ];
 }

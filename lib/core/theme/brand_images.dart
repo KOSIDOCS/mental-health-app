@@ -10,6 +10,8 @@ class BrandImages {
   static const String kSearchIcon = 'iconSearch.png';
   static const String kIconUnion = 'IconUnion.png';
   static const String kIconChat = 'IconChat';
+  static const String kApplePay = 'ApplePay';
+  static const String kCardPay = 'cardImage';
 }
 
 class ImagesPlaceHolders {

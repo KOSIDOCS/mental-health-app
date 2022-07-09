@@ -10,13 +10,15 @@ class CustomBtn extends StatelessWidget {
   final double? width;
   final double? fontSize;
   final bool? isBorder;
+  final Color? borderColor;
   final EdgeInsets? padding;
+  final double? borderSize;
   const CustomBtn(
       {Key? key,
       required this.onPressed,
       required this.buttonText,
       this.btnColor,
-      this.textColor, this.width, this.fontSize, this.isBorder, this.padding})
+      this.textColor, this.width, this.fontSize, this.isBorder, this.padding, this.borderColor = AppColors.mentalBrandColor, this.borderSize = 1.0})
       : super(key: key);
 
   @override
@@ -30,8 +32,8 @@ class CustomBtn extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.0),
           color: btnColor ?? AppColors.mentalBrandColor,
           border: Border.all(
-            color: isBorder != null ? AppColors.mentalBrandColor : Colors.transparent,
-            width: isBorder != null ? 1.0 : 0.0,
+            color: isBorder != null ? borderColor! : Colors.transparent,
+            width: isBorder != null ? borderSize! : 0.0,
           ),
         ),
         child: Center(
@@ -157,7 +159,8 @@ class CustomTextBtn extends StatelessWidget {
   final bool isBorder;
   final bool isSelected;
   final VoidCallback onPressed;
-  const CustomTextBtn({Key? key, required this.text, required this.isBorder, required this.onPressed, required this.isSelected}) : super(key: key);
+  final Color? textColor;
+  const CustomTextBtn({Key? key, required this.text, required this.isBorder, required this.onPressed, required this.isSelected, this.textColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +172,11 @@ class CustomTextBtn extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(text),
+                Text(text, style: Theme.of(context).textTheme.headline4!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 17.0,
+                  color: textColor ?? Theme.of(context).textTheme.headline4!.color,
+                ),),
                 const Spacer(),
                 isSelected ? Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0) : Container(),
               ],
