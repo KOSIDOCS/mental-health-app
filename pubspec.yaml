@@ -57,6 +57,10 @@ dependencies:
   crypto: ^3.0.2
   buttons_tabbar: ^1.3.6
   line_icons: ^2.0.1
+  path_provider: ^2.0.11
+  path: ^1.8.1
+  table_calendar: ^3.0.6
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +92,7 @@ flutter:
   assets:
     - assets/images/
     - .env
+    - assets/psychologists.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

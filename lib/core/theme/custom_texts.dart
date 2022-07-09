@@ -35,6 +35,32 @@ class CustomText {
   static const String mentalHomeTab4Text = 'Family';
   static const String mentalHomeTab5Text = 'Career';
   static const String mentalHomeTab6Text = 'Relationship';
+  static const String mentalBottomSearchText1 = 'Highly rated';
+  static const String mentalBottomSearchText2 = 'Earliest admission dates';
+  static const String mentalBottomSearchText3 = 'Low price';
+  static const String mentalBottomSearchText4 = 'High price';
+  static const String mentalBottomSearchText5 = 'With great experience';
+  static const String mentalBottomSearchButton1 = 'Clear';
+  static const String mentalBottomSearchButton2 = 'Apply';
+  static const String mentalAdmissionBtn = 'Admission Schedule';
+  static const String mentalAdmissionPageTitle = 'Admission Schedule';
+  static const String mentalAdmissionTimeTitle = 'Choose the right time';
+  static const String mentalAdmissionButtonText = 'To make an appointment';
+  static const String mentalMakeAppointmentTitle = 'Make an appointment';
+  static const String mentalMakeAppointmentInputName = 'Name';
+  static const String mentalMakeAppointmentPaymentSection = 'Payment method';
+  static const String mentalApplePayText = 'Apple pay';
+  static const String mentalGooglePayText = 'Google pay';
+  static const String kDummyCardNumber1 = '2223000048410010';
+  static const String kDummyCardNumber2 = '4263982640269299';
+  static const String kAddCardText = 'Add new card';
+  static const String kConsultationScreenTitle = 'Consultations';
+  static const String kConsultationScreenFilter1 = 'Planned';
+  static const String kConsultationScreenFilter2 = 'Finished';
+  static const String kConsultationScreenFilter3 = 'Canceled';
+  static const String kConsultationScreenFilterTitle = 'Filters';
+  static const String kConsultationDetailsTitle = 'An appointment';
+  static const String kConsultationDetailsSubTitle = 'Main info';
 }
 
 class CustomErrorText {
@@ -48,4 +74,14 @@ class CustomErrorText {
   static const String invalidAge = 'Invalid age';
   static const String invalidGender = 'Invalid';
   
+}
+
+class BottomBarIconTitles {
+  BottomBarIconTitles._();
+
+  static const String  kBottomText1 = 'Specialists';
+  static const String  kBottomText2 = 'Chats';
+  static const String  kBottomText3 = 'Consultations';
+  static const String  kBottomText4 = 'Articles';
+  static const String  kBottomText5 = 'Profile';   
 }

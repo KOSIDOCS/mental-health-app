@@ -252,8 +252,8 @@ file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1
 file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1/lib/
 path_provider
 2.14
-file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.10/
-file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.10/lib/
+file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.11/
+file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.11/lib/
 path_provider_android
 2.14
 file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.14/
@@ -310,6 +310,10 @@ sign_in_with_apple_web
 2.12
 file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple_web-1.0.1/
 file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple_web-1.0.1/lib/
+simple_gesture_detector
+2.12
+file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0/
+file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0/lib/
 smooth_page_indicator
 2.12
 file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/smooth_page_indicator-1.0.0+2/
@@ -330,6 +334,10 @@ string_scanner
 2.12
 file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/
 file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib/
+table_calendar
+2.12
+file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-3.0.6/
+file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-3.0.6/lib/
 term_glyph
 2.12
 file:///Users/kosisochukwu/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0/

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -18,6 +19,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 class AuthController extends GetxController {
   final FirebaseAuth _auth = Get.find();
   final FirebaseFirestore _db = Get.find();
+  final FirebaseStorage storage = Get.find();
   Rxn<User> firebaseUser = Rxn<User>();
   Rxn<UserModel> firestoreUser = Rxn<UserModel>();
   RxBool disableSignUpbutton = false.obs;

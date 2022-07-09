@@ -9,10 +9,23 @@ class BrandImages {
   static const String kAppleIconName = 'icons8-apple-logo-150';
   static const String kSearchIcon = 'iconSearch.png';
   static const String kIconUnion = 'IconUnion.png';
+  static const String kIconChat = 'IconChat';
+  static const String kApplePay = 'ApplePay';
+  static const String kCardPay = 'cardImage';
 }
 
 class ImagesPlaceHolders {
   ImagesPlaceHolders._();
 
   static const String kPsyPlaceholder1 = 'Placeholder1.png';
+}
+
+class BottomBarImages {
+  BottomBarImages._();
+
+  static const String kBottomIcon1 = 'bottomIcon1.png';
+  static const String kBottomIcon2 = 'bottomIcon2.png';
+  static const String kBottomIcon3 = 'bottomIcon3.png';
+  static const String kBottomIcon4 = 'bottomIcon4.png';
+  static const String kBottomIcon5 = 'bottomIcon5.png';
 }

@@ -11,6 +11,7 @@
 migrate_working_dir/
 .env
 *.env
+.env*
 
 # IntelliJ related
 *.iml
@@ -33,6 +34,15 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+build/
+pubspec.lock
+*.dart.js
+*.info.json
+*.js
+*.js_
+*.js.deps
+*.js.map
+ios/Runner/GoogleService-Info.plist
 
 # Web related
 lib/generated_plugin_registrant.dart

@@ -1,0 +1,212 @@
+{
+    "items": [
+        {
+            "name": "Drozdov Pavel",
+            "user_image": "Placeholder1.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ]
+        },
+        {
+            "name": "Kucher Daria",
+            "user_image": "Placeholder2.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ]
+        },
+        {
+            "name": "Ivanova Maria",
+            "user_image": "Placeholder3.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ],
+            "diplomas_cert": []
+        },
+        {
+            "name": "Verenko Anna",
+            "user_image": "Placeholder4.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ],
+            "diplomas_cert": []
+        },
+        {
+            "name": "Ivchenko Margo",
+            "user_image": "Placeholder.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ],
+            "diplomas_cert": []
+        },
+        {
+            "name": "Ivchenko Margo",
+            "user_image": "Placeholder.png",
+            "specialization": "Gestalt",
+            "experience": 4,
+            "min_amount": 700.0,
+            "currency": "USD",
+            "star": 4.8,
+            "country": "USA",
+            "about": "I am a student of F.E. Vasilyuk. I consult in line with understanding therapy, combining classical psychology and Christian wisdom. The ministry of a psychologist can be called “life support”. I really want every person to love life and could choose life with all his heart!",
+            "education": {
+                "year_start": 1990,
+                "year_end": 1994,
+                "details": "Moscow State Psychological and Pedagogical University, Faculty of Psychological Counseling, Department of Individual and Group Psychotherapy Vasilyuk F.E., qualification “Psychologist. Psychology teacher."
+            },
+            "place_of_work": "Self-employed",
+            "reviews": [
+                {
+                    "name": "Anna",
+                    "star": "5",
+                    "date": "February 3, 2022",
+                    "said": "jndjni" 
+                }
+            ],
+            "articles":  [
+                {
+                    "name": "Anna",
+                    "min_read": "5",
+                    "date": "February 3, 2022",
+                    "body": "jndjni",
+                    "picture": "image_url" 
+                }
+            ],
+            "diplomas_cert": []
+        }
+    ]
+}
