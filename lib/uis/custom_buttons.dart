@@ -178,7 +178,7 @@ class CustomTextBtn extends StatelessWidget {
                   color: textColor ?? Theme.of(context).textTheme.headline4!.color,
                 ),),
                 const Spacer(),
-                isSelected ? Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0) : Container(),
+                isSelected ? CustomIcon() : Container(),
               ],
             ),
             isBorder ? Divider(
@@ -189,5 +189,14 @@ class CustomTextBtn extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class CustomIcon extends StatelessWidget {
+  const CustomIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0);
   }
 }

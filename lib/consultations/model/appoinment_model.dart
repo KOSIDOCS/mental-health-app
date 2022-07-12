@@ -7,6 +7,7 @@ class AppoinmentModel {
   final String type;
   final int price;
   final String about;
+  final String recommendations;
 
   AppoinmentModel({
     required this.name,
@@ -17,6 +18,7 @@ class AppoinmentModel {
     required this.type,
     required this.price,
     required this.about,
+    required this.recommendations,
   });
 
   factory AppoinmentModel.fromMap(Map data) {
@@ -29,6 +31,7 @@ class AppoinmentModel {
       type: data['type'] ?? '',
       price: data['price'] ?? 0,
       about: data['about'] ?? '',
+      recommendations: data['recommendations'] ?? '',
     );
   }
 }

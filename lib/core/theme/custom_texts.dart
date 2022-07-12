@@ -61,6 +61,14 @@ class CustomText {
   static const String kConsultationScreenFilterTitle = 'Filters';
   static const String kConsultationDetailsTitle = 'An appointment';
   static const String kConsultationDetailsSubTitle = 'Main info';
+  static const String kConsultationDetailsSubTitle2 = 'About the consultation';
+  static const String kConsultationDetailsSubTitle3 = 'Recommendations';
+  static const String kConsultationDetailsSubTitle4 = 'The psychologist left no recommendations for you';
+  static const String kConsultationDetailsBtn1Title = 'Add to calendar';
+  static const String kConsultationDetailsBtn2Title = 'Cancel an appointment';
+  static const String kConsultationDetailsBtn3Title = 'Make an appointment again';
+  static const String kConsultationDetailsBtn4Title = 'Leave feedback';
+  static const String kChatTitle = 'Chats';
 }
 
 class CustomErrorText {
