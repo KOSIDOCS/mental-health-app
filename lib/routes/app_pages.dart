@@ -4,6 +4,7 @@ import 'package:mental_health_care_app/articles/presentation/articles_screen.dar
 import 'package:mental_health_care_app/auth/presentation/auth_login_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_password_recovery_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_signup_screen.dart';
+import 'package:mental_health_care_app/chats/presentation/chat_room_screen.dart';
 import 'package:mental_health_care_app/chats/presentation/chats_screen.dart';
 import 'package:mental_health_care_app/consultations/presentation/consultation_details_screen.dart';
 import 'package:mental_health_care_app/consultations/presentation/consultations_screen.dart';
@@ -51,6 +52,12 @@ class AppPages {
     GetPage(
       name: Routes.CHATS,
       page: () => ChatsScreen(),
+      children: [
+        GetPage(
+          name: Routes.CHATROOM,
+          page: () => ChatRoomScreen(),
+        ),
+      ]
     ),
     GetPage(
       name: Routes.CONSULTATIONS,

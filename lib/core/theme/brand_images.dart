@@ -12,6 +12,9 @@ class BrandImages {
   static const String kIconChat = 'IconChat';
   static const String kApplePay = 'ApplePay';
   static const String kCardPay = 'cardImage';
+  static const String kIconMic = 'mic.png';
+  static const String kIconAttach = 'attach.png';
+  static const String kIconSticker = 'sticker.png';
 }
 
 class ImagesPlaceHolders {

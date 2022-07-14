@@ -187,3 +187,79 @@ class CustomSearchBar extends StatelessWidget {
     );
   }
 }
+
+class CustomChatField extends StatelessWidget {
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final String? placeholder;
+  final void Function(String?)? onChanged;
+
+  const CustomChatField(
+      {Key? key,
+      required this.controller,
+      required this.keyboardType,
+      this.placeholder,
+      this.onChanged})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.67,
+      height: 40.0,
+      decoration: BoxDecoration(
+        color: AppColors.mentalPureWhite,
+        borderRadius: BorderRadius.circular(28.5),
+        border: Border.all(color: AppColors.mentalSearchBar),
+      ),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        cursorColor: AppColors.mentalBrandColor,
+        enableSuggestions: true,
+        autocorrect: true,
+        decoration: InputDecoration(
+          prefixIconConstraints: const BoxConstraints(
+            maxHeight: 16.43,
+            maxWidth: 16.43,
+          ),
+          contentPadding: const EdgeInsets.only(
+            left: 16.0,
+            right: 0.0,
+            top: 35.0,
+            bottom: 0.0,
+          ),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(28.5),
+              borderSide: BorderSide.none),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(28.5),
+              borderSide: BorderSide.none),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(28.5),
+              borderSide: BorderSide.none),
+          hintText: placeholder,
+          hintStyle: Theme.of(context).textTheme.headline3!.copyWith(
+                color: AppColors.mentalBarUnselected,
+                fontWeight: FontWeight.w400,
+                fontSize: 13.0,
+              ),
+          suffixIcon: Transform.translate(
+            offset: const Offset(-15.0, 0.0),
+            child: Image.asset(
+              'assets/images/${BrandImages.kIconSticker}',
+              height: 18.8,
+              width: 18.8,
+            ),
+          ),
+          suffixIconConstraints: BoxConstraints(
+            maxHeight: 18.8,
+            maxWidth: 18.8,
+          ),
+        ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: onChanged,
+      ),
+    );
+  }
+}
