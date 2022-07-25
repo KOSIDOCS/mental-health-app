@@ -22,3 +22,9 @@ final passwordRegExp =
   }
 
 }
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.day == other.day && this.month == other.month && this.year == other.year;
+  }
+}

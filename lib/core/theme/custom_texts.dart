@@ -69,6 +69,13 @@ class CustomText {
   static const String kConsultationDetailsBtn3Title = 'Make an appointment again';
   static const String kConsultationDetailsBtn4Title = 'Leave feedback';
   static const String kChatTitle = 'Chats';
+  static const String kmentalPhotoIcon = 'Photo Library';
+  static const String kmentalVideoIcon = 'Video Library';
+  static const String kmentalDocumentIcon = 'Document Library';
+  static const String kmentalLastChatPhoto = 'Photo';
+  static const String kmentalLastChatVideo = 'Video';
+  static const String kmentalLastChatDocument = 'Document';
+  static const String kmentalLastChatGiphy = 'GIF';
 }
 
 class CustomErrorText {
@@ -81,6 +88,7 @@ class CustomErrorText {
   static const String invalidPhone = 'Invalid phone';
   static const String invalidAge = 'Invalid age';
   static const String invalidGender = 'Invalid';
+  static const String invalidFileSize = "File size is too large";
   
 }
 

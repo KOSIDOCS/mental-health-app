@@ -4,7 +4,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:mental_health_care_app/admission/application/admission_controller.dart';
 import 'package:mental_health_care_app/auth/application/auth_controller.dart';
-import 'package:mental_health_care_app/chats/application/chats_controller.dart';
 import 'package:mental_health_care_app/consultations/application/consultation_controller.dart';
 import 'package:mental_health_care_app/core/application/custom_navigation_controller.dart';
 import 'package:mental_health_care_app/home/application/home_controller.dart';
@@ -23,7 +22,6 @@ class MainBinding extends Bindings {
     Get.put<AdmissionController>(AdmissionController());
     Get.put<MakeAppointmentController>(MakeAppointmentController());
     Get.put<ConsultationController>(ConsultationController());
-    Get.put<ChatsController>(ChatsController());
   }
 
   Future initializeFirebase() async {

@@ -4,6 +4,8 @@ import 'package:mental_health_care_app/articles/presentation/articles_screen.dar
 import 'package:mental_health_care_app/auth/presentation/auth_login_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_password_recovery_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_signup_screen.dart';
+import 'package:mental_health_care_app/binding/chat_home_binding.dart';
+import 'package:mental_health_care_app/binding/chat_room_binding.dart';
 import 'package:mental_health_care_app/chats/presentation/chat_room_screen.dart';
 import 'package:mental_health_care_app/chats/presentation/chats_screen.dart';
 import 'package:mental_health_care_app/consultations/presentation/consultation_details_screen.dart';
@@ -52,23 +54,24 @@ class AppPages {
     GetPage(
       name: Routes.CHATS,
       page: () => ChatsScreen(),
+      bindings: [ChatHomeBinding()],
       children: [
         GetPage(
           name: Routes.CHATROOM,
           page: () => ChatRoomScreen(),
+          bindings: [ChatRoomBinding()],
         ),
-      ]
+      ],
     ),
     GetPage(
-      name: Routes.CONSULTATIONS,
-      page: () => ConsultationScreen(),
-      children: [
-        GetPage(
-          name: Routes.CONSULTATION_DETAILS,
-          page: () => ConsultationDetailsScreen(),
-        ),
-      ]
-    ),
+        name: Routes.CONSULTATIONS,
+        page: () => ConsultationScreen(),
+        children: [
+          GetPage(
+            name: Routes.CONSULTATION_DETAILS,
+            page: () => ConsultationDetailsScreen(),
+          ),
+        ]),
     GetPage(
       name: Routes.ARTICLES,
       page: () => ArticlesScreen(),

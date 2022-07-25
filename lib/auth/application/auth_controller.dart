@@ -76,6 +76,7 @@ class AuthController extends GetxController {
       name: '',
       photoUrl: '',
       uid: '',
+      conversations: <String>[],
     );
     print(
         'streamFirestoreUser() ${firebaseUser.value!.uid} ${firebaseUser.value}');

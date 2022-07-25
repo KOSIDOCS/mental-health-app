@@ -61,6 +61,18 @@ dependencies:
   path: ^1.8.1
   table_calendar: ^3.0.6
   intl: ^0.17.0
+  cached_network_image: ^3.2.1
+  flutter_keyboard_size: ^1.0.0+4
+  dart_emoji: ^0.2.0+2
+  file_picker: ^3.0.4
+  easy_image_viewer: ^1.0.4
+  flutter_cached_pdfview: ^0.4.1
+  video_player: ^2.4.5
+  cached_video_preview: ^1.0.6
+  uuid: ^3.0.6
+  giphy_get: ^3.1.0
+  flutter_audio_recorder2: ^0.0.2
+  file: ^6.1.2
 
 dev_dependencies:
   flutter_test:

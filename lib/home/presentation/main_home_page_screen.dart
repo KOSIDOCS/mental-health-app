@@ -8,6 +8,7 @@ import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/brand_images.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/home/application/home_controller.dart';
+import 'package:mental_health_care_app/home/model/psychologist_model.dart';
 import 'package:mental_health_care_app/home/widget/custom_user_card.dart';
 import 'package:mental_health_care_app/uis/custom_input_fields.dart';
 import 'package:mental_health_care_app/uis/custom_modals.dart';
@@ -67,6 +68,12 @@ class _MainHomePageScreenState
               length: 6,
               child: Column(
                 children: [
+                  GestureDetector(
+                    onTap: () {
+                      _authController.userSignOut();
+                    },
+                    child: Text('Log out'),
+                  ),
                   customSizedBox(context: context, size: 0.04),
                   Row(
                     children: [
@@ -239,7 +246,7 @@ class _MainHomePageScreenState
 }
 
 class ShowFilterList extends StatelessWidget {
-  final List list;
+  final List<PsychologistModel> list;
   ShowFilterList({Key? key, required this.list}) : super(key: key);
 
   final HomeController homeController = Get.find();
@@ -254,12 +261,12 @@ class ShowFilterList extends StatelessWidget {
             return list.isEmpty
                 ? Center(child: CircularProgressIndicator())
                 : CustomUserCard(
-                    experience: list[index]['experience'],
-                    userImg: list[index]['user_image'],
-                    name: list[index]['name'],
-                    specialization: list[index]['specialization'],
-                    minAmount: list[index]['min_amount'],
-                    star: list[index]['star'],
+                    experience: list[index].experience,
+                    userImg: list[index].userImage,
+                    name: list[index].name,
+                    specialization: list[index].specialization,
+                    minAmount: list[index].minAmount,
+                    star: list[index].star,
                     onPressed: () {
                       homeController.setSelectedPsychologist(index);
                     },

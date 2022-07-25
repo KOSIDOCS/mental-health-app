@@ -13,18 +13,20 @@ class HomeController extends GetxController
   AuthController authController = Get.put(AuthController());
   late TabController tabController = TabController(length: 6, vsync: this);
   final FirebaseFirestore _db = Get.find();
-  final RxList<dynamic> psychologists = <dynamic>[].obs;
-  final RxList<dynamic> psychologistsList = <dynamic>[].obs;
-  final RxList<dynamic> gestaltList = <dynamic>[].obs;
-  final RxList<dynamic> artTherapyList = <dynamic>[].obs;
-  final RxList<dynamic> coachingList = <dynamic>[].obs;
-  final RxList<dynamic> familyList = <dynamic>[].obs;
-  final RxList<dynamic> careerList = <dynamic>[].obs;
+  final RxList<PsychologistModel> psychologists = <PsychologistModel>[].obs;
+  final RxList<PsychologistModel> psychologistsList = <PsychologistModel>[].obs;
+  final RxList<PsychologistModel> gestaltList = <PsychologistModel>[].obs;
+  final RxList<PsychologistModel> artTherapyList = <PsychologistModel>[].obs;
+  final RxList<PsychologistModel> coachingList = <PsychologistModel>[].obs;
+  final RxList<PsychologistModel> familyList = <PsychologistModel>[].obs;
+  final RxList<PsychologistModel> careerList = <PsychologistModel>[].obs;
   final RxList<String> bottomSearch = <String>[].obs;
   final Rxn<PsychologistModel> selectedPsychologist = Rxn<PsychologistModel>();
   TextEditingController searchController = TextEditingController();
   final RxBool _isSearchOpen = false.obs;
   get searchIsOpen => _isSearchOpen.value;
+
+  RxString openChatWithId = ''.obs;
 
   @override
   void onReady() {
@@ -53,10 +55,10 @@ class HomeController extends GetxController
   Future getRealDatas() async {
     var firebasePsychologists = _db.collection('psychologists').get();
 
-    List<Map<String, dynamic>> allPsychologists =
+    List<PsychologistModel> allPsychologists =
         await firebasePsychologists.then((value) {
       return value.docs.map((e) {
-        return e.data();
+        return PsychologistModel.fromMap(e.data(), uid: e.id);
       }).toList();
     });
 
@@ -83,19 +85,19 @@ class HomeController extends GetxController
   void resetFilterList() {
     psychologistsList.value = psychologists;
     gestaltList.value = psychologists
-        .where((element) => element["specialization"] == 'Gestalt')
+        .where((element) => element.specialization == 'Gestalt')
         .toList();
     artTherapyList.value = psychologists
-        .where((element) => element["specialization"] == 'Art therapy')
+        .where((element) => element.specialization == 'Art therapy')
         .toList();
     coachingList.value = psychologists
-        .where((element) => element["specialization"] == 'Coaching')
+        .where((element) => element.specialization == 'Coaching')
         .toList();
     familyList.value = psychologists
-        .where((element) => element["specialization"] == 'Family')
+        .where((element) => element.specialization == 'Family')
         .toList();
     careerList.value = psychologists
-        .where((element) => element["specialization"] == 'Career')
+        .where((element) => element.specialization == 'Career')
         .toList();
   }
 
@@ -103,7 +105,7 @@ class HomeController extends GetxController
     switch (currentTab) {
       case 0:
         psychologistsList.value = psychologistsList
-            .where((item) => item['name']
+            .where((item) => item.name
                 .toString()
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase()))
@@ -111,7 +113,7 @@ class HomeController extends GetxController
         break;
       case 1:
         gestaltList.value = gestaltList
-            .where((element) => element['name']
+            .where((element) => element.name
                 .toString()
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase()))
@@ -119,7 +121,7 @@ class HomeController extends GetxController
         break;
       case 2:
         artTherapyList.value = artTherapyList
-            .where((element) => element['name']
+            .where((element) => element.name
                 .toString()
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase()))
@@ -127,7 +129,7 @@ class HomeController extends GetxController
         break;
       case 3:
         coachingList.value = coachingList
-            .where((element) => element['name']
+            .where((element) => element.name
                 .toString()
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase()))
@@ -135,7 +137,7 @@ class HomeController extends GetxController
         break;
       case 4:
         familyList.value = familyList
-            .where((element) => element['name']
+            .where((element) => element.name
                 .toString()
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase()))
@@ -143,7 +145,7 @@ class HomeController extends GetxController
         break;
       case 5:
         careerList.value = careerList
-            .where((element) => element['name']
+            .where((element) => element.name
                 .toString()
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase()))
@@ -164,14 +166,14 @@ class HomeController extends GetxController
     switch (filterDefault['type']) {
       case 'high_rate':
         psychologistsList.value = psychologistsList
-            .where((item) => item['star'] >= filterDefault['value'])
+            .where((item) => item.star >= filterDefault['value'])
             .toList()
-          ..sort((a, b) => b['star'].compareTo(a['star']));
+          ..sort((a, b) => b.star.compareTo(a.star));
         break;
       case 'early_admit':
         psychologistsList.value = psychologistsList
             .where((item) =>
-                DateTime.parse(item['early_admit'])
+                DateTime.parse(item.earlyAdmit)
                     .difference(DateTime.now())
                     .inDays <=
                 filterDefault['value'])
@@ -179,18 +181,18 @@ class HomeController extends GetxController
         break;
       case 'min_amount':
         psychologistsList.value = psychologistsList
-            .where((item) => item['min_amount'] < filterDefault['value'])
-            .toList()..sort((a, b) => a['min_amount'].compareTo(b['min_amount']));
+            .where((item) => item.minAmount < filterDefault['value'])
+            .toList()..sort((a, b) => a.minAmount.compareTo(b.minAmount));
         break;
       case 'high_amount':
         psychologistsList.value = psychologistsList
-            .where((item) => item['min_amount'] >= filterDefault['value'])
-            .toList()..sort((a, b) => b['min_amount'].compareTo(a['min_amount']));
+            .where((item) => item.minAmount >= filterDefault['value'])
+            .toList()..sort((a, b) => b.minAmount.compareTo(a.minAmount));
         break;
       case 'experience':
         psychologistsList.value = psychologistsList
-            .where((item) => item['experience'] >= filterDefault['value'])
-            .toList()..sort((a, b) => b['experience'].compareTo(a['experience']));
+            .where((item) => item.experience >= filterDefault['value'])
+            .toList()..sort((a, b) => b.experience.compareTo(a.experience));
         break;
       default:
     }
@@ -231,11 +233,16 @@ class HomeController extends GetxController
 
   void setSelectedPsychologist(int index) {
     print('selected psychologist: ${psychologistsList[index]}');
-    selectedPsychologist.value = PsychologistModel.fromMap(psychologistsList[index], uid: 'hhji');
+    selectedPsychologist.value = psychologistsList[index];
     
     if (selectedPsychologist.value != null) {
       Get.toNamed('/home/detailspage');
     }
+  }
+
+  void setOpenChatWith() {
+    openChatWithId.value = selectedPsychologist.value!.uid;
+    Get.toNamed('/chats/chat-room', arguments: selectedPsychologist.value);
   }
 
   // void uploadDummy() {

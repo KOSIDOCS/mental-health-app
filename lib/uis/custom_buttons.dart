@@ -18,7 +18,13 @@ class CustomBtn extends StatelessWidget {
       required this.onPressed,
       required this.buttonText,
       this.btnColor,
-      this.textColor, this.width, this.fontSize, this.isBorder, this.padding, this.borderColor = AppColors.mentalBrandColor, this.borderSize = 1.0})
+      this.textColor,
+      this.width,
+      this.fontSize,
+      this.isBorder,
+      this.padding,
+      this.borderColor = AppColors.mentalBrandColor,
+      this.borderSize = 1.0})
       : super(key: key);
 
   @override
@@ -27,7 +33,8 @@ class CustomBtn extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: width ?? MediaQuery.of(context).size.width,
-        padding: padding ?? EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0, bottom: 18.0),
+        padding: padding ??
+            EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0, bottom: 18.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
           color: btnColor ?? AppColors.mentalBrandColor,
@@ -59,18 +66,22 @@ class CustomCirclerBtn extends StatelessWidget {
   final double bagroundRadius;
   final double? imgHeight;
   final double? imgWidth;
+  final EdgeInsets? padding;
   const CustomCirclerBtn(
       {Key? key,
       required this.imgName,
       required this.onPressed,
       required this.redus,
-      required this.bagroundRadius, this.imgHeight, this.imgWidth})
+      required this.bagroundRadius,
+      this.imgHeight,
+      this.imgWidth,
+      this.padding = const EdgeInsets.only(left: 15.0, top: 15.0)})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0, top: 15.0),
+      padding: padding!,
       child: GestureDetector(
         onTap: onPressed,
         child: CircleAvatar(
@@ -160,31 +171,47 @@ class CustomTextBtn extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onPressed;
   final Color? textColor;
-  const CustomTextBtn({Key? key, required this.text, required this.isBorder, required this.onPressed, required this.isSelected, this.textColor}) : super(key: key);
+  const CustomTextBtn(
+      {Key? key,
+      required this.text,
+      required this.isBorder,
+      required this.onPressed,
+      required this.isSelected,
+      this.textColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        margin: EdgeInsets.only(top: 8.0, left: CustomSpacing.kHorizontalPad, right: CustomSpacing.kHorizontalPad),
+        margin: EdgeInsets.only(
+            top: 8.0,
+            left: CustomSpacing.kHorizontalPad,
+            right: CustomSpacing.kHorizontalPad),
         child: Column(
           children: [
             Row(
               children: [
-                Text(text, style: Theme.of(context).textTheme.headline4!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 17.0,
-                  color: textColor ?? Theme.of(context).textTheme.headline4!.color,
-                ),),
+                Text(
+                  text,
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 17.0,
+                        color: textColor ??
+                            Theme.of(context).textTheme.headline4!.color,
+                      ),
+                ),
                 const Spacer(),
                 isSelected ? CustomIcon() : Container(),
               ],
             ),
-            isBorder ? Divider(
-              thickness: 1,
-              color: AppColors.mentalSearchBar,
-            ) : Container(),
+            isBorder
+                ? Divider(
+                    thickness: 1,
+                    color: AppColors.mentalSearchBar,
+                  )
+                : Container(),
           ],
         ),
       ),
@@ -193,10 +220,29 @@ class CustomTextBtn extends StatelessWidget {
 }
 
 class CustomIcon extends StatelessWidget {
-  const CustomIcon({Key? key}) : super(key: key);
+  final bool? isRead;
+  const CustomIcon({Key? key, this.isRead = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0);
+    return Row(
+      children: [
+        //Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0),
+      isRead! ? Row(
+        children: [
+          Transform.translate(
+          offset: Offset(20.0, -1.1),
+          child:
+              Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0),
+        ),
+        Transform.translate(
+          offset: Offset(2.0, 3.5),
+          child:
+              Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0),
+        )
+        ],
+      ) : Icon(Icons.check, color: AppColors.mentalBrandColor, size: 18.0),
+      ],
+    );
   }
 }

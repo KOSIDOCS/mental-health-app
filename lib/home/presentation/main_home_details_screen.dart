@@ -216,7 +216,9 @@ class _MainHomeDetailsScreenState extends State<MainHomeDetailsScreen> {
               child: CustomCirclerBtn(
                 bagroundRadius: 35.0,
                 imgName: BrandImages.kIconChat,
-                onPressed: () => {},
+                onPressed: () => {
+                  homeController.setOpenChatWith()
+                },
                 redus: 33.9,
                 imgHeight: 35.0,
                 imgWidth: 35.0,

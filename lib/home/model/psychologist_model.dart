@@ -16,6 +16,7 @@ class PsychologistModel {
   final List<dynamic> articles;
   final dynamic education;
   final List<dynamic> reviews;
+  final bool isOnline;
 
   PsychologistModel({
     required this.uid,
@@ -34,6 +35,7 @@ class PsychologistModel {
     required this.articles,
     required this.education,
     required this.reviews,
+    required this.isOnline,
   });
 
   factory PsychologistModel.fromMap(Map data, {required String uid }) {
@@ -54,6 +56,7 @@ class PsychologistModel {
       articles: data['articles'],
       education: data['education'],
       reviews: data['reviews'],
+      isOnline: data['is_online'] ?? false,
     );
   }
 
@@ -75,6 +78,7 @@ class PsychologistModel {
       'articles': articles,
       'education': education,
       'reviews': reviews,
+      'is_online': isOnline,
     };
   }
 }

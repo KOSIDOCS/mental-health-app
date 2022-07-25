@@ -1,14 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mental_health_care_app/chats/application/chats_controller.dart';
+import 'package:mental_health_care_app/chats/application/chat_home_controller.dart';
+import 'package:mental_health_care_app/chats/model/message_chat.dart';
 import 'package:mental_health_care_app/core/presentation/custom_bottom_navigation.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
-import 'package:mental_health_care_app/core/theme/brand_images.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/uis/custom_buttons.dart';
 import 'package:mental_health_care_app/uis/custom_input_fields.dart';
 import 'package:mental_health_care_app/uis/custom_text.dart';
 import 'package:mental_health_care_app/uis/spacing.dart';
+import 'package:mental_health_care_app/utils/time_formatter.dart';
 
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({Key? key}) : super(key: key);
@@ -18,7 +20,7 @@ class ChatsScreen extends StatefulWidget {
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
-  final ChatsController _chatsController = Get.find();
+  final ChatHomeController _chatHomeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +35,28 @@ class _ChatsScreenState extends State<ChatsScreen> {
               mainHeading(text: CustomText.kChatTitle, context: context),
               customSizedBox(context: context, size: 0.02),
               CustomSearchBar(
-                controller: _chatsController.searchController,
+                controller: _chatHomeController.searchController,
                 keyboardType: TextInputType.text,
                 placeholder: 'Search',
                 onChanged: (String? value) {
                   print(value);
                 },
               ),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: 10,
+              Expanded(child: Obx(() {
+                return ListView.builder(
+                    itemCount: _chatHomeController.conversationUsers.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          Get.toNamed('/chats/chat-room');
+                          _chatHomeController.openGroupChat(
+                            user: _chatHomeController
+                                .conversationUsers[index].user,
+                          );
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          margin:
-                              EdgeInsets.only(bottom: CustomSpacing.kBottomSmall),
+                          margin: EdgeInsets.only(
+                              bottom: CustomSpacing.kBottomSmall),
                           child: Column(
                             children: [
                               Row(
@@ -59,18 +64,30 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(30.0),
-                                    child: Image.asset(
-                                      'assets/images/${ImagesPlaceHolders.kPsyPlaceholder1}',
+                                    child: CachedNetworkImage(
+                                      imageUrl: _chatHomeController
+                                          .conversationUsers[index]
+                                          .user
+                                          .userImage,
+                                      placeholder: (context, url) =>
+                                          CircleAvatar(
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
                                       height: 60,
                                       width: 60,
                                     ),
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.78,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.78,
                                         padding: EdgeInsets.only(
                                           left: CustomSpacing.kBottomSmall - 2,
                                           bottom: 9.0,
@@ -80,7 +97,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Drozdov Pavel',
+                                              _chatHomeController
+                                                  .conversationUsers[index]
+                                                  .user
+                                                  .name,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline4!
@@ -90,15 +110,25 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                                   ),
                                             ),
                                             Spacer(),
-                                            CustomIcon(),
+                                            CustomIcon(
+                                              isRead: _chatHomeController
+                                                  .conversationUsers[index]
+                                                  .lastChat
+                                                  .readMessage,
+                                            ),
                                             SizedBox(width: 5.0),
                                             Text(
-                                              '26.01',
+                                              TimFormatter.formatChatTime(
+                                                  int.parse(_chatHomeController
+                                                      .conversationUsers[index]
+                                                      .lastChat
+                                                      .timestamp)),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption!
                                                   .copyWith(
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                       fontSize: 13.0,
                                                       color: AppColors
                                                           .mentalBarUnselected),
@@ -106,26 +136,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: 241.0,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                              left:
-                                                  CustomSpacing.kBottomSmall - 2),
-                                          child: Text(
-                                            'Yes, I recommend that you get tested as soon as possible, because your...',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 13.0,
-                                                  color: AppColors
-                                                      .mentalBarUnselected,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
+                                      showLastMessage(
+                                        message: _chatHomeController
+                                            .conversationUsers[index].lastChat,
+                                      )
                                     ],
                                   )
                                 ],
@@ -139,13 +153,73 @@ class _ChatsScreenState extends State<ChatsScreen> {
                           ),
                         ),
                       );
-                    }),
-              ),
+                    });
+              })),
             ],
           ),
         ),
       ),
       bottomNavigationBar: CustomBottomNavigation(),
+    );
+  }
+
+  Widget showLastMessage({required MessageChat message}) {
+    switch (message.type) {
+      case TypeMessage.IMAGE:
+        return customLastSnippet();
+      case TypeMessage.FILE:
+        return customLastSnippet(
+          text: CustomText.kmentalLastChatDocument,
+          icon: Icons.file_present,
+        );
+      case TypeMessage.VIDEO:
+        return customLastSnippet(
+          text: CustomText.kmentalLastChatVideo,
+          icon: Icons.video_file,
+        );
+      case TypeMessage.GIPHY:
+        return customLastSnippet(
+          text: CustomText.kmentalLastChatGiphy,
+          icon: Icons.gif,
+        );  
+      default:
+        return SizedBox(
+          width: 241.0,
+          child: Padding(
+            padding: EdgeInsets.only(left: CustomSpacing.kBottomSmall - 2),
+            child: Text(
+              message.content,
+              style: Theme.of(context).textTheme.caption!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 13.0,
+                    color: AppColors.mentalBarUnselected,
+                  ),
+            ),
+          ),
+        );
+    }
+  }
+
+  Widget customLastSnippet(
+      {String? text = CustomText.kmentalLastChatPhoto,
+      IconData? icon = Icons.image}) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0),
+      child: Row(children: [
+        Icon(
+          icon,
+          color: AppColors.mentalBarUnselected,
+          size: 26.4,
+        ),
+        Text(
+          text!,
+          style: Theme.of(context).textTheme.caption!.copyWith(
+                fontWeight: FontWeight.w400,
+                fontSize: 15.0,
+                color: AppColors.mentalBarUnselected,
+              ),
+        ),
+      ]),
     );
   }
 }
