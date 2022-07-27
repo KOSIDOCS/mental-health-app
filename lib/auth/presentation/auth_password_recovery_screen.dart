@@ -92,6 +92,7 @@ class _AuthPasswordRecoveryScreenState
                             }
                             return null;
                           },
+                          hintText: 'Email',
                         ),
                         customSizedBox(context: context, size: 0.12),
                         Obx(

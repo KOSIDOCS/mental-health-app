@@ -17,4 +17,5 @@ class AppColors {
   static const Color mentalGreen = Color(0xFF1CA53F);
   static const Color mentalRed = Color(0xFFFF453A);
   static const Color mentalChatTextColor = Color(0xFF232324);
+  static const Color mentalBorderColor = Color(0xFFC6C6C8);
 }

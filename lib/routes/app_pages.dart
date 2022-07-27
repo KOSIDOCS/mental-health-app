@@ -6,6 +6,8 @@ import 'package:mental_health_care_app/auth/presentation/auth_password_recovery_
 import 'package:mental_health_care_app/auth/presentation/auth_signup_screen.dart';
 import 'package:mental_health_care_app/binding/chat_home_binding.dart';
 import 'package:mental_health_care_app/binding/chat_room_binding.dart';
+import 'package:mental_health_care_app/binding/consultation_binding.dart';
+import 'package:mental_health_care_app/binding/home_binding.dart';
 import 'package:mental_health_care_app/chats/presentation/chat_room_screen.dart';
 import 'package:mental_health_care_app/chats/presentation/chats_screen.dart';
 import 'package:mental_health_care_app/consultations/presentation/consultation_details_screen.dart';
@@ -45,12 +47,17 @@ class AppPages {
       transition: Transition.native,
       popGesture: true,
     ),
-    GetPage(name: Routes.HOME, page: () => MainHomePageScreen(), children: [
-      GetPage(
-        name: Routes.DETAILSPAGE,
-        page: () => MainHomeDetailsScreen(),
-      ),
-    ]),
+    GetPage(
+      name: Routes.HOME,
+      page: () => MainHomePageScreen(),
+      bindings: [HomeBinding()],
+      children: [
+        GetPage(
+          name: Routes.DETAILSPAGE,
+          page: () => MainHomeDetailsScreen(),
+        ),
+      ],
+    ),
     GetPage(
       name: Routes.CHATS,
       page: () => ChatsScreen(),
@@ -66,6 +73,7 @@ class AppPages {
     GetPage(
         name: Routes.CONSULTATIONS,
         page: () => ConsultationScreen(),
+        bindings: [ConsultationBinding()],
         children: [
           GetPage(
             name: Routes.CONSULTATION_DETAILS,

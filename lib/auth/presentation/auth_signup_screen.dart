@@ -82,6 +82,7 @@ class _AuthSignUpScreenState extends State<AuthSignUpScreen> {
                             }
                             return null;
                           },
+                          hintText: 'Email',
                         ),
                         CustomInputPassword(
                           controller: passwordController,
@@ -93,6 +94,7 @@ class _AuthSignUpScreenState extends State<AuthSignUpScreen> {
                             }
                             return null;
                           },
+                          hintText: 'Password',
                         ),
                         customSizedBox(context: context, size: 0.12),
                         Obx(

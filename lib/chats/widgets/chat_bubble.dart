@@ -235,7 +235,8 @@ class ChatBubble extends StatelessWidget {
             child: Image.network(
               imageUrl,
               fit: BoxFit.cover,
-              height: message.gifHeight,
+              // height: message.gifHeight,
+              height: 200.0,
               width: message.gifWidth,
             ),
           ),
@@ -261,11 +262,6 @@ class ChatBubble extends StatelessWidget {
       ),
     );
   }
-
-  // Future<String> getDocumentName({required String url}) async {
-  //   PDFDocument doc = await PDFDocument.fromURL(url);
-  //   return basename(doc.filePath!).split('.').first;
-  // }
 
   Widget getChatBubbleTemplate(
       {required int messageType, required BuildContext context}) {

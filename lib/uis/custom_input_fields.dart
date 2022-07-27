@@ -11,13 +11,14 @@ class CustomInputTextField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputformatters;
+  final String? hintText;
   const CustomInputTextField(
       {Key? key,
       this.controller,
       this.keyboardType,
       required this.obscureText,
       this.validator,
-      this.inputformatters})
+      this.inputformatters, this.hintText})
       : super(key: key);
 
   @override
@@ -31,6 +32,9 @@ class CustomInputTextField extends StatelessWidget {
         validator: validator,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         inputFormatters: inputformatters,
+        decoration: InputDecoration(
+              hintText: hintText,
+            ),
       ),
     );
   }
@@ -41,12 +45,14 @@ class CustomInputPassword extends StatefulWidget {
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
   final String obscuringCharacter;
+  final String? hintText;
   const CustomInputPassword(
       {Key? key,
       this.controller,
       required this.keyboardType,
       this.validator,
-      required this.obscuringCharacter})
+      required this.obscuringCharacter,
+      this.hintText})
       : super(key: key);
 
   @override
@@ -76,11 +82,14 @@ class _CustomInputPasswordState extends State<CustomInputPassword> {
             validator: widget.validator,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             obscuringCharacter: widget.obscuringCharacter,
+            decoration: InputDecoration(
+              hintText: widget.hintText,
+            ),
           ),
         ),
         Positioned(
-          top: 3.0,
-          left: 315.0,
+          top: -1.0,
+          right: -6.0,
           child: SizedBox(
             child: AnimateIcons(
               startIcon: Icons.visibility_off,
@@ -100,8 +109,8 @@ class _CustomInputPasswordState extends State<CustomInputPassword> {
                 return true;
               },
               duration: const Duration(milliseconds: 500),
-              startIconColor: AppColors.mentalOnboardTextColor,
-              endIconColor: AppColors.mentalOnboardTextColor,
+              startIconColor: AppColors.mentalBorderColor,
+              endIconColor: AppColors.mentalBorderColor,
               clockwise: false,
             ),
           ),

@@ -11,10 +11,15 @@ class ChatDocumentPreview extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: PDF().cachedFromUrl(
-          documentUrl,
-          placeholder: (progress) => Center(child: Text('$progress %')),
-          errorWidget: (error) => Center(child: Text(error.toString())),
+        child: Stack(
+          children: [
+            PDF().cachedFromUrl(
+              documentUrl,
+              placeholder: (progress) => Center(child: Text('$progress %')),
+              errorWidget: (error) => Center(child: Text(error.toString())),
+            ),
+            BackButton(),
+          ],
         ),
       ),
     );

@@ -76,11 +76,12 @@ class _AuthLoginScreenState extends State<AuthLoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                           obscureText: false,
                           validator: (String? value) {
-                            if (value!.isEmpty) {
+                            if (!value!.isEmail) {
                               return CustomErrorText.invalidEmail;
                             }
                             return null;
                           },
+                          hintText: 'Email',
                         ),
                         CustomInputPassword(
                           controller: passwordController,
@@ -92,6 +93,7 @@ class _AuthLoginScreenState extends State<AuthLoginScreen> {
                             }
                             return null;
                           },
+                          hintText: 'Password',
                         ),
                         customSizedBox(context: context, size: 0.013),
                         Row(
