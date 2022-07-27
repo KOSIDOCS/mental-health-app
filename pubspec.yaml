@@ -71,8 +71,13 @@ dependencies:
   cached_video_preview: ^1.0.6
   uuid: ^3.0.6
   giphy_get: ^3.1.0
-  flutter_audio_recorder2: ^0.0.2
   file: ^6.1.2
+  flutter_sound: ^9.2.13
+  audio_session: ^0.1.10
+  permission_handler: ^10.0.0
+  wakelock: ^0.6.2
+  just_waveform: ^0.0.3
+  audioplayers: ^1.0.1
 
 dev_dependencies:
   flutter_test:

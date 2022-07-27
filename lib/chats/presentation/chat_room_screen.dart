@@ -9,6 +9,7 @@ import 'package:mental_health_care_app/chats/application/chats_controller.dart';
 import 'package:mental_health_care_app/chats/model/message_chat.dart';
 import 'package:mental_health_care_app/chats/widgets/chat_action_btn.dart';
 import 'package:mental_health_care_app/chats/widgets/chat_bubble.dart';
+import 'package:mental_health_care_app/chats/widgets/wave/rectangle_waveform/rectangle_waveform.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/brand_images.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
@@ -172,6 +173,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
                     offset: const Offset(0.0, 59.0),
                     child: buildChatsWithDates(),
                   ),
+                  Transform.translate(
+                    offset: const Offset(20.0, 81.0),
+                    child: showAudio(),
+                  ),
                   Obx(() {
                     return _chatsController.isRecording.value
                         ? Align(
@@ -194,48 +199,28 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
                                           ),
                                         );
                                       }),
-                                  // Icon(
-                                  //   Icons.mic,
-                                  //   color: AppColors.mentalRed,
-                                  //   size: 32.0,
-                                  // ),
                                   SizedBox(
-                                    width: 20.0,
+                                    width: 10.0,
                                   ),
-                                  // Text(
-                                  //   '00:03',
-                                  //   style: Theme.of(context)
-                                  //       .textTheme
-                                  //       .headline5!
-                                  //       .copyWith(
-                                  //         color: AppColors.mentalBarUnselected,
-                                  //         fontWeight: FontWeight.w500,
-                                  //         fontSize: 22.0,
-                                  //       ),
-                                  // ),
-                                  AnimatedBuilder(
-                                      animation: _animationController,
-                                      builder: (context, child) {
-                                        return Opacity(
-                                          opacity: _animationOpacity.value,
-                                          child: Text(
-                                            '00:03',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5!
-                                                .copyWith(
-                                                  color: AppColors
-                                                      .mentalBarUnselected,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 22.0,
-                                                ),
-                                          ),
-                                        );
-                                      }),
+                                  Text(
+                                    _chatsController.recorderDuration.value,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline5!
+                                        .copyWith(
+                                          color: AppColors.mentalBarUnselected,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 22.0,
+                                        ),
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
                                   GestureDetector(
                                     onTap: () {
-                                      _chatsController.stop();
+                                      // _chatsController.stop();
                                       _animationController.stop();
+                                      _chatsController.deletVoice();
                                       _chatsController.closeRecording();
                                     },
                                     child: Icon(
@@ -709,4 +694,78 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
   //     },
   //   );
   // }
+
+  Widget showAudio() {
+    final waveHeight = 26.0;
+    return Obx(() {
+      return _chatsController.showAudio.value
+          ? SizedBox(
+              height: waveHeight,
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                children: [
+                  InkWell(
+                    onTapDown: (update) {
+                      _chatsController.seekplayerPosition(
+                          update.localPosition, 250);
+                    },
+                    // onHorizontalDragUpdate: (update) {
+                    //   _chatsController.seekplayerPosition(
+                    //       update.localPosition, 250);
+                    // },
+                    child: RectangleWaveform(
+                      maxDuration: Duration(
+                          milliseconds:
+                              _chatsController.realAudioDuration.value),
+                      elapsedDuration: Duration(
+                        milliseconds:
+                            _chatsController.audioPlayerCurrentPosition.value,
+                      ),
+                      samples: _chatsController.waveformPercentages,
+                      height: waveHeight,
+                      // width: MediaQuery.of(context).size.width,
+                      width: 250,
+                      absolute: true,
+                      borderWidth: 2.0,
+                      activeColor: AppColors.mentalRed,
+                      inactiveColor: AppColors.mentalBrandColor,
+                      inactiveBorderColor: AppColors.mentalBrandColor,
+                      activeBorderColor: AppColors.mentalRed,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // _chatsController.play();
+                      _chatsController.secondPlayer();
+                    },
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: AppColors.mentalBarUnselected,
+                      size: 30.0,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      //_chatsController.stopPlayer();
+                      // _chatsController.stopsecondPlayer();
+                      _chatsController.seekplayerPosition(Offset.zero, 250);
+                    },
+                    child: Icon(
+                      Icons.mic_outlined,
+                      color: AppColors.mentalBarUnselected,
+                      size: 30.0,
+                    ),
+                  ),
+                  // Positioned(
+                  //     top: 0,
+                  //     right: 0,
+                  //     left: 0,
+                  //     bottom: 0,
+                  //     child: getSelectedWaveProgress(waveHeight, constraints)),
+                ],
+              ),
+            )
+          : Container();
+    });
+  }
 }
