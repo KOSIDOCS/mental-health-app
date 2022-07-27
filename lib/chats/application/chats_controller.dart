@@ -703,9 +703,9 @@ class ChatsController extends GetxController {
     });
 
     player.onPositionChanged.listen((Duration duration) {
-      print('Position: ${duration.inMilliseconds}');
+      //print('Position: ${duration.inMilliseconds}');
       audioPlayerCurrentPosition.value = duration.inMilliseconds;
-      print("The current position: ${audioPlayerCurrentPosition.value}");
+      //print("The current position: ${audioPlayerCurrentPosition.value}");
       update();
     });
   }
@@ -714,14 +714,14 @@ class ChatsController extends GetxController {
     await player.stop(); // will resume from beginning
   }
 
-  void seekplayerPosition(Offset? localPosition, double maxWidth) async {
-    // var pos = localPosition.dx < 0
-    //     ? 0
-    //     : (localPosition.dx > maxWidth ? maxWidth : localPosition.dx);
-    //     var calc = (pos / maxWidth);
-    //     print("You tapped or dragged me The calc: ${calc}");
-    // await player.seek(Duration(milliseconds: calc.toInt()));
-    await player.seek(Duration(milliseconds: 15255));
+  void seekplayerPosition(Offset localPosition, double maxWidth) async {
+    var pos = localPosition.dx < 0
+        ? 0
+        : (localPosition.dx > maxWidth ? maxWidth : localPosition.dx);
+        var calc = pos / maxWidth * realAudioDuration.value;
+        print("You tapped or dragged me The calc: ${calc}");
+    await player.seek(Duration(milliseconds: calc.toInt()));
+    // await player.seek(Duration(milliseconds: 15255));
   }
 
   // int getHeardBarPercentageFromTotal() {

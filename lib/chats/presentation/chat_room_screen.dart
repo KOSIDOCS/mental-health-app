@@ -699,38 +699,43 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
     final waveHeight = 26.0;
     return Obx(() {
       return _chatsController.showAudio.value
-          ? SizedBox(
-              height: waveHeight,
-              width: MediaQuery.of(context).size.width,
+          ? Container(
+              color: Colors.black,
               child: Row(
                 children: [
-                  InkWell(
-                    onTapDown: (update) {
-                      _chatsController.seekplayerPosition(
-                          update.localPosition, 250);
-                    },
-                    // onHorizontalDragUpdate: (update) {
-                    //   _chatsController.seekplayerPosition(
-                    //       update.localPosition, 250);
-                    // },
-                    child: RectangleWaveform(
-                      maxDuration: Duration(
-                          milliseconds:
-                              _chatsController.realAudioDuration.value),
-                      elapsedDuration: Duration(
-                        milliseconds:
-                            _chatsController.audioPlayerCurrentPosition.value,
+                  Transform.translate(
+                    offset: Offset(0.0, 20.0),
+                    child: Container(
+                      color: Colors.blue,
+                      child: GestureDetector(
+                        onTapDown: (update) {
+                        _chatsController.seekplayerPosition(
+                            update.localPosition, 250);
+                      },
+                      onHorizontalDragUpdate: (update) {
+                        _chatsController.seekplayerPosition(
+                            update.localPosition, 250);
+                      },
+                        child: RectangleWaveform(
+                          maxDuration: Duration(
+                              milliseconds:
+                                  _chatsController.realAudioDuration.value),
+                          elapsedDuration: Duration(
+                            milliseconds:
+                                _chatsController.audioPlayerCurrentPosition.value,
+                          ),
+                          samples: _chatsController.waveformPercentages,
+                          height: waveHeight,
+                          // width: MediaQuery.of(context).size.width,
+                          width: 250,
+                          absolute: true,
+                          borderWidth: 2.0,
+                          activeColor: AppColors.mentalRed,
+                          inactiveColor: AppColors.mentalBrandColor,
+                          inactiveBorderColor: AppColors.mentalBrandColor,
+                          activeBorderColor: AppColors.mentalRed,
+                        ),
                       ),
-                      samples: _chatsController.waveformPercentages,
-                      height: waveHeight,
-                      // width: MediaQuery.of(context).size.width,
-                      width: 250,
-                      absolute: true,
-                      borderWidth: 2.0,
-                      activeColor: AppColors.mentalRed,
-                      inactiveColor: AppColors.mentalBrandColor,
-                      inactiveBorderColor: AppColors.mentalBrandColor,
-                      activeBorderColor: AppColors.mentalRed,
                     ),
                   ),
                   GestureDetector(
@@ -747,8 +752,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
                   GestureDetector(
                     onTap: () {
                       //_chatsController.stopPlayer();
-                      // _chatsController.stopsecondPlayer();
-                      _chatsController.seekplayerPosition(Offset.zero, 250);
+                      _chatsController.stopsecondPlayer();
+                      //_chatsController.seekplayerPosition(Offset.zero, 250);
                     },
                     child: Icon(
                       Icons.mic_outlined,
@@ -756,15 +761,75 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
                       size: 30.0,
                     ),
                   ),
-                  // Positioned(
-                  //     top: 0,
-                  //     right: 0,
-                  //     left: 0,
-                  //     bottom: 0,
-                  //     child: getSelectedWaveProgress(waveHeight, constraints)),
                 ],
               ),
             )
+          // ? SizedBox(
+          //     height: waveHeight,
+          //     width: MediaQuery.of(context).size.width,
+          //     child: Row(
+          //       children: [
+          //         InkWell(
+          //           onTapDown: (update) {
+          //             _chatsController.seekplayerPosition(
+          //                 update.localPosition, 250);
+          //           },
+          //           // onHorizontalDragUpdate: (update) {
+          //           //   _chatsController.seekplayerPosition(
+          //           //       update.localPosition, 250);
+          //           // },
+          //           child: RectangleWaveform(
+          //             maxDuration: Duration(
+          //                 milliseconds:
+          //                     _chatsController.realAudioDuration.value),
+          //             elapsedDuration: Duration(
+          //               milliseconds:
+          //                   _chatsController.audioPlayerCurrentPosition.value,
+          //             ),
+          //             samples: _chatsController.waveformPercentages,
+          //             height: waveHeight,
+          //             // width: MediaQuery.of(context).size.width,
+          //             width: 250,
+          //             absolute: true,
+          //             borderWidth: 2.0,
+          //             activeColor: AppColors.mentalRed,
+          //             inactiveColor: AppColors.mentalBrandColor,
+          //             inactiveBorderColor: AppColors.mentalBrandColor,
+          //             activeBorderColor: AppColors.mentalRed,
+          //           ),
+          //         ),
+          //         GestureDetector(
+          //           onTap: () {
+          //             // _chatsController.play();
+          //             _chatsController.secondPlayer();
+          //           },
+          //           child: Icon(
+          //             Icons.play_arrow,
+          //             color: AppColors.mentalBarUnselected,
+          //             size: 30.0,
+          //           ),
+          //         ),
+          //         GestureDetector(
+          //           onTap: () {
+          //             //_chatsController.stopPlayer();
+          //             // _chatsController.stopsecondPlayer();
+          //             _chatsController.seekplayerPosition(Offset.zero, 250);
+          //           },
+          //           child: Icon(
+          //             Icons.mic_outlined,
+          //             color: AppColors.mentalBarUnselected,
+          //             size: 30.0,
+          //           ),
+          //         ),
+          //         // Positioned(
+          //         //     top: 0,
+          //         //     right: 0,
+          //         //     left: 0,
+          //         //     bottom: 0,
+          //         //     child: getSelectedWaveProgress(waveHeight, constraints)),
+          //       ],
+          //     ),
+          //   )
           : Container();
     });
   }
