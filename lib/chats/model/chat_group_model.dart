@@ -4,13 +4,15 @@ import 'package:mental_health_care_app/home/model/psychologist_model.dart';
 class ChatGroupModel {
   final PsychologistModel user;
   final MessageChat lastChat;
+  final int unreadMessagesCount;
 
-  ChatGroupModel({required this.user, required this.lastChat});
+  ChatGroupModel({required this.user, required this.lastChat, required this.unreadMessagesCount});
 
-  factory ChatGroupModel.fromMap({required PsychologistModel user, required MessageChat lastChat}) {
+  factory ChatGroupModel.fromMap({required PsychologistModel user, required MessageChat lastChat, required int unreadMessagesCount}) {
     return ChatGroupModel(
       user: user,
       lastChat: lastChat,
+      unreadMessagesCount: unreadMessagesCount,
     );
   }
 }

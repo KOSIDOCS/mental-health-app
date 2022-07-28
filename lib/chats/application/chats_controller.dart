@@ -44,7 +44,6 @@ class ChatsController extends GetxController {
   Rx<Recording?> _current = Recording().obs;
   Rx<RecordingStatus> _currentStatus = RecordingStatus.Unset.obs;
 
-
   @override
   void onReady() {
     super.onReady();
@@ -61,7 +60,7 @@ class ChatsController extends GetxController {
         .doc(groupChatId)
         .collection(groupChatId)
         .orderBy('timestamp', descending: false)
-        .limit(30)
+        // .limit(30)
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) {
               return MessageChat.fromMap(doc.data(), uid: doc.id);
@@ -286,9 +285,9 @@ class ChatsController extends GetxController {
     print("Stop recording: ${result.duration}");
     File file = localFileSystem.file(result.path);
     print("File length: ${await file.length()}");
-      _current.value = result;
-      _currentStatus.value = _current.value!.status!;
-      _init();
+    _current.value = result;
+    _currentStatus.value = _current.value!.status!;
+    _init();
   }
 
   // Recording sections for voice notes messages
@@ -322,9 +321,9 @@ class ChatsController extends GetxController {
         var current = await _recorder!.current(channel: 0);
         print(current);
         // should be "Initialized", if all working fine
-          _current.value = current;
-          _currentStatus.value = current!.status!;
-          print(_currentStatus);
+        _current.value = current;
+        _currentStatus.value = current!.status!;
+        print(_currentStatus);
       } else {
         Get.snackbar(
           "Issue with mic acces", // title
@@ -340,26 +339,26 @@ class ChatsController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-          "Issue with voice recording", // title
-          e.toString(), // message
-          icon: Icon(Icons.mic),
-          shouldIconPulse: true,
-          onTap: (value) {},
-          barBlur: 20,
-          isDismissible: true,
-          duration: Duration(seconds: 2),
-          backgroundColor: AppColors.mentalRed,
-        );
+        "Issue with voice recording", // title
+        e.toString(), // message
+        icon: Icon(Icons.mic),
+        shouldIconPulse: true,
+        onTap: (value) {},
+        barBlur: 20,
+        isDismissible: true,
+        duration: Duration(seconds: 2),
+        backgroundColor: AppColors.mentalRed,
+      );
     }
   }
 
   // start recording
-   void startRecording() async {
+  void startRecording() async {
     try {
       await _recorder!.start();
       isRecording.value = true;
       var recording = await _recorder!.current(channel: 0);
-        _current.value = recording;
+      _current.value = recording;
 
       const tick = const Duration(milliseconds: 50);
       new Timer.periodic(tick, (Timer t) async {
@@ -369,14 +368,14 @@ class ChatsController extends GetxController {
 
         var current = await _recorder!.current(channel: 0);
         // print(current.status);
-          _current.value = current;
-          _currentStatus.value = _current.value!.status!;
+        _current.value = current;
+        _currentStatus.value = _current.value!.status!;
       });
 
       // if (_current.value?.status == RecordingStatus.Recording) {
       //   isRecording.value = true;
       // }
-        
+
     } catch (e) {
       print(e);
     }
