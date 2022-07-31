@@ -424,7 +424,6 @@ class ChatsController extends GetxController {
   }
 
   // Recording sections for voice notes messages
-
   // start recording
   void startRecording() async {
     try {

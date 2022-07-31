@@ -15,8 +15,8 @@ class ChatHomeController extends GetxController {
   final HomeController homeController = Get.find();
   final FirebaseFirestore _firebaseFirestoredb = Get.find();
   final FirebaseAuth _auth = Get.find();
+  //final RxList<ChatGroupModel> _chatGroups = <ChatGroupModel>[].obs;
   RxList<ChatGroupModel> conversationUsers = <ChatGroupModel>[].obs;
-  
 
   @override
   void onReady() {
@@ -32,14 +32,23 @@ class ChatHomeController extends GetxController {
       homeController.psychologists.forEach((psychologist) async {
         print(psychologist.name);
         if (conversation == psychologist.uid) {
-          var lastMessage = await getLastMessage(groupChatId: "${_auth.currentUser!.uid}-${psychologist.uid}");
-          conversationUsers.add(ChatGroupModel(user: psychologist, lastChat: lastMessage));
+          var lastMessage = await getLastMessage(
+              groupChatId: "${_auth.currentUser!.uid}-${psychologist.uid}");
+          var unreadMessagesCount = await getUnreadMessagesCount(
+              groupChatId: "${_auth.currentUser!.uid}-${psychologist.uid}");
+          conversationUsers.add(
+            ChatGroupModel(
+              user: psychologist,
+              lastChat: lastMessage,
+              unreadMessagesCount: unreadMessagesCount,
+            ),
+          );
         }
-       });
+      });
     });
   }
 
-  Future<MessageChat> getLastMessage({ required String groupChatId }) {
+  Future<MessageChat> getLastMessage({required String groupChatId}) {
     return _firebaseFirestoredb
         .collection(FirestoreConstants.pathMessageCollection)
         .doc(groupChatId)
@@ -48,12 +57,38 @@ class ChatHomeController extends GetxController {
         .limit(1)
         .get()
         .then((snapshot) {
-        return MessageChat.fromMap(snapshot.docs.first.data(), uid: snapshot.docs.first.id);
+      return MessageChat.fromMap(snapshot.docs.first.data(),
+          uid: snapshot.docs.first.id);
     });
   }
 
-  void openGroupChat({ required PsychologistModel user }) {
+  Future<int> getUnreadMessagesCount({required String groupChatId}) {
+    return _firebaseFirestoredb
+        .collection(FirestoreConstants.pathMessageCollection)
+        .doc(groupChatId)
+        .collection(groupChatId)
+        .where('readMessage', isEqualTo: false)
+        .get()
+        .then((snapshot) {
+      return snapshot.docs.length;
+    });
+  }
+
+  void openGroupChat({required PsychologistModel user}) {
     homeController.openChatWithId.value = user.uid;
-     Get.toNamed('/chats/chat-room', arguments: user);
+    Get.toNamed('/chats/chat-room', arguments: user);
+  }
+
+  void searchUsers() {
+    if (searchController.text.isEmpty) {
+      conversationUsers.value = [];
+      getConversations();
+    } else {
+      conversationUsers.value = conversationUsers.where((element) {
+        return element.user.name
+            .toLowerCase()
+            .contains(searchController.text.toLowerCase());
+      }).toList();
+    }
   }
 }

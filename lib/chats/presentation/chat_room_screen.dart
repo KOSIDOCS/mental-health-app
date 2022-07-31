@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dart_emoji/dart_emoji.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,6 +33,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
   final ChatsController _chatsController = Get.find();
   late AnimationController _animationController;
   late Animation<double> _animationOpacity;
+  final ScrollController chatScrollController = ScrollController();
+  late Timer _timer;
 
   late PsychologistModel selectedPsychologist;
 
@@ -68,11 +72,22 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
         curve: Curves.easeInOut,
       ),
     );
+
+    _timer = Timer(const Duration(seconds: 1), () {
+      print("Max scroll: ${chatScrollController.position.maxScrollExtent}");
+      chatScrollController.animateTo(
+      chatScrollController.position.maxScrollExtent * 1.5,
+      duration: Duration(seconds: 3),
+      curve: Curves.fastOutSlowIn,
+    );
+    });
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    chatScrollController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
@@ -539,6 +554,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
         DateTime? lastMessageDate;
         int? nextMessageTs;
         return ListView.builder(
+          controller: chatScrollController,
           itemCount: _chatsController.conversationList.length,
           itemBuilder: (context, index) {
             if (index == _chatsController.conversationList.length) {

@@ -76,6 +76,7 @@ class CustomText {
   static const String kmentalLastChatVideo = 'Video';
   static const String kmentalLastChatDocument = 'Document';
   static const String kmentalLastChatGiphy = 'GIF';
+  static const String kmentalLastChatVoice = 'Voice';
 }
 
 class CustomErrorText {

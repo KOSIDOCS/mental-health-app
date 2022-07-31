@@ -36,7 +36,7 @@ class CustomBottomNavigation extends StatelessWidget {
                   title: icon.titel,
                   id: icon.id,
                   onPressed: () {
-                    Get.back();
+                    //Get.back();
                     customNavigationController.selectedTabIndex = icon.id;
                     Get.toNamed(icon.pageName);
                   },
