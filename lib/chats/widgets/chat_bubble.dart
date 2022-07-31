@@ -1,8 +1,11 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mental_health_care_app/chats/application/chats_controller.dart';
 import 'package:mental_health_care_app/chats/model/message_chat.dart';
 import 'package:mental_health_care_app/chats/presentation/chat_document_preview.dart';
 import 'package:mental_health_care_app/chats/presentation/chat_video_viewer.dart';
+import 'package:mental_health_care_app/chats/widgets/audio_chat_bubble.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/uis/custom_buttons.dart';
 import 'package:mental_health_care_app/uis/spacing.dart';
@@ -13,8 +16,15 @@ import 'package:cached_video_preview/cached_video_preview.dart';
 class ChatBubble extends StatelessWidget {
   final MessageChat message;
   final bool isMe;
-  const ChatBubble({Key? key, required this.message, required this.isMe})
+  final int index;
+  ChatBubble(
+      {Key? key,
+      required this.message,
+      required this.isMe,
+      required this.index})
       : super(key: key);
+
+  final ChatsController _chatsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +76,9 @@ class ChatBubble extends StatelessWidget {
                           color: AppColors.mentalPureWhite,
                         ),
                   ),
-                  CustomIcon(isRead: message.readMessage,),
+                  CustomIcon(
+                    isRead: message.readMessage,
+                  ),
                 ],
               ),
             ),
@@ -133,7 +145,9 @@ class ChatBubble extends StatelessWidget {
                           color: AppColors.mentalBarUnselected,
                         ),
                   ),
-                  CustomIcon(isRead: message.readMessage,),
+                  CustomIcon(
+                    isRead: message.readMessage,
+                  ),
                 ],
               ),
             ),
@@ -147,15 +161,13 @@ class ChatBubble extends StatelessWidget {
       {required String imageUrl, required BuildContext context}) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return ChatVideoViewer(
-                  videoUrl: imageUrl,
-                );
-              },
-            ));
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return ChatVideoViewer(
+              videoUrl: imageUrl,
+            );
+          },
+        ));
       },
       child: Container(
         width: 250.0,
@@ -206,7 +218,9 @@ class ChatBubble extends StatelessWidget {
                           color: AppColors.mentalPureWhite,
                         ),
                   ),
-                  CustomIcon(isRead: message.readMessage,),
+                  CustomIcon(
+                    isRead: message.readMessage,
+                  ),
                 ],
               ),
             ),
@@ -215,7 +229,6 @@ class ChatBubble extends StatelessWidget {
       ),
     );
   }
-
 
   Widget showGiphyBubble(
       {required String imageUrl, required BuildContext context}) {
@@ -254,7 +267,9 @@ class ChatBubble extends StatelessWidget {
                         color: AppColors.mentalPureWhite,
                       ),
                 ),
-                CustomIcon(isRead: message.readMessage,),
+                CustomIcon(
+                  isRead: message.readMessage,
+                ),
               ],
             ),
           ),
@@ -262,6 +277,131 @@ class ChatBubble extends StatelessWidget {
       ),
     );
   }
+
+  // Widget showAudioChatBubble({
+  //   required String imageUrl,
+  //   required BuildContext context,
+  // }) {
+  //   return Container(
+  //     width: 250.0,
+  //     padding: EdgeInsets.all(10.0),
+  //     margin: EdgeInsets.symmetric(vertical: 10.0),
+  //     decoration: BoxDecoration(
+  //       color: isMe ? AppColors.mentalBrandColor2 : AppColors.mentalPureWhite,
+  //       borderRadius: customBorderRadius,
+  //     ),
+  //     child: Stack(
+  //       children: [
+  //         Row(
+  //           children: [
+  //             Obx(() {
+  //               return GestureDetector(
+  //                 onTap: () {
+  //                   _chatsController.playAudio(url: imageUrl);
+  //                 },
+  //                 child: Icon(
+  //                   _chatsController.isCurrentAudioPlaying.value // fix this
+  //                       ? Icons.pause
+  //                       : Icons.play_arrow,
+  //                   color: AppColors.mentalBrandColor,
+  //                   size: 30.0,
+  //                 ),
+  //               );
+  //             }),
+  //             SizedBox(
+  //               width: 5.0,
+  //             ),
+  //             Obx(() {
+  //               return Stack(
+  //                 children: [
+  //                   Positioned.fill(
+  //                     top: 18.0,
+  //                     child: GestureDetector(
+  //                       // onTapDown: (update) {
+  //                       //   _chatsController.seekPlayerPosition(
+  //                       //     localPosition: update.localPosition,
+  //                       //     maxWidth: 180.0,
+  //                       //     duration: message.audioDuration,
+  //                       //   );
+  //                       // },
+  //                       // onHorizontalDragUpdate: (update) {
+  //                       //   _chatsController.seekPlayerPosition(
+  //                       //     localPosition: update.localPosition,
+  //                       //     maxWidth: 180.0,
+  //                       //     duration: message.audioDuration,
+  //                       //   );
+  //                       // },
+  //                       child: RectangleWaveform(
+  //                         maxDuration: Duration(
+  //                           milliseconds: message.audioDuration,
+  //                         ),
+  //                         elapsedDuration: Duration(
+  //                           milliseconds: _chatsController
+  //                               .selectedAudioCurrentPosition.value,
+  //                         ),
+  //                         samples: message.audioWaveform,
+  //                         height: 26,
+  //                         // width: MediaQuery.of(context).size.width,
+  //                         width: 180,
+  //                         absolute: true,
+  //                         borderWidth: 2.0,
+  //                         activeColor: AppColors.mentalBrandLightColor,
+  //                         inactiveColor: AppColors.mentalBrandColor,
+  //                         inactiveBorderColor: AppColors.mentalBrandColor,
+  //                         activeBorderColor: AppColors.mentalBrandLightColor,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   GestureDetector(
+  //                     onTapDown: (update) {
+  //                       _chatsController.seekPlayerPosition(
+  //                         localPosition: update.localPosition,
+  //                         maxWidth: 180.0,
+  //                         duration: message.audioDuration,
+  //                       );
+  //                     },
+  //                     onHorizontalDragUpdate: (update) {
+  //                       _chatsController.seekPlayerPosition(
+  //                         localPosition: update.localPosition,
+  //                         maxWidth: 180.0,
+  //                         duration: message.audioDuration,
+  //                       );
+  //                     },
+  //                     child: Container(
+  //                       height: 26.0,
+  //                       width: 180.0,
+  //                       color: Colors.transparent,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               );
+  //             }),
+  //           ],
+  //         ),
+  //         Transform.translate(
+  //           offset: Offset(-10.0, 20.0),
+  //           child: Row(
+  //             children: [
+  //               Spacer(),
+  //               SizedBox(width: 5.0),
+  //               Text(
+  //                 TimFormatter.formatChatTime(int.parse(message.timestamp)),
+  //                 style: Theme.of(context).textTheme.caption!.copyWith(
+  //                       fontWeight: FontWeight.w400,
+  //                       fontSize: 13.0,
+  //                       color: AppColors.mentalBarUnselected,
+  //                     ),
+  //               ),
+  //               CustomIcon(
+  //                 isRead: message.readMessage,
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget getChatBubbleTemplate(
       {required int messageType, required BuildContext context}) {
@@ -283,7 +423,14 @@ class ChatBubble extends StatelessWidget {
         return showGiphyBubble(
           imageUrl: message.content,
           context: context,
-        );  
+        );
+      case TypeMessage.AUDIO:
+        return AudioChatBubble(
+          message: message,
+          isMe: isMe,
+          controller: _chatsController,
+          index: index,
+        );
       default:
         return Container(
           width: 200.0,
@@ -317,7 +464,9 @@ class ChatBubble extends StatelessWidget {
                           color: AppColors.mentalBarUnselected,
                         ),
                   ),
-                  CustomIcon(isRead: message.readMessage,),
+                  CustomIcon(
+                    isRead: message.readMessage,
+                  ),
                 ],
               )
             ],

@@ -29,6 +29,62 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
+  audio_session:
+    dependency: "direct main"
+    description:
+      name: audio_session
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.10"
+  audioplayers:
+    dependency: "direct main"
+    description:
+      name: audioplayers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  audioplayers_android:
+    dependency: transitive
+    description:
+      name: audioplayers_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  audioplayers_darwin:
+    dependency: transitive
+    description:
+      name: audioplayers_darwin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  audioplayers_linux:
+    dependency: transitive
+    description:
+      name: audioplayers_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  audioplayers_platform_interface:
+    dependency: transitive
+    description:
+      name: audioplayers_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  audioplayers_web:
+    dependency: transitive
+    description:
+      name: audioplayers_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  audioplayers_windows:
+    dependency: transitive
+    description:
+      name: audioplayers_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -349,13 +405,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_audio_recorder2:
-    dependency: "direct main"
-    description:
-      name: flutter_audio_recorder2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -438,6 +487,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
+  flutter_sound:
+    dependency: "direct main"
+    description:
+      name: flutter_sound
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.2.13"
+  flutter_sound_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_sound_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.2.13"
+  flutter_sound_web:
+    dependency: transitive
+    description:
+      name: flutter_sound_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.2.13"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -567,6 +637,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.4"
+  just_waveform:
+    dependency: "direct main"
+    description:
+      name: just_waveform
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   line_icons:
     dependency: "direct main"
     description:
@@ -581,6 +658,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   matcher:
     dependency: transitive
     description:
@@ -707,6 +791,41 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.1"
+  permission_handler:
+    dependency: "direct main"
+    description:
+      name: permission_handler
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "10.0.0"
+  permission_handler_android:
+    dependency: transitive
+    description:
+      name: permission_handler_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "10.0.0"
+  permission_handler_apple:
+    dependency: transitive
+    description:
+      name: permission_handler_apple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.0.4"
+  permission_handler_platform_interface:
+    dependency: transitive
+    description:
+      name: permission_handler_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.7.0"
+  permission_handler_windows:
+    dependency: transitive
+    description:
+      name: permission_handler_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   petitparser:
     dependency: transitive
     description:
@@ -749,6 +868,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   rxdart:
     dependency: transitive
     description:
@@ -1014,12 +1140,47 @@ packages:
     source: hosted
     version: "2.0.12"
   video_thumbnail:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: video_thumbnail
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.2"
+  wakelock:
+    dependency: "direct main"
+    description:
+      name: wakelock
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.2"
+  wakelock_macos:
+    dependency: transitive
+    description:
+      name: wakelock_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
+  wakelock_platform_interface:
+    dependency: transitive
+    description:
+      name: wakelock_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
+  wakelock_web:
+    dependency: transitive
+    description:
+      name: wakelock_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
+  wakelock_windows:
+    dependency: transitive
+    description:
+      name: wakelock_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   win32:
     dependency: transitive
     description:

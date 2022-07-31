@@ -200,65 +200,62 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
                                   //   size: 32.0,
                                   // ),
                                   SizedBox(
-                                    width: 20.0,
+                                    width: 8.0,
                                   ),
-                                  // Text(
-                                  //   '00:03',
-                                  //   style: Theme.of(context)
-                                  //       .textTheme
-                                  //       .headline5!
-                                  //       .copyWith(
-                                  //         color: AppColors.mentalBarUnselected,
-                                  //         fontWeight: FontWeight.w500,
-                                  //         fontSize: 22.0,
-                                  //       ),
-                                  // ),
-                                  AnimatedBuilder(
-                                      animation: _animationController,
-                                      builder: (context, child) {
-                                        return Opacity(
-                                          opacity: _animationOpacity.value,
-                                          child: Text(
-                                            '00:03',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5!
-                                                .copyWith(
-                                                  color: AppColors
-                                                      .mentalBarUnselected,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 22.0,
-                                                ),
-                                          ),
-                                        );
-                                      }),
+
+                                  Text(
+                                    _chatsController.recorderDuration.value,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline5!
+                                        .copyWith(
+                                          color: AppColors.mentalBarUnselected,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 22.0,
+                                        ),
+                                  ),
+                                  SizedBox(width: 15.0),
                                   GestureDetector(
                                     onTap: () {
-                                      _chatsController.stop();
+                                      _chatsController.deleteRecording();
                                       _animationController.stop();
                                       _chatsController.closeRecording();
                                     },
                                     child: Icon(
                                       Icons.delete_outline_rounded,
-                                      color: AppColors.mentalRed,
+                                      color: AppColors.mentalBrandColor,
                                       size: 32.0,
                                     ),
                                   ),
                                   Spacer(),
                                   GestureDetector(
                                     onTap: () {
-                                      _chatsController.pause();
-                                      _animationController.stop();
+                                      if (_chatsController
+                                          .mPauseRecorder.value) {
+                                        _chatsController.resume();
+                                        _animationController.repeat();
+                                      } else {
+                                        _chatsController.pause();
+                                        _animationController.stop();
+                                      }
                                     },
                                     child: Icon(
-                                      Icons.pause,
-                                      color: AppColors.mentalRed,
+                                      _chatsController.mPauseRecorder.value
+                                          ? Icons.play_arrow
+                                          : Icons.pause,
+                                      color: AppColors.mentalBrandColor,
                                       size: 32.0,
                                     ),
                                   ),
+                                  SizedBox(width: 15.0),
                                   CustomCirclerBtn(
                                     imgName: BrandImages.kIconSendIcon,
                                     onPressed: () {
+                                      _chatsController.submitAudioChat(
+                                        peerId: selectedPsychologist.uid,
+                                        context: context,
+                                        type: TypeMessage.AUDIO,
+                                      );
                                       _animationController.stop();
                                       _chatsController.closeRecording();
                                     },
@@ -565,7 +562,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
             return getMessageItem(
                 message: message,
                 lastMessageDate: lastMessageDate,
-                nextMessageTs: nextMessageTs);
+                nextMessageTs: nextMessageTs, index: index);
           },
         );
       }),
@@ -641,7 +638,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
   Widget getMessageItem(
       {required MessageChat message,
       DateTime? lastMessageDate,
-      int? nextMessageTs}) {
+      int? nextMessageTs, required int index}) {
     var currentMessageDate =
         DateTime.fromMillisecondsSinceEpoch(int.parse(message.timestamp));
     var isSameDate = lastMessageDate != null &&
@@ -664,7 +661,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
             ),
           ),
         ],
-        ChatBubble(message: message, isMe: checkIsMe(fromId: message.idFrom)),
+        ChatBubble(message: message, isMe: checkIsMe(fromId: message.idFrom), index: index),
       ],
     );
   }

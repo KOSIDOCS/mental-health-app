@@ -68,12 +68,12 @@ class _MainHomePageScreenState
               length: 6,
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      _authController.userSignOut();
-                    },
-                    child: Text('Log out'),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     _authController.userSignOut();
+                  //   },
+                  //   child: Text('Log out'),
+                  // ),
                   customSizedBox(context: context, size: 0.04),
                   Row(
                     children: [

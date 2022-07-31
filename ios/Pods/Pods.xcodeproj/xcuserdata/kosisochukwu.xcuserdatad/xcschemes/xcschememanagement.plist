@@ -179,6 +179,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>audio_session.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>audioplayers_darwin.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>cloud_firestore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -219,11 +229,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>flutter_audio_recorder2.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>flutter_facebook_auth.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -235,6 +240,16 @@
 			<false/>
 		</dict>
 		<key>flutter_pdfview.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>flutter_sound.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>flutter_sound_core.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -255,6 +270,11 @@
 			<false/>
 		</dict>
 		<key>google_sign_in_ios.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>just_waveform.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -280,6 +300,11 @@
 			<false/>
 		</dict>
 		<key>path_provider_ios.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>permission_handler_apple.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -315,6 +340,11 @@
 			<false/>
 		</dict>
 		<key>video_thumbnail.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>wakelock.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

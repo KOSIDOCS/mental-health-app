@@ -6,6 +6,18 @@
 
 #import "GeneratedPluginRegistrant.h"
 
+#if __has_include(<audio_session/AudioSessionPlugin.h>)
+#import <audio_session/AudioSessionPlugin.h>
+#else
+@import audio_session;
+#endif
+
+#if __has_include(<audioplayers_darwin/AudioplayersDarwinPlugin.h>)
+#import <audioplayers_darwin/AudioplayersDarwinPlugin.h>
+#else
+@import audioplayers_darwin;
+#endif
+
 #if __has_include(<cloud_firestore/FLTFirebaseFirestorePlugin.h>)
 #import <cloud_firestore/FLTFirebaseFirestorePlugin.h>
 #else
@@ -54,12 +66,6 @@
 @import firebase_storage;
 #endif
 
-#if __has_include(<flutter_audio_recorder2/FlutterAudioRecorder2Plugin.h>)
-#import <flutter_audio_recorder2/FlutterAudioRecorder2Plugin.h>
-#else
-@import flutter_audio_recorder2;
-#endif
-
 #if __has_include(<flutter_facebook_auth/FlutterFacebookAuthPlugin.h>)
 #import <flutter_facebook_auth/FlutterFacebookAuthPlugin.h>
 #else
@@ -78,10 +84,22 @@
 @import flutter_pdfview;
 #endif
 
+#if __has_include(<flutter_sound/FlutterSound.h>)
+#import <flutter_sound/FlutterSound.h>
+#else
+@import flutter_sound;
+#endif
+
 #if __has_include(<google_sign_in_ios/FLTGoogleSignInPlugin.h>)
 #import <google_sign_in_ios/FLTGoogleSignInPlugin.h>
 #else
 @import google_sign_in_ios;
+#endif
+
+#if __has_include(<just_waveform/JustWaveformPlugin.h>)
+#import <just_waveform/JustWaveformPlugin.h>
+#else
+@import just_waveform;
 #endif
 
 #if __has_include(<open_mail_app/OpenMailAppPlugin.h>)
@@ -94,6 +112,12 @@
 #import <path_provider_ios/FLTPathProviderPlugin.h>
 #else
 @import path_provider_ios;
+#endif
+
+#if __has_include(<permission_handler_apple/PermissionHandlerPlugin.h>)
+#import <permission_handler_apple/PermissionHandlerPlugin.h>
+#else
+@import permission_handler_apple;
 #endif
 
 #if __has_include(<sign_in_with_apple/SignInWithApplePlugin.h>)
@@ -132,9 +156,17 @@
 @import video_thumbnail;
 #endif
 
+#if __has_include(<wakelock/WakelockPlugin.h>)
+#import <wakelock/WakelockPlugin.h>
+#else
+@import wakelock;
+#endif
+
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
+  [AudioSessionPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioSessionPlugin"]];
+  [AudioplayersDarwinPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioplayersDarwinPlugin"]];
   [FLTFirebaseFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseFirestorePlugin"]];
   [FilePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FilePickerPlugin"]];
   [FLTFirebaseAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAuthPlugin"]];
@@ -143,19 +175,22 @@
   [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
   [FLTFirebaseRemoteConfigPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseRemoteConfigPlugin"]];
   [FLTFirebaseStoragePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseStoragePlugin"]];
-  [FlutterAudioRecorder2Plugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterAudioRecorder2Plugin"]];
   [FlutterFacebookAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterFacebookAuthPlugin"]];
   [FlutterNativeSplashPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterNativeSplashPlugin"]];
   [FLTPDFViewFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPDFViewFlutterPlugin"]];
+  [FlutterSound registerWithRegistrar:[registry registrarForPlugin:@"FlutterSound"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
+  [JustWaveformPlugin registerWithRegistrar:[registry registrarForPlugin:@"JustWaveformPlugin"]];
   [OpenMailAppPlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenMailAppPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
+  [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
   [SignInWithApplePlugin registerWithRegistrar:[registry registrarForPlugin:@"SignInWithApplePlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
   [Sqlite3FlutterLibsPlugin registerWithRegistrar:[registry registrarForPlugin:@"Sqlite3FlutterLibsPlugin"]];
   [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];
   [FLTVideoPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTVideoPlayerPlugin"]];
   [VideoThumbnailPlugin registerWithRegistrar:[registry registrarForPlugin:@"VideoThumbnailPlugin"]];
+  [WakelockPlugin registerWithRegistrar:[registry registrarForPlugin:@"WakelockPlugin"]];
 }
 
 @end

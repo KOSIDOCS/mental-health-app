@@ -24,13 +24,16 @@ ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyGif/SwiftyGif.framework
 ${BUILT_PRODUCTS_DIR}/abseil/absl.framework
+${BUILT_PRODUCTS_DIR}/audio_session/audio_session.framework
+${BUILT_PRODUCTS_DIR}/audioplayers_darwin/audioplayers_darwin.framework
 ${BUILT_PRODUCTS_DIR}/file_picker/file_picker.framework
-${BUILT_PRODUCTS_DIR}/flutter_audio_recorder2/flutter_audio_recorder2.framework
 ${BUILT_PRODUCTS_DIR}/flutter_facebook_auth/flutter_facebook_auth.framework
 ${BUILT_PRODUCTS_DIR}/flutter_native_splash/flutter_native_splash.framework
 ${BUILT_PRODUCTS_DIR}/flutter_pdfview/flutter_pdfview.framework
+${BUILT_PRODUCTS_DIR}/flutter_sound_core/flutter_sound_core.framework
 ${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework
 ${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework
+${BUILT_PRODUCTS_DIR}/just_waveform/just_waveform.framework
 ${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework
 ${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework
@@ -43,6 +46,7 @@ ${BUILT_PRODUCTS_DIR}/sqlite3_flutter_libs/sqlite3_flutter_libs.framework
 ${BUILT_PRODUCTS_DIR}/url_launcher_ios/url_launcher_ios.framework
 ${BUILT_PRODUCTS_DIR}/video_player_avfoundation/video_player_avfoundation.framework
 ${BUILT_PRODUCTS_DIR}/video_thumbnail/video_thumbnail.framework
+${BUILT_PRODUCTS_DIR}/wakelock/wakelock.framework
 ${PODS_XCFRAMEWORKS_BUILD_DIR}/FBAEMKit/FBAEMKit.framework/FBAEMKit
 ${PODS_XCFRAMEWORKS_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework/FBSDKCoreKit
 ${PODS_XCFRAMEWORKS_BUILD_DIR}/FBSDKCoreKit_Basics/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics

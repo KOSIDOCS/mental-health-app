@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:audio_session/audio_session.dart';
+import 'package:audioplayers/audioplayers.dart' as audio_player;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file/local.dart';
 import 'package:file_picker/file_picker.dart';
@@ -8,19 +10,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:get/get.dart';
 import 'package:giphy_get/giphy_get.dart';
+import 'package:intl/intl.dart';
+import 'package:just_waveform/just_waveform.dart';
 import 'package:mental_health_care_app/auth/application/auth_controller.dart';
 import 'package:mental_health_care_app/chats/model/message_chat.dart';
-import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/home/application/home_controller.dart';
 import 'package:mental_health_care_app/uis/firestore_constants.dart';
 import 'package:mental_health_care_app/utils/custom_exceptions.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
+import 'package:wakelock/wakelock.dart';
+
+final kTheSource = AudioSource.microphone;
 
 class ChatsController extends GetxController {
   TextEditingController searchController = TextEditingController();
@@ -40,16 +48,45 @@ class ChatsController extends GetxController {
   //Audio recording section here
   final LocalFileSystem localFileSystem = LocalFileSystem();
   final RxBool isRecording = false.obs;
-  FlutterAudioRecorder2? _recorder;
-  Rx<Recording?> _current = Recording().obs;
-  Rx<RecordingStatus> _currentStatus = RecordingStatus.Unset.obs;
-
+  FlutterSoundRecorder? _mRecorder;
+  StreamSubscription? _recorderSubscription;
+  Codec _codec = Codec.aacMP4;
+  String _mPath = 'mental_audio_file.mp4';
+  RxBool _mRecorderIsInited = false.obs;
+  RxString recorderDuration = '00:00'.obs;
+  RxBool mPauseRecorder = false.obs;
+  RxString _mRecordedAudioPath = ''.obs;
+  int realAudioDuration = 0;
+  List<double> waveformPercentages = <double>[];
+  final player = audio_player.AudioPlayer();
+  RxInt selectedAudioCurrentPosition = 0.obs;
+  RxBool isCurrentAudioPlaying = false.obs;
+  RxInt selectedAudioDuration = 0.obs;
+  Rx<MessageChat> selectedAudioMessage = MessageChat.defaultMessage().obs;
 
   @override
   void onReady() {
     super.onReady();
     conversationList.bindStream(getAllMessages());
-    _init();
+    _mRecorder = FlutterSoundRecorder();
+    openTheRecorder()
+        .then((value) => _mRecorderIsInited.value = true)
+        .catchError((error) {
+      _mRecorderIsInited.value = false;
+      print(error);
+    });
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    conversationList.clear();
+    searchController.dispose();
+    chatFieldController.dispose();
+    _mRecorder?.stopRecorder();
+    _recorderSubscription?.cancel();
+    player.stop();
+    player.dispose();
   }
 
   Stream<List<MessageChat>> getAllMessages() {
@@ -61,11 +98,75 @@ class ChatsController extends GetxController {
         .doc(groupChatId)
         .collection(groupChatId)
         .orderBy('timestamp', descending: false)
-        .limit(30)
+        //.limit(30) // don't add limit to the stream
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) {
               return MessageChat.fromMap(doc.data(), uid: doc.id);
             }).toList());
+  }
+
+  void submitAudioChat({
+    required String peerId,
+    required int type,
+    required BuildContext context,
+  }) async {
+    try {
+      final audioUrl = await _mRecorder!.stopRecorder();
+      final audioFile = File(audioUrl!);
+      final waveFile =
+          File(p.join((await getTemporaryDirectory()).path, 'waveform.wave'));
+      final progressWaveStream = JustWaveform.extract(
+        audioInFile: audioFile,
+        waveOutFile: waveFile,
+      );
+
+      progressWaveStream.listen(
+        (progress) {
+          if (progress.waveform != null) {
+            print('Waveform extracted');
+            print('Waveform: ${progress.waveform!.data}');
+            print('Waveform length: ${progress.waveform!.data.length}');
+            realAudioDuration = progress.waveform!.duration.inMilliseconds;
+            waveformPercentages =
+                progress.waveform!.data.map((i) => i.toDouble()).toList();
+            // showAudio.value = true;
+          }
+        },
+        onDone: () async {
+          print('audio file is $audioFile');
+
+          if (realAudioDuration != 0 && waveformPercentages.length != 0) {
+            await uploadFiles(
+              imagePath: audioFile.path,
+              imageName: "${p.basename(audioFile.path)}${Uuid().v1()}",
+              folder: FirestoreConstants.pathChatAudios,
+            ).then(
+              (value) {
+                final groupChatId = "${_auth.currentUser!.uid}-$peerId";
+                print("Uploaded Audio file");
+
+                sendMessage(
+                  content: value[0],
+                  type: type,
+                  groupChatId: groupChatId,
+                  currentUserId: currentUserId,
+                  peerId: peerId,
+                  documentName: value[1],
+                  audioDuration: realAudioDuration,
+                  waveformPercentages: waveformPercentages,
+                );
+              },
+            ).catchError((e) {
+              print(e);
+              showError(context: context, e: e);
+            });
+          }
+        },
+      );
+    } catch (e) {
+      print(e);
+      showError(context: context, e: e);
+    }
   }
 
   void submitChat({required String peerId}) {
@@ -128,17 +229,6 @@ class ChatsController extends GetxController {
         },
       ).catchError((e) {
         print(e);
-        // Get.snackbar(
-        //   "Issue uploading Image", // title
-        //   e.toString(), // message
-        //   icon: Icon(Icons.alarm),
-        //   shouldIconPulse: true,
-        //   onTap: (value) {},
-        //   barBlur: 20,
-        //   isDismissible: true,
-        //   duration: Duration(seconds: 3),
-        //   backgroundColor:
-        // );
         showError(context: context, e: e);
       });
     }
@@ -173,6 +263,8 @@ class ChatsController extends GetxController {
     String? documentName,
     double? gifHeight,
     double? gifWidth,
+    int? audioDuration,
+    List<double>? waveformPercentages,
   }) {
     DocumentReference documentReference = _firebaseFirestoredb
         .collection(FirestoreConstants.pathMessageCollection)
@@ -191,6 +283,8 @@ class ChatsController extends GetxController {
       documentName: documentName ?? '',
       gifHeight: gifHeight ?? 0.0,
       gifWidth: gifWidth ?? 0.0,
+      audioDuration: audioDuration ?? 0,
+      audioWaveform: waveformPercentages ?? [],
     );
 
     FirebaseFirestore.instance.runTransaction((transaction) async {
@@ -249,7 +343,7 @@ class ChatsController extends GetxController {
         }
       });
     });
-    return [imgUrl, basename(imagePath)];
+    return [imgUrl, p.basename(imagePath)];
   }
 
   void showError({required BuildContext context, dynamic e}) {
@@ -274,138 +368,173 @@ class ChatsController extends GetxController {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  /// <--- The recording section --->
+
+  Future<void> openTheRecorder() async {
+    if (!kIsWeb) {
+      var status = await Permission.microphone.request();
+      if (status != PermissionStatus.granted) {
+        throw RecordingPermissionException('Microphone permission not granted');
+      }
+    }
+    await _mRecorder!.openRecorder();
+    if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
+      _codec = Codec.opusWebM;
+      _mPath = 'mental_audio_file.webm';
+      if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
+        _mRecorderIsInited.value = true;
+        return;
+      }
+    }
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration(
+      avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
+      avAudioSessionCategoryOptions:
+          AVAudioSessionCategoryOptions.allowBluetooth |
+              AVAudioSessionCategoryOptions.defaultToSpeaker,
+      avAudioSessionMode: AVAudioSessionMode.spokenAudio,
+      avAudioSessionRouteSharingPolicy:
+          AVAudioSessionRouteSharingPolicy.defaultPolicy,
+      avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
+      androidAudioAttributes: const AndroidAudioAttributes(
+        contentType: AndroidAudioContentType.speech,
+        flags: AndroidAudioFlags.none,
+        usage: AndroidAudioUsage.voiceCommunication,
+      ),
+      androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
+      androidWillPauseWhenDucked: true,
+    ));
+
+    _mRecorderIsInited.value = true;
+    update();
+  }
+
   void closeRecording() {
-    // _recordingController.stop();
-    // _recordingController = null;
     isRecording.value = false;
   }
 
-  stop() async {
-    var result = await _recorder!.stop();
-    print("Stop recording: ${result!.path}");
-    print("Stop recording: ${result.duration}");
-    File file = localFileSystem.file(result.path);
-    print("File length: ${await file.length()}");
-      _current.value = result;
-      _currentStatus.value = _current.value!.status!;
-      _init();
+  void deleteRecording() async {
+    await _mRecorder!.stopRecorder().then((value) {
+      print('Recording stopped, here is the path: ${value}');
+      _mRecordedAudioPath.value = value!;
+      mPauseRecorder.value = false;
+      update();
+    });
+    Wakelock.disable();
   }
 
   // Recording sections for voice notes messages
-  void _init() async {
-    try {
-      bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
-
-      if (hasPermission) {
-        String customPath = '/mental_audio_recorder_';
-        Directory appDocDirectory;
-//        io.Directory appDocDirectory = await getApplicationDocumentsDirectory();
-        if (Platform.isIOS) {
-          appDocDirectory = await getApplicationDocumentsDirectory();
-        } else {
-          appDocDirectory = (await getExternalStorageDirectory())!;
-        }
-
-        // can add extension like ".mp4" ".wav" ".m4a" ".aac"
-        customPath = appDocDirectory.path +
-            customPath +
-            DateTime.now().millisecondsSinceEpoch.toString();
-
-        // .wav <---> AudioFormat.WAV
-        // .mp4 .m4a .aac <---> AudioFormat.AAC
-        // AudioFormat is optional, if given value, will overwrite path extension when there is conflicts.
-        _recorder =
-            FlutterAudioRecorder2(customPath, audioFormat: AudioFormat.WAV);
-
-        await _recorder!.initialized;
-        // after initialization
-        var current = await _recorder!.current(channel: 0);
-        print(current);
-        // should be "Initialized", if all working fine
-          _current.value = current;
-          _currentStatus.value = current!.status!;
-          print(_currentStatus);
-      } else {
-        Get.snackbar(
-          "Issue with mic acces", // title
-          'You must accept permissions', // message
-          icon: Icon(Icons.mic),
-          shouldIconPulse: true,
-          onTap: (value) {},
-          barBlur: 20,
-          isDismissible: true,
-          duration: Duration(seconds: 2),
-          backgroundColor: AppColors.mentalRed,
-        );
-      }
-    } catch (e) {
-      Get.snackbar(
-          "Issue with voice recording", // title
-          e.toString(), // message
-          icon: Icon(Icons.mic),
-          shouldIconPulse: true,
-          onTap: (value) {},
-          barBlur: 20,
-          isDismissible: true,
-          duration: Duration(seconds: 2),
-          backgroundColor: AppColors.mentalRed,
-        );
-    }
-  }
 
   // start recording
-   void startRecording() async {
+  void startRecording() async {
     try {
-      await _recorder!.start();
-      isRecording.value = true;
-      var recording = await _recorder!.current(channel: 0);
-        _current.value = recording;
+      await _mRecorder!.startRecorder(
+          codec: _codec,
+          toFile: _mPath,
+          audioSource: kTheSource,
+          sampleRate: 44100,
+          bitRate: 96000);
 
-      const tick = const Duration(milliseconds: 50);
-      new Timer.periodic(tick, (Timer t) async {
-        if (_currentStatus == RecordingStatus.Stopped) {
-          t.cancel();
-        }
+      _mRecorder!.logger.d("<-- Started recording -->");
 
-        var current = await _recorder!.current(channel: 0);
-        // print(current.status);
-          _current.value = current;
-          _currentStatus.value = _current.value!.status!;
+      _recorderSubscription = _mRecorder!.onProgress!.listen((progress) {
+        var date = DateTime.fromMillisecondsSinceEpoch(
+          progress.duration.inMilliseconds,
+        );
+        print("The date is: ${date.toString()}");
+        var text = DateFormat('mm:ss').format(date);
+        recorderDuration.value = text;
+        _mRecorder!.logger.d('startRecorder from me here 2');
       });
 
-      // if (_current.value?.status == RecordingStatus.Recording) {
-      //   isRecording.value = true;
-      // }
-        
+      _mRecorder!.setSubscriptionDuration(Duration(milliseconds: 60));
+
+      isRecording.value = true;
+      mPauseRecorder.value = false;
+      Wakelock.enabled;
     } catch (e) {
       print(e);
     }
   }
 
-  String getDuration() {
-    if (_current.value == null) {
-      return '00:00';
-    }
-    return _current.value!.duration.toString().split('.').first;
-  }
-
   resume() async {
-    await _recorder!.resume();
+    await _mRecorder!.resumeRecorder();
+    mPauseRecorder.value = false;
+    Wakelock.enabled;
     update();
   }
 
   pause() async {
-    await _recorder!.pause();
+    await _mRecorder!.pauseRecorder();
+    mPauseRecorder.value = true;
+    Wakelock.disable;
     update();
   }
 
-  // stop() async {
-  //   var result = await _recorder!.stop();
-  //   print("Stop recording: ${result!.path}");
-  //   print("Stop recording: ${result.duration}");
-  //   File file = localFileSystem.file(result.path);
-  //   print("File length: ${await file.length()}");
-  //     _current.value = result;
-  //     _currentStatus.value = _current.value!.status!;
-  // }
+  // Audio player section
+  void playAudioChat({required String url}) async {
+    await player.stop();
+    isCurrentAudioPlaying.value = false;
+    await player.play(audio_player.UrlSource(url));
+
+    print('Playing audio chat');
+
+    player.onPlayerComplete.listen((event) {
+      print('Audio chat completed');
+      isCurrentAudioPlaying.value = false;
+    });
+
+    player.onDurationChanged.listen((event) {
+      //print('Audio chat duration changed');
+      selectedAudioDuration.value = event.inMilliseconds;
+    });
+
+    player.onPositionChanged.listen((position) {
+      selectedAudioCurrentPosition.value = position.inMilliseconds;
+      //print('The position is: ${position.inMilliseconds}');
+      update();
+    });
+
+    isCurrentAudioPlaying.value = true;
+  }
+
+  void pauseAudioPlayer() async {
+    await player.pause();
+    isCurrentAudioPlaying.value = false;
+    update();
+  }
+
+  void playAudio({required String url}) async {
+    if (selectedAudioCurrentPosition.value == 0) {
+      playAudioChat(url: url);
+    } else if (selectedAudioCurrentPosition.value != 0 &&
+        isCurrentAudioPlaying.value == true) {
+      pauseAudioPlayer();
+    } else {
+      await player.resume();
+      isCurrentAudioPlaying.value = true;
+    }
+  }
+
+  void seekPlayerPosition({required Offset localPosition, required double maxWidth, required int duration }) async {
+    print("Tapped scrubber at ${localPosition.dx}");
+    var position = localPosition.dx < 0 ? 0 : (localPosition.dx > maxWidth ? maxWidth : localPosition.dx);
+    var calculatePosition = position / maxWidth * duration;
+    await player.seek(Duration(milliseconds: calculatePosition.toInt()));
+  }
+  
+  // help to set audio message that we currently tapped on to play.
+  void setMessageToPlay({required MessageChat messageChat}) async {
+    selectedAudioMessage.value = messageChat;
+    print("Got called");
+  }
+
+  // check which audio bubble to play.
+  bool isAudioMessageToPlay({required MessageChat messageChat}) {
+    if (selectedAudioMessage.value.messageUid != '') {
+      return selectedAudioMessage.value.timestamp == messageChat.timestamp;
+    }else {
+      return false;
+    }
+  }
 }

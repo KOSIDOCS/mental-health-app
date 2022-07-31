@@ -11,6 +11,8 @@ class MessageChat {
   final String documentName;
   final double gifWidth;
   final double gifHeight;
+  final int audioDuration;
+  final List<double> audioWaveform;
 
   MessageChat({
     required this.messageUid,
@@ -23,6 +25,8 @@ class MessageChat {
     required this.documentName,
     required this.gifWidth,
     required this.gifHeight,
+    required this.audioDuration,
+    required this.audioWaveform,
   });
 
   factory MessageChat.fromMap(Map data, {required String uid}) {
@@ -36,7 +40,9 @@ class MessageChat {
       readMessage: data['readMessage'] ?? false,
       documentName: data['documentName'] ?? '',
       gifWidth: data['gifWidth'] ?? 0,
-      gifHeight: data['gifHeight'] ?? 0,
+      gifHeight: data['gifHeight'] ?? 0, 
+      audioDuration: data['audioDuration'] ?? 0,
+      audioWaveform: List.castFrom(data['audioWaveform'] ?? []),
     );
   }
 
@@ -52,7 +58,26 @@ class MessageChat {
       'documentName': documentName,
       'gifWidth': gifWidth,
       'gifHeight': gifHeight,
+      'audioDuration': audioDuration,
+      'audioWaveform': audioWaveform,
     };
+  }
+
+  factory MessageChat.defaultMessage() {
+    return MessageChat(
+      messageUid: '',
+      idFrom: '',
+      idTo: '',
+      timestamp: '',
+      content: '',
+      type: 0,
+      readMessage: false,
+      documentName: '',
+      gifWidth: 0,
+      gifHeight: 0,
+      audioDuration: 0,
+      audioWaveform: [],
+    );
   }
 
   factory MessageChat.fromDocument(DocumentSnapshot doc) {
@@ -66,6 +91,8 @@ class MessageChat {
     String documentName = doc.get('documentName') ?? '';
     double gifWidth = doc.get('gifWidth') ?? 0;
     double gifHeight = doc.get('gifHeight') ?? 0;
+    int audioDuration = doc.get('audioDuration') ?? 0;
+    List<double> audioWaveform = List.castFrom(doc.get('audioWaveform') ?? []);
     return MessageChat(
       messageUid: uid,
       idFrom: idFrom,
@@ -77,6 +104,8 @@ class MessageChat {
       documentName: documentName,
       gifWidth: gifWidth,
       gifHeight: gifHeight,
+      audioDuration: audioDuration,
+      audioWaveform: audioWaveform,
     );
   }
 }
