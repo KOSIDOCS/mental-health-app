@@ -11,6 +11,7 @@ import 'package:mental_health_care_app/chats/application/chats_controller.dart';
 import 'package:mental_health_care_app/chats/model/message_chat.dart';
 import 'package:mental_health_care_app/chats/widgets/chat_action_btn.dart';
 import 'package:mental_health_care_app/chats/widgets/chat_bubble.dart';
+import 'package:mental_health_care_app/core/application/presence_system_controller.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/brand_images.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
@@ -34,6 +35,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
   late AnimationController _animationController;
   late Animation<double> _animationOpacity;
   final ScrollController chatScrollController = ScrollController();
+  final PresenceSystemController _presenceSystemController = Get.find();
   late Timer _timer;
 
   late PsychologistModel selectedPsychologist;
@@ -73,13 +75,16 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
       ),
     );
 
+    _presenceSystemController.getPsychologistPresence(
+        uid: selectedPsychologist.uid);
+
     _timer = Timer(const Duration(seconds: 1), () {
       print("Max scroll: ${chatScrollController.position.maxScrollExtent}");
       chatScrollController.animateTo(
-      chatScrollController.position.maxScrollExtent * 1.5,
-      duration: Duration(seconds: 3),
-      curve: Curves.fastOutSlowIn,
-    );
+        chatScrollController.position.maxScrollExtent * 1.5,
+        duration: Duration(seconds: 3),
+        curve: Curves.fastOutSlowIn,
+      );
     });
   }
 
@@ -144,7 +149,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
                                           ),
                                     ),
                                     Text(
-                                      selectedPsychologist.isOnline
+                                      _presenceSystemController.isOnline.value
                                           ? 'online'
                                           : 'offline',
                                       style: Theme.of(context)
@@ -578,7 +583,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
             return getMessageItem(
                 message: message,
                 lastMessageDate: lastMessageDate,
-                nextMessageTs: nextMessageTs, index: index);
+                nextMessageTs: nextMessageTs,
+                index: index);
           },
         );
       }),
@@ -654,7 +660,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
   Widget getMessageItem(
       {required MessageChat message,
       DateTime? lastMessageDate,
-      int? nextMessageTs, required int index}) {
+      int? nextMessageTs,
+      required int index}) {
     var currentMessageDate =
         DateTime.fromMillisecondsSinceEpoch(int.parse(message.timestamp));
     var isSameDate = lastMessageDate != null &&
@@ -677,7 +684,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen>
             ),
           ),
         ],
-        ChatBubble(message: message, isMe: checkIsMe(fromId: message.idFrom), index: index),
+        ChatBubble(
+            message: message,
+            isMe: checkIsMe(fromId: message.idFrom),
+            index: index),
       ],
     );
   }

@@ -77,6 +77,9 @@ class CustomText {
   static const String kmentalLastChatDocument = 'Document';
   static const String kmentalLastChatGiphy = 'GIF';
   static const String kmentalLastChatVoice = 'Voice';
+  static const String kmentalArticleScreenHeader = 'Articles';
+  static const String kmentalArticleScreenHeader2 = 'Popular now';
+  static const String kmentalArticleScreenHeader3 = 'New';
 }
 
 class CustomErrorText {

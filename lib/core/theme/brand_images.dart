@@ -16,6 +16,8 @@ class BrandImages {
   static const String kIconAttach = 'attach.png';
   static const String kIconSticker = 'sticker.png';
   static const String kIconSendIcon = 'sendIcon';
+  static const String kIconBookmark = 'bookmark.png';
+  static const String kIconUploadIcon = 'uploadIcon.png';
 }
 
 class ImagesPlaceHolders {

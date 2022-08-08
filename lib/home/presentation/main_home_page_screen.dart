@@ -2,6 +2,7 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mental_health_care_app/auth/application/auth_controller.dart';
+import 'package:mental_health_care_app/core/application/presence_system_controller.dart';
 import 'package:mental_health_care_app/core/custom_ui_state/custom_stateful_ui_state.dart';
 import 'package:mental_health_care_app/core/presentation/custom_bottom_navigation.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
@@ -23,12 +24,14 @@ class MainHomePageScreen extends StatefulWidget {
       _MainHomePageScreenState(Duration(seconds: 2));
 }
 
-class _MainHomePageScreenState
-    extends CustomStatefulUIState<MainHomePageScreen> {
+class _MainHomePageScreenState extends CustomStatefulUIState<MainHomePageScreen>
+    with WidgetsBindingObserver {
   _MainHomePageScreenState(Duration animationDuration)
       : super(animationDuration);
 
   AuthController _authController = Get.put(AuthController());
+
+  PresenceSystemController _presenceSystemController = Get.find();
 
   HomeController homeController = Get.put(HomeController());
 
@@ -37,12 +40,27 @@ class _MainHomePageScreenState
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _presenceSystemController
+        .configureUserPresence(_authController.firebaseUser.value!.uid);
     animationController.forward();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      _presenceSystemController.connect();
+    }
+    if (state == AppLifecycleState.resumed) {
+      _presenceSystemController.disconnect();
+    }
   }
 
   @override
   void dispose() {
     animationController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

@@ -11,6 +11,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mental_health_care_app/auth/domain/user_model.dart';
+import 'package:mental_health_care_app/core/application/presence_system_controller.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/uis/custom_modals.dart';
 import 'package:open_mail_app/open_mail_app.dart';
@@ -20,6 +21,7 @@ class AuthController extends GetxController {
   final FirebaseAuth _auth = Get.find();
   final FirebaseFirestore _db = Get.find();
   final FirebaseStorage storage = Get.find();
+  PresenceSystemController _presenceSystemController = Get.put(PresenceSystemController());
   Rxn<User> firebaseUser = Rxn<User>();
   Rxn<UserModel> firestoreUser = Rxn<UserModel>();
   RxBool disableSignUpbutton = false.obs;
@@ -314,6 +316,7 @@ class AuthController extends GetxController {
   }
 
   void userSignOut() async {
+    _presenceSystemController.disconnect(signout: true);
     await _auth.signOut();
   }
 

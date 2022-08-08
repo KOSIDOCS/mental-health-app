@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:mental_health_care_app/admission/presentation/admission_screen.dart';
+import 'package:mental_health_care_app/articles/presentation/articles_details_screen.dart';
 import 'package:mental_health_care_app/articles/presentation/articles_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_login_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_password_recovery_screen.dart';
 import 'package:mental_health_care_app/auth/presentation/auth_signup_screen.dart';
+import 'package:mental_health_care_app/binding/articles_binding.dart';
 import 'package:mental_health_care_app/binding/chat_home_binding.dart';
 import 'package:mental_health_care_app/binding/chat_room_binding.dart';
 import 'package:mental_health_care_app/binding/consultation_binding.dart';
@@ -83,6 +85,13 @@ class AppPages {
     GetPage(
       name: Routes.ARTICLES,
       page: () => ArticlesScreen(),
+      bindings: [ArticleBinding()],
+      children: [
+        GetPage(
+          name: Routes.ARTICLE_DETAILS,
+          page: () => ArticleDetailsScreen(),
+        ),
+      ],
     ),
     GetPage(
       name: Routes.PROFILE,

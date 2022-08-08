@@ -13,5 +13,6 @@ abstract class Routes {
   static const String CONSULTATIONS = '/consultations';
   static const String CONSULTATION_DETAILS = '/consultation-details';
   static const String ARTICLES = '/articles';
+  static const String ARTICLE_DETAILS = '/article-details';
   static const String PROFILE = '/profile';
 }

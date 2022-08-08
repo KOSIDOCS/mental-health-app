@@ -8,4 +8,5 @@ class FirestoreConstants {
   static const pathChatAudios = "chatAudios";
   static const pathChatDocuments = "chatDocuments";
   static const pathChatGiphys = "chatGiphys";
+  static const pathArticlesCollection = "articles";
 }
