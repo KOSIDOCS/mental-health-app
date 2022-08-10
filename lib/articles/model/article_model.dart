@@ -5,6 +5,8 @@ class ArticleModel {
   final String date;
   final String id;
   final String body;
+  final String authorId;
+  final List<dynamic> comments;
 
   ArticleModel({
     required this.picture,
@@ -13,6 +15,8 @@ class ArticleModel {
     required this.date,
     required this.id,
     required this.body,
+    required this.authorId,
+    required this.comments,
   });
 
   factory ArticleModel.fromMap(Map<String, dynamic> map, {required String uid}) {
@@ -23,6 +27,8 @@ class ArticleModel {
       date: map['date'] ?? "",
       id: uid,
       body: map['body'] ?? "",
+      authorId: map['author_id'] ?? "",
+      comments: map['comments'] ?? [],
     );
   }
 }

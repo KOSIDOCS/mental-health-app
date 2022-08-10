@@ -203,6 +203,7 @@ class CustomChatField extends StatelessWidget {
   final String? placeholder;
   final void Function(String?)? onChanged;
   final void Function()? openGiphy;
+  final bool? hideEmojiBtn;
 
   const CustomChatField({
     Key? key,
@@ -210,7 +211,7 @@ class CustomChatField extends StatelessWidget {
     required this.keyboardType,
     this.placeholder,
     this.onChanged,
-    this.openGiphy,
+    this.openGiphy, this.hideEmojiBtn,
   }) : super(key: key);
 
   @override
@@ -277,7 +278,7 @@ class CustomChatField extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
+        hideEmojiBtn! ? Container() : Positioned(
           right: 13.0,
           top: 13.0,
           child: GestureDetector(

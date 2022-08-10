@@ -5,10 +5,12 @@ import 'package:mental_health_care_app/core/theme/brand_images.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/home/application/home_controller.dart';
 import 'package:mental_health_care_app/makeappointment/application/make_appointment_controller.dart';
+import 'package:mental_health_care_app/makeappointment/widgets/appointment_user_card.dart';
 import 'package:mental_health_care_app/makeappointment/widgets/payment_options.dart';
 import 'package:mental_health_care_app/uis/custom_buttons.dart';
 import 'package:mental_health_care_app/uis/custom_input_fields.dart';
 import 'package:mental_health_care_app/utils/focus_helper.dart';
+import 'package:mental_health_care_app/utils/time_formatter.dart';
 
 class MakeAppointmentScreen extends StatefulWidget {
   const MakeAppointmentScreen({Key? key}) : super(key: key);
@@ -47,46 +49,10 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen> {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 22.0, left: 16.0),
-                      child: Image.network(
-                        homeController.selectedPsychologist.value!.userImage,
-                        height: 60.0,
-                        width: 60.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2.0, left: 14.0),
-                          child: Text(
-                            homeController.selectedPsychologist.value!.name,
-                            style:
-                                Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 15.0,
-                                    ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2.0, left: 14.0),
-                          child: Text(
-                            'March 14, 14:30 – 15:30',
-                            style:
-                                Theme.of(context).textTheme.caption!.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 11.0,
-                                      color: AppColors.mentalBarUnselected,
-                                    ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                AppointmentUserCard(
+                  name: homeController.selectedPsychologist.value!.name,
+                  imageUrl: homeController.selectedPsychologist.value!.userImage,
+                  availability: TimFormatter.formatTimeUserCard(dateTime: homeController.selectedPsychologist.value!.earlyAdmit),
                 ),
                 SizedBox(
                   height: 32.0,

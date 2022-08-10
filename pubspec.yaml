@@ -78,6 +78,7 @@ dependencies:
   wakelock: ^0.6.2
   just_waveform: ^0.0.3
   audioplayers: ^1.0.1
+  flutter_html: ^3.0.0-alpha.5
 
 dev_dependencies:
   flutter_test:

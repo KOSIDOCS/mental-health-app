@@ -80,6 +80,13 @@ class CustomText {
   static const String kmentalArticleScreenHeader = 'Articles';
   static const String kmentalArticleScreenHeader2 = 'Popular now';
   static const String kmentalArticleScreenHeader3 = 'New';
+  static const String kmentalArticleDetailText1 = 'Author';
+  static const String kmentalArticleDetailText2 = 'Comments';
+  static const String kmentalArticleDetailText3 = 'Answer';
+  static const String kmentalArticleDetailText4 = 'Show';
+  static const String kmentalArticleDetailText5 = 'answers';
+  static const String kmentalArticleDetailText6 = 'Replying to ';
+  static const String kmentalArticleDetailText7 = 'Cancel';
 }
 
 class CustomErrorText {

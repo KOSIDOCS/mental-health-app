@@ -24,6 +24,7 @@ class ImagesPlaceHolders {
   ImagesPlaceHolders._();
 
   static const String kPsyPlaceholder1 = 'Placeholder1.png';
+  static const String kPsyPlaceholder2 = 'assets/images/avater.png';
 }
 
 class BottomBarImages {
