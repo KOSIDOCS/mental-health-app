@@ -33,6 +33,12 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
   }
 
   @override
+  void dispose() {
+    _articlesController.reset();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //dom.Document document = htmlparser.parse(article.body);
     return GestureDetector(
@@ -227,19 +233,41 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                               //         comment["sub_comments"].length,
                               //     onTap: () {
                               //       _articlesController.setReplyComment(index: )
-                              //     },    
+                              //     },
                               //   ),
-                              for(var i = 0; i < article.comments.length; i++)
+                              for (var i = 0; i < _articlesController.loadMoreLength.value; i++)
                                 ArtcleComment(
-                                  name: article.comments[i]["author"],
-                                  imageUrl: article.comments[i]["picture"],
-                                  comment: article.comments[i]["text"],
-                                  date: article.comments[i]["date"],
-                                  totalSubComments: article.comments[i]["sub_comments"].length,
+                                  name: article.comments[i].author,
+                                  imageUrl: article.comments[i].picture,
+                                  comment: article.comments[i].text,
+                                  date: article.comments[i].date,
+                                  totalSubComments: article
+                                      .comments[i].subComments.length,
                                   onTap: () {
-                                    _articlesController.setReplyComment(index: i);
+                                    _articlesController.setReplyComment(
+                                        index: i);
                                   },
+                                  isSubComment: false,
+                                  subComments: article.comments[i].subComments,
                                 ),
+                             _articlesController.hideLoadMore() ? Container() : Align(
+                                alignment: Alignment.center,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _articlesController.loadMoreComments();
+                                  },
+                                  child: Text(
+                                    CustomText.kmentalArticleDetailText8,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15.0,
+                                        ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -255,49 +283,57 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Obx(() {
-                return _articlesController.replyComment == false ? Container() : Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 130.0,
-                  color: Colors.amber,
-                  //color: Theme.of(context).scaffoldBackgroundColor,
-                  padding: EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        CustomText.kmentalArticleDetailText6,
-                        style: Theme.of(context).textTheme.caption!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.0,
-                              color: AppColors.mentalBarUnselected,
+                return _articlesController.replyComment == false
+                    ? Container()
+                    : Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 130.0,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        padding:
+                            EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              CustomText.kmentalArticleDetailText6,
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14.0,
+                                        color: AppColors.mentalBarUnselected,
+                                      ),
                             ),
-                      ),
-                      Text(
-                        _articlesController.replyCommentAuthorName.value,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.0,
-                            ),
-                      ),
-                      Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          _articlesController.cancelReplyComment();
-                        },
-                        child: Text(
-                          CustomText.kmentalArticleDetailText7,
-                          style:
-                              Theme.of(context).textTheme.headline5!.copyWith(
+                            Text(
+                              _articlesController.replyCommentAuthorName.value,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14.0,
-                                    color: AppColors.mentalBarUnselected,
                                   ),
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                _articlesController.cancelReplyComment();
+                              },
+                              child: Text(
+                                CustomText.kmentalArticleDetailText7,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14.0,
+                                      color: AppColors.mentalBarUnselected,
+                                    ),
+                              ),
+                            )
+                          ],
                         ),
-                      )
-                    ],
-                  ),
-                );
+                      );
               }),
             ),
             Align(

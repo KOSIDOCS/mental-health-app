@@ -6,7 +6,8 @@ class ArticleModel {
   final String id;
   final String body;
   final String authorId;
-  final List<dynamic> comments;
+  // final List<dynamic> comments;
+  final List<CommentsModel> comments;
 
   ArticleModel({
     required this.picture,
@@ -16,6 +17,7 @@ class ArticleModel {
     required this.id,
     required this.body,
     required this.authorId,
+    // required this.comments,
     required this.comments,
   });
 
@@ -28,7 +30,69 @@ class ArticleModel {
       id: uid,
       body: map['body'] ?? "",
       authorId: map['author_id'] ?? "",
-      comments: map['comments'] ?? [],
+      //comments: map['comments'] ?? [],
+      comments: map['comments'] != null
+      ? List<CommentsModel>.from(
+          map['comments']?.map((p) => CommentsModel.fromMap(p)))
+      : [],
+    );
+  }
+}
+
+class CommentsModel {
+  final String author;
+  final String authorId;
+  final String date;
+  final String picture;
+  final String text;
+  final List<SubCommentsModel> subComments;
+
+  CommentsModel({
+    required this.author,
+    required this.authorId,
+    required this.date,
+    required this.picture,
+    required this.text,
+    required this.subComments,
+  });
+
+  factory CommentsModel.fromMap(Map<String, dynamic> map) {
+    return CommentsModel(
+      author: map['author'] ?? "",
+      authorId: map['author_id'] ?? "",
+      date: map['date'] ?? "",
+      picture: map['picture'] ?? "",
+      text: map['text'] ?? "",
+      subComments: map['sub_comments'] != null
+      ? List<SubCommentsModel>.from(
+          map['sub_comments']?.map((p) => SubCommentsModel.fromMap(p)))
+      : [],
+    );
+  }
+}
+
+class SubCommentsModel {
+  final String author;
+  final String authorId;
+  final String date;
+  final String picture;
+  final String text;
+
+  SubCommentsModel({
+    required this.author,
+    required this.authorId,
+    required this.date,
+    required this.picture,
+    required this.text,
+  });
+
+  factory SubCommentsModel.fromMap(Map<String, dynamic> map) {
+    return SubCommentsModel(
+      author: map['author'] ?? "",
+      authorId: map['author_id'] ?? "",
+      date: map['date'] ?? "",
+      picture: map['picture'] ?? "",
+      text: map['text'] ?? "",
     );
   }
 }

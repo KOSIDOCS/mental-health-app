@@ -11,6 +11,7 @@ import 'package:mental_health_care_app/home/model/psychologist_model.dart';
 import 'package:mental_health_care_app/uis/firestore_constants.dart';
 import 'package:mental_health_care_app/utils/time_formatter.dart';
 
+const kMinimumCommentLength = 5;
 class ArticlesController extends GetxController {
   TextEditingController searchController = TextEditingController();
   TextEditingController commentController = TextEditingController();
@@ -23,6 +24,8 @@ class ArticlesController extends GetxController {
   List<ArticleModel> get getAllArticles => _articles;
   RxBool replyComment = false.obs;
   RxString replyCommentAuthorName = "".obs;
+  RxInt replyCommentIndex = 0.obs;
+  RxInt loadMoreLength = 0.obs;
 
   @override
   void onReady() {
@@ -74,12 +77,15 @@ class ArticlesController extends GetxController {
 
     if (allArticles.isNotEmpty) {
       _articles.value = allArticles;
-      print("this is the articles ${_articles}");
+      print("this is the articles ${_articles}, ${_articles[0].comments}");
     }
   }
 
   void setSelectedArticles({required ArticleModel article}) {
     selectedArticle.value = article;
+    loadMoreLength.value = article.comments.length < kMinimumCommentLength
+        ? article.comments.length
+        : kMinimumCommentLength;
     articlePsychologist.value = _homeController.psychologists
         .firstWhere((element) => element.uid == article.authorId);
     Get.toNamed("/articles/article-details");
@@ -95,55 +101,68 @@ class ArticlesController extends GetxController {
         "sub_comments": [],
         "text": commentController.text,
       };
-      commentController.clear();
-      selectedArticle.value?.comments.add(dBcomment);
-      
+    
       if (replyCommentAuthorName.value.isNotEmpty) {
-        final dBubcomment = {
-        "author": _authController.firestoreUser.value?.name ?? "Uknown",
-        "author_id": _authController.firebaseUser.value?.uid,
-        "date": "August 10, 2022",
-        "picture": _authController.firestoreUser.value?.photoUrl ?? "",
-        "sub_comments": FieldValue.arrayUnion([
-          {
-            "author": _authController.firestoreUser.value?.name ?? "Uknown",
-            "author_id": _authController.firebaseUser.value?.uid,
-            "date": TimFormatter.formatCommentDate(dateTime: DateTime.now()),
-            "picture": _authController.firestoreUser.value?.photoUrl ?? "",
-            "text": commentController.text,
-          }
-        ]),
-        "text": "Help me please 😩",
-      };
+        final subComments = {
+          "author": _authController.firestoreUser.value?.name ?? "Uknown",
+          "author_id": _authController.firebaseUser.value?.uid,
+          "date": TimFormatter.formatCommentDate(dateTime: DateTime.now()),
+          "picture": _authController.firestoreUser.value?.photoUrl ?? "",
+          "text": commentController.text,
+        };
+        commentController.clear();
+        selectedArticle.value?.comments[replyCommentIndex.value][
+            "sub_comments"].add(subComments);
+        cancelReplyComment();    
         _firestoreDB
-          .collection(FirestoreConstants.pathArticlesCollection)
-          .doc(selectedArticle.value?.id)
-          .update({
-        "comments": FieldValue.arrayUnion([dBcomment]),
-      });
+            .collection(FirestoreConstants.pathArticlesCollection)
+            .doc(selectedArticle.value?.id)
+            .update({
+          "comments": selectedArticle.value?.comments,
+        });    
       } else {
+        commentController.clear();
         _firestoreDB
-          .collection(FirestoreConstants.pathArticlesCollection)
-          .doc(selectedArticle.value?.id)
-          .update({
-        "comments": FieldValue.arrayUnion([dBcomment]),
-      });
-      } 
+            .collection(FirestoreConstants.pathArticlesCollection)
+            .doc(selectedArticle.value?.id)
+            .update({
+          "comments": FieldValue.arrayUnion([dBcomment]),
+        });
+        selectedArticle.value?.comments.add(dBcomment);
       }
     }
   }
-  
+
   /// This function helps us to know which comment the user tapped
   /// on and we can keep track of the comment that the user tapped.
   void setReplyComment({required int index}) {
-    replyCommentAuthorName.value = selectedArticle.value?.comments[index]["author"];
+    replyCommentAuthorName.value =
+        selectedArticle.value?.comments[index]["author"];
+    replyCommentIndex.value = index;
     replyComment.value = true;
   }
-  
+
   /// Reset the value of [replyComment] which holds the current
   /// comment that the user tapped on to null.
   void cancelReplyComment() {
     replyComment.value = false;
     replyCommentAuthorName.value = "";
+    replyCommentIndex.value = 0;
+  }
+
+  void loadMoreComments() {
+    int length = selectedArticle.value?.comments.length as int;
+    if (loadMoreLength.value < length) {
+      loadMoreLength.value = loadMoreLength.value + 5;
+    }
+  }
+
+  bool hideLoadMore() {
+    int length = selectedArticle.value?.comments.length as int;
+    return loadMoreLength.value >= length; 
+  }
+
+  void reset() {
+    loadMoreLength.value = 0;
   }
 }

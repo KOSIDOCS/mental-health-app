@@ -87,6 +87,7 @@ class CustomText {
   static const String kmentalArticleDetailText5 = 'answers';
   static const String kmentalArticleDetailText6 = 'Replying to ';
   static const String kmentalArticleDetailText7 = 'Cancel';
+  static const String kmentalArticleDetailText8 = 'Load more';
 }
 
 class CustomErrorText {
