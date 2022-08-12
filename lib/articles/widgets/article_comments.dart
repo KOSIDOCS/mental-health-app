@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mental_health_care_app/articles/model/article_model.dart';
 import 'package:mental_health_care_app/articles/widgets/custom_expand_comments.dart';
 import 'package:mental_health_care_app/core/theme/brand_images.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
@@ -11,7 +12,7 @@ class ArtcleComment extends StatelessWidget {
   final int? totalSubComments;
   final VoidCallback? onTap;
   final bool isSubComment;
-  final List<dynamic>? subComments;
+  final List<SubCommentsModel>? subComments;
   const ArtcleComment(
       {Key? key,
       required this.name,

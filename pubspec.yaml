@@ -79,6 +79,8 @@ dependencies:
   just_waveform: ^0.0.3
   audioplayers: ^1.0.1
   flutter_html: ^3.0.0-alpha.5
+  just_the_tooltip: ^0.0.12
+  flutter_libphonenumber: ^1.2.4
 
 dev_dependencies:
   flutter_test:

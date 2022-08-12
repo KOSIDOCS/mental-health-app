@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:mental_health_care_app/articles/application/articles_controller.dart';
 import 'package:mental_health_care_app/articles/model/article_model.dart';
 import 'package:mental_health_care_app/articles/widgets/article_comments.dart';
@@ -223,26 +224,16 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                               SizedBox(
                                 height: 20.0,
                               ),
-                              // for (var comment in article.comments)
-                              //   ArtcleComment(
-                              //     name: comment["author"],
-                              //     imageUrl: comment["picture"],
-                              //     comment: comment["text"],
-                              //     date: comment["date"],
-                              //     totalSubComments:
-                              //         comment["sub_comments"].length,
-                              //     onTap: () {
-                              //       _articlesController.setReplyComment(index: )
-                              //     },
-                              //   ),
-                              for (var i = 0; i < _articlesController.loadMoreLength.value; i++)
+                              for (var i = 0;
+                                  i < _articlesController.loadMoreLength.value;
+                                  i++)
                                 ArtcleComment(
                                   name: article.comments[i].author,
                                   imageUrl: article.comments[i].picture,
                                   comment: article.comments[i].text,
                                   date: article.comments[i].date,
-                                  totalSubComments: article
-                                      .comments[i].subComments.length,
+                                  totalSubComments:
+                                      article.comments[i].subComments.length,
                                   onTap: () {
                                     _articlesController.setReplyComment(
                                         index: i);
@@ -250,24 +241,27 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                                   isSubComment: false,
                                   subComments: article.comments[i].subComments,
                                 ),
-                             _articlesController.hideLoadMore() ? Container() : Align(
-                                alignment: Alignment.center,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    _articlesController.loadMoreComments();
-                                  },
-                                  child: Text(
-                                    CustomText.kmentalArticleDetailText8,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 15.0,
+                              _articlesController.hideLoadMore()
+                                  ? Container()
+                                  : Align(
+                                      alignment: Alignment.center,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          _articlesController
+                                              .loadMoreComments();
+                                        },
+                                        child: Text(
+                                          CustomText.kmentalArticleDetailText8,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2!
+                                              .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 15.0,
+                                              ),
                                         ),
-                                  ),
-                                ),
-                              ),
+                                      ),
+                                    ),
                             ],
                           ),
                         ),
@@ -356,14 +350,28 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              // showSendFilesAction(context);
-                            },
+                          JustTheTooltip(
+                            isModal: true,
+                            offset: 10.0,
+                            backgroundColor: AppColors.mentalBrandColor,
                             child: Image.asset(
                               'assets/images/${BrandImages.kIconAttach}',
                               height: 22.5,
                               width: 19.88,
+                            ),
+                            content: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                CustomText.kmentalComingSoonFeatureText,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14.0,
+                                      color: AppColors.mentalPureWhite,
+                                    ),
+                              ),
                             ),
                           ),
                           CustomChatField(
@@ -371,17 +379,6 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                             keyboardType: TextInputType.text,
                             placeholder: 'Comment',
                             hideEmojiBtn: true,
-                            onChanged: (String? text) {
-                              // if (text!.isEmpty ||
-                              //     text.runes.length > 200) {
-                              //   _chatsController.setShowSendButton =
-                              //       false;
-                              // } else if (text.isNotEmpty ||
-                              //     text.length == 1 ||
-                              //     EmojiUtil.hasOnlyEmojis(text)) {
-                              //   _chatsController.setShowSendButton = true;
-                              // }
-                            },
                           ),
                           CustomCirclerBtn(
                             imgName: BrandImages.kIconSendIcon,

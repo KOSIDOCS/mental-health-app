@@ -88,6 +88,19 @@ class CustomText {
   static const String kmentalArticleDetailText6 = 'Replying to ';
   static const String kmentalArticleDetailText7 = 'Cancel';
   static const String kmentalArticleDetailText8 = 'Load more';
+  static const String kmentalComingSoonFeatureText = 'Coming soon';
+  static const String kmentalProfileScreenTitle = 'Profile';
+  static const String kmentalProfileScreenNameMissing = 'Update your name';
+  static const String kmentalProfileScreenEmailMissing = 'Update your email';
+  static const String kmentalProfileBtnTitle = 'Favorite';
+  static const String kmentalProfileBtnTitle2 = 'Payment';
+  static const String kmentalProfileBtnTitle3 = 'Notificatio Settings';
+  static const String kmentalProfileBtnTitle4 = 'Logout';
+  static const String kmentalProfileBtnTitle5 = 'Change password';
+  static const String kmentalProfileEditTitle = 'Edit profile';
+  static const String kmentalProfileEditPhotoText = 'Edit photo';
+  static const String kmentalProfileEditEmail = 'Email';
+  static const String kmentalProfileEditPhone = 'Phone Number';
 }
 
 class CustomErrorText {

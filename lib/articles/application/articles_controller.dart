@@ -12,6 +12,7 @@ import 'package:mental_health_care_app/uis/firestore_constants.dart';
 import 'package:mental_health_care_app/utils/time_formatter.dart';
 
 const kMinimumCommentLength = 5;
+
 class ArticlesController extends GetxController {
   TextEditingController searchController = TextEditingController();
   TextEditingController commentController = TextEditingController();
@@ -93,42 +94,65 @@ class ArticlesController extends GetxController {
 
   void addComments() {
     if (commentController.text.isNotEmpty) {
-      final dBcomment = {
-        "author": _authController.firestoreUser.value?.name ?? "Uknown",
-        "author_id": _authController.firebaseUser.value?.uid,
-        "date": TimFormatter.formatCommentDate(dateTime: DateTime.now()),
-        "picture": _authController.firestoreUser.value?.photoUrl ?? "",
-        "sub_comments": [],
-        "text": commentController.text,
-      };
-    
+      // final dBcomment = {
+      //   "author": _authController.firestoreUser.value?.name ?? "Uknown",
+      //   "author_id": _authController.firebaseUser.value?.uid,
+      //   "date": TimFormatter.formatCommentDate(dateTime: DateTime.now()),
+      //   "picture": _authController.firestoreUser.value?.photoUrl ?? "",
+      //   "sub_comments": [],
+      //   "text": commentController.text,
+      // };
+
+      final dBcomment = CommentsModel(
+          author: _authController.firestoreUser.value?.name ?? "Uknown",
+          authorId: _authController.firebaseUser.value?.uid as String,
+          date: TimFormatter.formatCommentDate(dateTime: DateTime.now()),
+          picture: _authController.firestoreUser.value?.photoUrl ?? "",
+          text: commentController.text,
+          subComments: []
+        );
+
       if (replyCommentAuthorName.value.isNotEmpty) {
-        final subComments = {
-          "author": _authController.firestoreUser.value?.name ?? "Uknown",
-          "author_id": _authController.firebaseUser.value?.uid,
-          "date": TimFormatter.formatCommentDate(dateTime: DateTime.now()),
-          "picture": _authController.firestoreUser.value?.photoUrl ?? "",
-          "text": commentController.text,
-        };
+        // final subComments = {
+        //   "author": _authController.firestoreUser.value?.name ?? "Uknown",
+        //   "author_id": _authController.firebaseUser.value?.uid,
+        //   "date": TimFormatter.formatCommentDate(dateTime: DateTime.now()),
+        //   "picture": _authController.firestoreUser.value?.photoUrl ?? "",
+        //   "text": commentController.text,
+        // };
+        final subComments = SubCommentsModel(
+          author: _authController.firestoreUser.value?.name ?? "Uknown",
+          authorId: _authController.firebaseUser.value?.uid as String,
+          date: TimFormatter.formatCommentDate(dateTime: DateTime.now()),
+          picture: _authController.firestoreUser.value?.photoUrl ?? "",
+          text: commentController.text,
+        );
         commentController.clear();
-        selectedArticle.value?.comments[replyCommentIndex.value][
-            "sub_comments"].add(subComments);
-        cancelReplyComment();    
+        selectedArticle.value?.comments[replyCommentIndex.value].subComments
+            .add(subComments);
+        cancelReplyComment();
         _firestoreDB
             .collection(FirestoreConstants.pathArticlesCollection)
             .doc(selectedArticle.value?.id)
             .update({
-          "comments": selectedArticle.value?.comments,
-        });    
+          // "comments": selectedArticle.value?.comments,
+          "comments": List<Map<String, dynamic>>.from(
+        selectedArticle.value!.comments.map((x) => x.toMap())
+      ),
+        });
       } else {
         commentController.clear();
         _firestoreDB
             .collection(FirestoreConstants.pathArticlesCollection)
             .doc(selectedArticle.value?.id)
             .update({
-          "comments": FieldValue.arrayUnion([dBcomment]),
+          "comments": FieldValue.arrayUnion([dBcomment.toMap()]),
         });
         selectedArticle.value?.comments.add(dBcomment);
+        // loadMoreLength.value = selectedArticle.value!.comments.length <
+        //         kMinimumCommentLength
+        //     ? selectedArticle.value!.comments.length
+        //     : kMinimumCommentLength;
       }
     }
   }
@@ -137,7 +161,7 @@ class ArticlesController extends GetxController {
   /// on and we can keep track of the comment that the user tapped.
   void setReplyComment({required int index}) {
     replyCommentAuthorName.value =
-        selectedArticle.value?.comments[index]["author"];
+        selectedArticle.value?.comments[index].author as String;
     replyCommentIndex.value = index;
     replyComment.value = true;
   }
@@ -153,13 +177,16 @@ class ArticlesController extends GetxController {
   void loadMoreComments() {
     int length = selectedArticle.value?.comments.length as int;
     if (loadMoreLength.value < length) {
-      loadMoreLength.value = loadMoreLength.value + 5;
+      int next = loadMoreLength.value + kMinimumCommentLength;
+      loadMoreLength.value = next > length
+          ? length
+          : next;
     }
   }
 
   bool hideLoadMore() {
     int length = selectedArticle.value?.comments.length as int;
-    return loadMoreLength.value >= length; 
+    return loadMoreLength.value >= length;
   }
 
   void reset() {

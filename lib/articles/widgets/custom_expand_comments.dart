@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:mental_health_care_app/articles/model/article_model.dart';
 import 'package:mental_health_care_app/articles/widgets/article_comments.dart';
 import 'package:mental_health_care_app/core/theme/app_colors.dart';
 import 'package:mental_health_care_app/core/theme/custom_texts.dart';
 import 'package:mental_health_care_app/utils/alignment_helpers.dart';
 
 class CustomExpandComments extends StatefulWidget {
-  final List<dynamic> comments;
+  final List<SubCommentsModel> comments;
   const CustomExpandComments({Key? key, required this.comments})
       : super(key: key);
 
@@ -113,10 +114,10 @@ class _CustomExpandCommentsState extends State<CustomExpandComments>
                 children: [
                   for (var i = 0; i < widget.comments.length; i++)
                     ArtcleComment(
-                      name: widget.comments[i]["author"],
-                      imageUrl: widget.comments[i]["picture"],
-                      comment: widget.comments[i]["text"],
-                      date: widget.comments[i]["date"],
+                      name: widget.comments[i].author,
+                      imageUrl: widget.comments[i].picture,
+                      comment: widget.comments[i].text,
+                      date: widget.comments[i].date,
                       isSubComment: true,
                     ),
                 ],

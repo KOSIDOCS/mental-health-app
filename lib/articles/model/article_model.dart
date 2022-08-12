@@ -69,6 +69,19 @@ class CommentsModel {
       : [],
     );
   }
+
+   Map<String, dynamic> toMap() {
+    return {
+      'author': author,
+      'author_id': authorId,
+      'date': date,
+      'picture': picture,
+      'text': text,
+      'sub_comments': List<Map<String, dynamic>>.from(
+        subComments.map((x) => x.toMap())
+      ),
+    };
+  }
 }
 
 class SubCommentsModel {
@@ -94,5 +107,15 @@ class SubCommentsModel {
       picture: map['picture'] ?? "",
       text: map['text'] ?? "",
     );
+  }
+
+   Map<String, dynamic> toMap() {
+    return {
+      'author': author,
+      'author_id': authorId,
+      'date': date,
+      'picture': picture,
+      'text': text,
+    };
   }
 }

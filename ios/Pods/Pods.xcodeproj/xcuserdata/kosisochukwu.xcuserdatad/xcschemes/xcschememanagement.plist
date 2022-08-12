@@ -154,6 +154,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PhoneNumberKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Runner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -230,6 +235,11 @@
 			<false/>
 		</dict>
 		<key>flutter_facebook_auth.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>flutter_libphonenumber.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
